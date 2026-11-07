@@ -16,7 +16,7 @@ zijbalk_waarschuwingen:
 start:
   tekst: "Je hebt net uitleg en 2 demo's gezien. Nu ga je zelf aan de slag, op je eigen tempo. Elke stap heeft 1 actie. Pas als je die hebt gedaan, ga je door."
   zo_werk_je: "Zet deze app links op je scherm en Copilot Chat rechts. Kopieer prompts met het icoon rechtsboven in het grijze vak."
-  waarom: "Copilot werkt het best als je het stap voor stap stuurt: eerst laten begrijpen, dan pas laten maken. Deze route doet dat voor je."
+  waarom: "Deze route stuurt Copilot stap voor stap: eerst laten begrijpen, dan pas laten maken."
 
 stappen:
   resultaat:
@@ -46,7 +46,7 @@ stappen:
     titel: "Laat Copilot je interviewen"
     tijd: 10
     intro: "Kopieer de prompt hieronder met het icoon rechtsboven in het grijze vak. Plak hem in Copilot Chat. Beantwoord de vragen 1 voor 1. Jouw resultaat staat er al in."
-    waarom: "Copilot gaat je eerst vragen stellen in plaats van meteen iets te maken. Zo hoort Copilot wat niet in je mails of bestanden staat: hoe jij dit werk doet en waar het vastloopt. Met die context worden de volgende antwoorden beter."
+    waarom: "Copilot stelt eerst vragen, zodat het hoort wat niet in je mails of bestanden staat: hoe jij dit werk doet en waar het vastloopt."
     prompt: |-
       Ik werk bij Customer Care van PostNL. Ik wil onderzoeken waar AI mij helpt bij dit resultaat: {resultaat}. Check eerst in 1 zin of dit iets is dat ik regelmatig voor een ander maak. Zo niet, help me met maximaal 2 vragen een beter resultaat te kiezen.
 
@@ -72,7 +72,7 @@ stappen:
     titel: "Check je tabel"
     tijd: 4
     intro: "Copilot schreef op wat jij vertelde. Klopt het ook? Jij kent je werk, Copilot niet."
-    waarom: "Copilot vat samen wat het denkt dat je zei, en vult gaten soms zelf in. Controleer nu, dan komt een fout niet terug in elke volgende stap."
+    waarom: "Copilot vult gaten soms zelf in, en een fout die je nu laat staan komt terug in elke volgende stap."
     vinkjes_intro: "Kijk je tabel na. Zet een vinkje als het klopt. Klopt iets niet? Stuur eerst bij met een prompt hieronder."
     vinkjes:
       - "De volgorde klopt: zo ging het echt, niet zoals het zou moeten"
@@ -86,7 +86,7 @@ stappen:
     titel: "Wie doet wat?"
     tijd: 5
     intro: "Laat Copilot een eerste indeling maken. Daarna beoordeel jij."
-    waarom: "Copilot kent je werk niet en zet snel te veel op AI. Door zelf te beoordelen oefen je de belangrijkste vaardigheid: weten wanneer AI wel en niet past."
+    waarom: "Copilot zet snel te veel op AI, dus hier oefen je het belangrijkste: weten wanneer AI wel en niet past."
     vinkjes_intro: "Loop de indeling van Copilot langs. Zet de vinkjes als je dat hebt gedaan."
     prompt: "Zet bij elke stap uit de tabel: Mens, Mens + AI of AI, met 1 zin uitleg. Markeer stappen met klantgegevens van buiten Copilot als Mag niet. Geef alleen de tabel."
     vinkjes:
@@ -103,7 +103,7 @@ stappen:
     titel: "Kies 1 stap"
     tijd: 3
     intro: "Kies de stap waarmee je deze week gaat experimenteren."
-    waarom: "Klein beginnen werkt. 1 stap kun je testen en verbeteren, een heel proces niet. Wat de stap moet opleveren, vul je hier in. De app zet het in de prompt van de volgende stap."
+    waarom: "1 stap kun je testen en verbeteren, een heel proces niet, en wat je hier invult komt in de prompt van stap 6."
     vinkjes_intro: "Check of je stap past. Zet de vinkjes als het klopt."
     stap_label: "Mijn stap"
     oplevert_label: "Wat moet deze stap opleveren?"
@@ -117,7 +117,7 @@ stappen:
     titel: "Je eerste resultaat"
     tijd: 15
     intro: "Probeer je stap nu echt met Copilot."
-    waarom: "De prompt laat Copilot eerst vragen stellen, zodat jij ontbrekende informatie aanvult voordat het iets maakt. De slotzin laat Copilot zeggen wat het aannam. Zo weet je wat je moet controleren."
+    waarom: "Copilot vraagt eerst wat ontbreekt en zegt aan het eind wat het aannam, zodat jij weet wat je moet controleren."
     vinkjes_intro: "Controleer de uitkomst. Vink aan wat klopt."
     prompt: "Ik wil hulp bij deze stap: {stap}. Dit moet het opleveren: {oplevert}. Stel me eerst maximaal 3 vragen, 1 tegelijk. Stel een open vraag als een keuze uit 2 niet past. Vraag ook welke bronnen je mag gebruiken. Doe daarna de stap. Houd het kort. Benoem je aannames, ontbrekende informatie en wat ik zelf moet controleren."
     bronnen_tip: "Vraagt Copilot welke bronnen hij mag gebruiken? Kies bewust. Geen mailbox met klantmails."
@@ -136,5 +136,5 @@ stappen:
     titel: "Je plan"
     tijd: 5
     intro: "Plan 3 momenten deze week waarop je dit opnieuw doet, op echt werk. Zet ze nu in je agenda."
-    waarom: "1 keer proberen is nog geen werkwijze. Pas na een paar keer op echt werk weet je of het helpt en wat je moet aanpassen."
+    waarom: "Pas na een paar keer op echt werk weet je of dit helpt en wat je moet aanpassen."
     afsluiting: "Zet je pdf in de map Kickoff in het Teams-kanaal. Wacht daarna op Gijs voor de afsluiting."
