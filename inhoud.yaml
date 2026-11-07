@@ -6,8 +6,8 @@ pilot: "AI-pilot Customer Care"
 sessie: "Kickoff, deel 2"
 
 codewoorden:
-  start: "COPILOOT"
-  verder: "PAKKETPROMPT"
+  start: "COPILOT"
+  verder: "PROMPT"
 
 zijbalk_waarschuwingen:
   - "Ververs deze pagina niet. Dan ben je je invoer kwijt."
