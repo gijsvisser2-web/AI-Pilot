@@ -34,14 +34,13 @@ stappen:
       - "Een mail aan Insurance opstellen met alle gegevens van een schadegeval"
       - "Een brief van een klant samenvatten en 3 mogelijke reacties voorstellen"
     demo_noot: "Werk je met AI binnen Salesforce? Dan blijven de klantgegevens in Salesforce. In Copilot gebruik je geen klantgegevens uit Salesforce."
-    waarom: "Copilot weet niets van jouw werk. Hoe concreter je resultaat, hoe gerichter de vragen in de volgende stap. Een vaag doel geeft een vaag antwoord."
     salesforce: "Werk je vooral in Salesforce? Dan mag je resultaat daar ook over gaan. In het interview vertel je hoe je werkt, niet over klanten. Algemene informatie zoals FAQ's en werkinstructies mag wel in Copilot. Klant- en persoonsgegevens niet."
-    vinkjes_intro: "Klopt je resultaat? Zet dan beide vinkjes. Pas daarna kun je verder."
+    vinkjes_intro: "Past je resultaat bij deze 2 punten? Zet dan beide vinkjes. Pas daarna kun je verder."
     vinkjes:
       - "Ik maak dit regelmatig, voor iemand anders"
       - "Ik gebruik in Copilot geen klant- of persoonsgegevens (FAQ's en werkinstructies mogen wel)"
-    weet_niet_titel: "Weet je niet wat je kiest?"
-    weet_niet_tekst: "Laat Copilot je mails en agenda van de afgelopen 2 weken bekijken. Je krijgt 5 resultaten die je regelmatig oplevert. Kies er 1."
+    weet_niet_titel: "Weet je niet wat je kiest? Laat Copilot je mails en agenda bekijken"
+    weet_niet_tekst: "Kopieer deze prompt naar Copilot. Je krijgt 5 resultaten die je regelmatig oplevert. Kies er 1."
     weet_niet_prompt: "Bekijk mijn verzonden mails en mijn agenda van de afgelopen 2 weken. Welke 5 resultaten lever ik regelmatig op aan anderen, zoals antwoorden, overzichten of updates? Geef per resultaat: wat het is, voor wie, en hoe vaak ongeveer. Noem geen klantgegevens. Geef alleen een tabel."
   interview:
     titel: "Laat Copilot je interviewen"

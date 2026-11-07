@@ -247,8 +247,8 @@ elif ss.stap == 1:
     b.markdown(f"**:orange[Beter]**  \n{s['beter']}")
     c.markdown("**:orange[Zoals in de demo's]**  \n" + "  \n".join(s["demos"]))
     st.caption(s["demo_noot"])
-    with st.container(border=True):
-        st.markdown(f"🔎 **{s['weet_niet_titel']}** {s['weet_niet_tekst']}")
+    with st.expander("🔎 " + s["weet_niet_titel"]):
+        st.write(s["weet_niet_tekst"])
         st.code(s["weet_niet_prompt"], language=None, wrap_lines=True)
     res = bewaar_tekst("Wat lever je op, en aan wie?", "resultaat")
     st.info(s["salesforce"])
