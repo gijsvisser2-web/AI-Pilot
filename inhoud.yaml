@@ -16,6 +16,7 @@ zijbalk_waarschuwingen:
 start:
   tekst: "Je hebt net uitleg en 2 demo's gezien. Nu ga je zelf aan de slag, op je eigen tempo. Elke stap heeft 1 actie. Pas als je die hebt gedaan, ga je door."
   zo_werk_je: "Zet deze app links op je scherm en Copilot Chat rechts. Kopieer prompts met het icoon rechtsboven in het grijze vak."
+  waarom: "Copilot werkt het best als je het stap voor stap stuurt: eerst laten begrijpen, dan pas laten maken. Deze route doet dat voor je."
 
 stappen:
   resultaat:
@@ -26,18 +27,27 @@ stappen:
       - "komt minstens elke maand terug, of is steeds hetzelfde soort werk"
       - "gaat naar iemand anders: klant, collega, leidinggevende of andere afdeling"
       - "kost je moeite of tijd"
-      - "kun je maken zonder klantgegevens uit Salesforce"
+      - "kun je in Copilot oefenen zonder klant- of persoonsgegevens"
     te_groot: "Klantvragen beantwoorden"
     beter: "Antwoord op een vraag over een vertraagd internationaal pakket"
     demos:
       - "Een mail aan Insurance opstellen met alle gegevens van een schadegeval"
       - "Een brief van een klant samenvatten en 3 mogelijke reacties voorstellen"
-    demo_noot: "In de demo's werkt de AI binnen Salesforce. In Copilot gebruik je geen klantgegevens uit Salesforce."
+    demo_noot: "Werk je met AI binnen Salesforce? Dan blijven de klantgegevens in Salesforce. In Copilot gebruik je geen klantgegevens uit Salesforce."
+    waarom: "Copilot weet niets van jouw werk. Hoe concreter je resultaat, hoe gerichter de vragen in de volgende stap. Een vaag doel geeft een vaag antwoord."
+    salesforce: "Werk je vooral in Salesforce? Dan mag je resultaat daar ook over gaan. In het interview vertel je hoe je werkt, niet over klanten. Algemene informatie zoals FAQ's en werkinstructies mag wel in Copilot. Klant- en persoonsgegevens niet."
+    vinkjes_intro: "Klopt je resultaat? Zet dan beide vinkjes. Pas daarna kun je verder."
+    vinkjes:
+      - "Ik maak dit regelmatig, voor iemand anders"
+      - "Ik gebruik in Copilot geen klant- of persoonsgegevens (FAQ's en werkinstructies mogen wel)"
+    weet_niet_titel: "Weet je niet wat je kiest?"
+    weet_niet_tekst: "Laat Copilot je mails en agenda van de afgelopen 2 weken bekijken. Je krijgt 5 resultaten die je regelmatig oplevert. Kies er 1."
     weet_niet_prompt: "Bekijk mijn verzonden mails en mijn agenda van de afgelopen 2 weken. Welke 5 resultaten lever ik regelmatig op aan anderen, zoals antwoorden, overzichten of updates? Geef per resultaat: wat het is, voor wie, en hoe vaak ongeveer. Noem geen klantgegevens. Geef alleen een tabel."
   interview:
     titel: "Laat Copilot je interviewen"
     tijd: 10
     intro: "Kopieer de prompt en plak hem in Copilot Chat. Beantwoord de vragen 1 voor 1. Jouw resultaat staat er al in."
+    waarom: "Copilot gaat je eerst vragen stellen in plaats van meteen iets te maken. Zo krijgt het de context die nergens staat: wat jij doet en waar het stokt. Met die context worden de volgende antwoorden beter."
     prompt: |-
       Ik werk bij Customer Care van PostNL. Ik wil onderzoeken waar AI mij helpt bij dit resultaat: {resultaat}. Check eerst in 1 zin of dit iets is dat ik regelmatig voor een ander maak. Zo niet, help me met maximaal 2 vragen een beter resultaat te kiezen.
 
@@ -57,11 +67,14 @@ stappen:
         prompt: "Vat in 3 zinnen samen wat je tot nu toe van mijn situatie begrijpt. Wat mis je nog over hoe het ging? Vraag niet naar tijd."
       - label: "Geen van de opties past"
         prompt: "Geen van je opties past. Het zit zo: [jouw situatie]. Ga verder met je volgende vraag."
+    vinkje_intro: "Klaar met het interview? Staan je stappen in een tabel in Copilot? Zet dan het vinkje en ga naar de volgende stap. Daar controleer je de tabel."
     vinkje: "Copilot heeft mijn stappen in een tabel gezet"
   check:
     titel: "Check je tabel"
     tijd: 4
     intro: "Copilot schreef op wat jij vertelde. Klopt het ook? Jij kent je werk, Copilot niet."
+    waarom: "Copilot vat samen wat het denkt dat je zei, en vult gaten soms zelf in. Controleer nu, dan komt een fout niet terug in elke volgende stap."
+    vinkjes_intro: "Kijk je tabel na. Zet een vinkje als het klopt. Klopt iets niet? Stuur eerst bij met een prompt hieronder."
     vinkjes:
       - "De volgorde klopt: zo ging het echt, niet zoals het zou moeten"
       - "Er mist geen stap. Vaak vergeten: wachten op iemand, afstemmen, zelf controleren"
@@ -74,6 +87,8 @@ stappen:
     titel: "Wie doet wat?"
     tijd: 5
     intro: "Laat Copilot een eerste indeling maken. Daarna beoordeel jij."
+    waarom: "Copilot kent je werk niet en zet snel te veel op AI. Door zelf te beoordelen oefen je de belangrijkste vaardigheid: weten wanneer AI wel en niet past."
+    vinkjes_intro: "Loop de indeling van Copilot langs. Zet de vinkjes als je dat hebt gedaan."
     prompt: "Zet bij elke stap uit de tabel: Mens, Mens + AI of AI, met 1 zin uitleg. Markeer stappen met klantgegevens van buiten Copilot als Mag niet. Geef alleen de tabel."
     vinkjes:
       - "Ik heb bij elke stap gekeken of de indeling klopt"
@@ -89,18 +104,22 @@ stappen:
     titel: "Kies 1 stap"
     tijd: 3
     intro: "Kies de stap waarmee je deze week gaat experimenteren."
+    waarom: "Klein beginnen werkt. 1 stap kun je testen en verbeteren, een heel proces niet. Wat de stap moet opleveren, vul je hier in. De app zet het in de prompt van de volgende stap."
+    vinkjes_intro: "Check of je stap past. Zet de vinkjes als het klopt."
     stap_label: "Mijn stap"
     oplevert_label: "Wat moet deze stap opleveren?"
     vinkjes:
       - "Deze stap kost nu moeite"
       - "Het is een AI- of Mens + AI-stap"
-      - "Mag het: de data zit binnen Copilot, geen klantgegevens van buiten Copilot"
-    past_niet: "Past je stap niet? Kies een andere stap uit je tabel. Een stap met Mag niet is wel een idee voor later. Schrijf hem hieronder op, dan staat hij in je pdf."
+      - "Mag het: ik gebruik in Copilot geen klant- of persoonsgegevens"
+    past_niet: "Past je stap niet? Kies een andere stap uit je tabel. Heeft de stap klantgegevens nodig? Dan hoort hij in Salesforce, niet in Copilot. Schrijf hem hieronder op als idee voor later, dan staat hij in je pdf."
     idee_label: "Idee voor later (optioneel)"
   eerste:
     titel: "Je eerste resultaat"
     tijd: 15
     intro: "Probeer je stap nu echt met Copilot."
+    waarom: "De prompt laat Copilot eerst vragen stellen, zodat jij ontbrekende informatie aanvult voordat het iets maakt. De slotzin laat Copilot zeggen wat het aannam. Zo weet je wat je moet controleren."
+    vinkjes_intro: "Controleer de uitkomst. Vink aan wat klopt."
     prompt: "Ik wil hulp bij deze stap: {stap}. Dit moet het opleveren: {oplevert}. Stel me eerst maximaal 3 vragen, 1 tegelijk. Stel een open vraag als een keuze uit 2 niet past. Vraag ook welke bronnen je mag gebruiken. Doe daarna de stap. Houd het kort. Benoem je aannames, ontbrekende informatie en wat ik zelf moet controleren."
     bronnen_tip: "Vraagt Copilot welke bronnen hij mag gebruiken? Kies bewust. Geen mailbox met klantmails."
     hulp:
@@ -118,4 +137,5 @@ stappen:
     titel: "Je plan"
     tijd: 5
     intro: "Plan 3 momenten deze week waarop je dit opnieuw doet, op echt werk. Zet ze nu in je agenda."
+    waarom: "1 keer proberen is nog geen werkwijze. Pas na een paar keer op echt werk weet je of het helpt en wat je moet aanpassen."
     afsluiting: "Zet je pdf in de map Kickoff in het Teams-kanaal. Wacht daarna op Gijs voor de afsluiting."

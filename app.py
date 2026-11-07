@@ -8,6 +8,7 @@ from datetime import date
 from pathlib import Path
 
 import streamlit as st
+import streamlit.components.v1 as components
 import yaml
 from fpdf import FPDF
 
@@ -69,6 +70,17 @@ def schoon(tekst):
 
 def tijd(minuten):
     st.caption(f"⏱ {minuten} minuten")
+
+
+def waarom(s):
+    if s.get("waarom"):
+        with st.container(border=True):
+            st.markdown(f"💡 **Waarom deze stap?** {s['waarom']}")
+
+
+def vinkjes_intro(s, sleutel="vinkjes_intro"):
+    if s.get(sleutel):
+        st.markdown(f"**{s[sleutel]}**")
 
 
 def navigatie(mag_door=True, reden=""):
@@ -194,6 +206,16 @@ with st.sidebar:
     for w in C["zijbalk_waarschuwingen"]:
         st.markdown(f":red[{w}]")
 
+# Bij een nieuwe stap naar boven scrollen
+if ss.get("_vorige_stap") != ss.stap:
+    ss["_vorige_stap"] = ss.stap
+    components.html(
+        "<script>/*" + str(ss.stap) + "*/ const d = window.parent.document;"
+        " for (const s of ['[data-testid=\"stMain\"]', 'section.main', '[data-testid=\"stAppViewContainer\"]'])"
+        " { const e = d.querySelector(s); if (e) e.scrollTo(0, 0); } window.parent.scrollTo(0, 0);</script>",
+        height=0,
+    )
+
 if ss.stap > 0:
     st.progress(ss.stap / LAATSTE)
     st.caption(f"Stap {ss.stap} van {LAATSTE}")
@@ -203,6 +225,7 @@ if ss.stap == 0:
     st.title(C["titel"])
     st.write(C["start"]["tekst"])
     st.info(C["start"]["zo_werk_je"])
+    waarom(C["start"])
     code = st.text_input("Codewoord van Gijs", key="w_code1")
     if st.button("Start", type="primary"):
         if codewoord_ok(code, C["codewoorden"]["start"]):
@@ -217,17 +240,21 @@ elif ss.stap == 1:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
+    waarom(s)
     st.info("**Een goed resultaat**\n" + "\n".join(f"- {x}" for x in s["goed_resultaat"]))
     a, b, c = st.columns(3)
     a.markdown(f"**:orange[Te groot]**  \n{s['te_groot']}")
     b.markdown(f"**:orange[Beter]**  \n{s['beter']}")
     c.markdown("**:orange[Zoals in de demo's]**  \n" + "  \n".join(s["demos"]))
     st.caption(s["demo_noot"])
-    res = bewaar_tekst("Wat lever je op, en aan wie?", "resultaat")
-    v1 = bewaar_vinkje("Ik maak dit regelmatig, voor iemand anders", "r_v1")
-    v2 = bewaar_vinkje("Ik heb er geen klantgegevens van buiten Copilot voor nodig", "r_v2")
-    with st.expander("Weet je het niet? Laat Copilot je mails en agenda van vorige week bekijken"):
+    with st.container(border=True):
+        st.markdown(f"🔎 **{s['weet_niet_titel']}** {s['weet_niet_tekst']}")
         st.code(s["weet_niet_prompt"], language=None, wrap_lines=True)
+    res = bewaar_tekst("Wat lever je op, en aan wie?", "resultaat")
+    st.info(s["salesforce"])
+    vinkjes_intro(s)
+    v1 = bewaar_vinkje(s["vinkjes"][0], "r_v1")
+    v2 = bewaar_vinkje(s["vinkjes"][1], "r_v2")
     navigatie(bool(res) and v1 and v2, "Vul je resultaat in en zet beide vinkjes.")
 
 elif ss.stap == 2:
@@ -235,6 +262,7 @@ elif ss.stap == 2:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
+    waarom(s)
     st.code(vul_in(s["prompt"], resultaat=ss.get("resultaat", "")), language=None, wrap_lines=True)
     st.warning(s["waarschuwing"])
     st.success(s["terug_tip"])
@@ -243,6 +271,7 @@ elif ss.stap == 2:
         for h in s["hulp"]:
             st.markdown(f"**{h['label']}**")
             st.code(h["prompt"], language=None, wrap_lines=True)
+    vinkjes_intro(s, "vinkje_intro")
     klaar = bewaar_vinkje(s["vinkje"], "i_klaar")
     navigatie(klaar, "Zet het vinkje als Copilot je tabel heeft gegeven.")
 
@@ -251,6 +280,8 @@ elif ss.stap == 3:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
+    waarom(s)
+    vinkjes_intro(s)
     vinkjes = [bewaar_vinkje(t, f"c_v{i}") for i, t in enumerate(s["vinkjes"])]
     st.subheader("Klopt iets niet? Stuur bij")
     for p in s["bijsturen"]:
@@ -263,8 +294,10 @@ elif ss.stap == 4:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
+    waarom(s)
     st.code(s["prompt"], language=None, wrap_lines=True)
     st.subheader("Jouw controle")
+    vinkjes_intro(s)
     vinkjes = [bewaar_vinkje(t, f"w_v{i}") for i, t in enumerate(s["vinkjes"])]
     anders = bewaar_tekst(s["anders_label"], "anders", area=True, height=90)
     if anders:
@@ -292,11 +325,13 @@ elif ss.stap == 5:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
+    waarom(s)
     stap = bewaar_tekst(s["stap_label"], "stap_keuze")
     if "oplevert" not in ss:
         ss["oplevert"] = ss.get("resultaat", "")
     oplevert = bewaar_tekst(s["oplevert_label"], "oplevert")
     st.subheader("Past hij?")
+    vinkjes_intro(s)
     vinkjes = [bewaar_vinkje(t, f"k_v{i}") for i, t in enumerate(s["vinkjes"])]
     st.success(s["past_niet"])
     bewaar_tekst(s["idee_label"], "idee")
@@ -307,6 +342,7 @@ elif ss.stap == 6:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
+    waarom(s)
     st.code(
         vul_in(s["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", "")),
         language=None,
@@ -316,6 +352,7 @@ elif ss.stap == 6:
     with st.expander(s["hulp"][0]["label"]):
         st.code(s["hulp"][0]["prompt"], language=None, wrap_lines=True)
     st.subheader("Controleer de uitkomst")
+    vinkjes_intro(s)
     for i, t in enumerate(s["controle"]):
         bewaar_vinkje(t, f"e_v{i}")
     ss.setdefault("score", None)
@@ -336,6 +373,7 @@ elif ss.stap == 7:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
+    waarom(s)
     for i in (1, 2, 3):
         bewaar_tekst(f"Test {i}", f"test{i}")
     st.subheader("Bewaar je werk")
