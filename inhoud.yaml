@@ -45,8 +45,8 @@ stappen:
   interview:
     titel: "Laat Copilot je interviewen"
     tijd: 10
-    intro: "Kopieer de prompt en plak hem in Copilot Chat. Beantwoord de vragen 1 voor 1. Jouw resultaat staat er al in."
-    waarom: "Copilot gaat je eerst vragen stellen in plaats van meteen iets te maken. Zo krijgt het de context die nergens staat: wat jij doet en waar het stokt. Met die context worden de volgende antwoorden beter."
+    intro: "Kopieer de prompt hieronder met het icoon rechtsboven in het grijze vak. Plak hem in Copilot Chat. Beantwoord de vragen 1 voor 1. Jouw resultaat staat er al in."
+    waarom: "Copilot gaat je eerst vragen stellen in plaats van meteen iets te maken. Zo hoort Copilot wat niet in je mails of bestanden staat: hoe jij dit werk doet en waar het vastloopt. Met die context worden de volgende antwoorden beter."
     prompt: |-
       Ik werk bij Customer Care van PostNL. Ik wil onderzoeken waar AI mij helpt bij dit resultaat: {resultaat}. Check eerst in 1 zin of dit iets is dat ik regelmatig voor een ander maak. Zo niet, help me met maximaal 2 vragen een beter resultaat te kiezen.
 

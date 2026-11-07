@@ -78,25 +78,33 @@ def waarom(s):
             st.markdown(f"💡 **Waarom deze stap?** {s['waarom']}")
 
 
+def prompt(tekst, label="Prompt voor Copilot"):
+    """Grijs vak met kopieerknop, duidelijk gemarkeerd als prompt."""
+    with st.container(border=True):
+        st.markdown(f"📋 **{label}**  \n:gray[Kopieer met het icoon rechtsboven in het grijze vak. Plak in Copilot Chat.]")
+        st.code(tekst, language=None, wrap_lines=True)
+
+
 def vinkjes_intro(s, sleutel="vinkjes_intro"):
     if s.get(sleutel):
         st.markdown(f"**{s[sleutel]}**")
 
 
-def navigatie(mag_door=True, reden=""):
+def navigatie(mag_door=True, reden="", s=None):
+    """Volgende is altijd oranje. Bij klikken leest de app de velden en controleert ze.
+    Streamlit leest een tekstveld pas bij Enter of klikken buiten het veld; een klik op de knop telt ook."""
     links, rechts, _ = st.columns([1, 1, 3])
     if ss.stap > 1:
         links.button("Terug", on_click=lambda: ss.update(stap=ss.stap - 1), use_container_width=True)
     if ss.stap < LAATSTE:
-        rechts.button(
-            "Volgende",
-            type="primary",
-            disabled=not mag_door,
-            on_click=lambda: ss.update(stap=ss.stap + 1),
-            use_container_width=True,
-        )
-    if not mag_door and reden:
-        st.caption(reden)
+        if rechts.button("Volgende", type="primary", use_container_width=True):
+            if mag_door:
+                ss.stap += 1
+                st.rerun()
+            else:
+                st.error(reden or "Je bent nog niet klaar met deze stap.")
+    if s is not None:
+        waarom(s)
 
 
 def codewoord_ok(invoer, juist):
@@ -225,7 +233,6 @@ if ss.stap == 0:
     st.title(C["titel"])
     st.write(C["start"]["tekst"])
     st.info(C["start"]["zo_werk_je"])
-    waarom(C["start"])
     code = st.text_input("Codewoord van Gijs", key="w_code1")
     if st.button("Start", type="primary"):
         if codewoord_ok(code, C["codewoorden"]["start"]):
@@ -234,13 +241,13 @@ if ss.stap == 0:
             st.rerun()
         else:
             st.error("Dit codewoord klopt niet. Vraag het aan Gijs.")
+    waarom(C["start"])
 
 elif ss.stap == 1:
     s = S["resultaat"]
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    waarom(s)
     st.info("**Een goed resultaat**\n" + "\n".join(f"- {x}" for x in s["goed_resultaat"]))
     a, b, c = st.columns(3)
     a.markdown(f"**:orange[Te groot]**  \n{s['te_groot']}")
@@ -249,60 +256,56 @@ elif ss.stap == 1:
     st.caption(s["demo_noot"])
     with st.expander("🔎 " + s["weet_niet_titel"]):
         st.write(s["weet_niet_tekst"])
-        st.code(s["weet_niet_prompt"], language=None, wrap_lines=True)
+        prompt(s["weet_niet_prompt"])
     res = bewaar_tekst("Wat lever je op, en aan wie?", "resultaat")
     st.info(s["salesforce"])
     vinkjes_intro(s)
     v1 = bewaar_vinkje(s["vinkjes"][0], "r_v1")
     v2 = bewaar_vinkje(s["vinkjes"][1], "r_v2")
-    navigatie(bool(res) and v1 and v2, "Vul je resultaat in en zet beide vinkjes.")
+    navigatie(bool(res) and v1 and v2, "Vul je resultaat in en zet beide vinkjes.", s=s)
 
 elif ss.stap == 2:
     s = S["interview"]
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    waarom(s)
-    st.code(vul_in(s["prompt"], resultaat=ss.get("resultaat", "")), language=None, wrap_lines=True)
+    prompt(vul_in(s["prompt"], resultaat=ss.get("resultaat", "")))
     st.warning(s["waarschuwing"])
-    st.success(s["terug_tip"])
-    with st.expander("Snap je een vraag niet, of loopt het vast?"):
-        st.caption("Gebruik deze alleen als het helpt.")
+    with st.expander("Loopt het vast, of stelt Copilot iets anders voor?"):
+        st.info(s["terug_tip"])
+        st.caption("Gebruik deze prompts alleen als het helpt.")
         for h in s["hulp"]:
-            st.markdown(f"**{h['label']}**")
-            st.code(h["prompt"], language=None, wrap_lines=True)
+            prompt(h["prompt"], h["label"])
     vinkjes_intro(s, "vinkje_intro")
     klaar = bewaar_vinkje(s["vinkje"], "i_klaar")
-    navigatie(klaar, "Zet het vinkje als Copilot je tabel heeft gegeven.")
+    navigatie(klaar, "Zet het vinkje als Copilot je tabel heeft gegeven.", s=s)
 
 elif ss.stap == 3:
     s = S["check"]
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    waarom(s)
     vinkjes_intro(s)
     vinkjes = [bewaar_vinkje(t, f"c_v{i}") for i, t in enumerate(s["vinkjes"])]
     st.subheader("Klopt iets niet? Stuur bij")
-    for p in s["bijsturen"]:
-        st.code(p, language=None, wrap_lines=True)
+    for i, p in enumerate(s["bijsturen"], 1):
+        prompt(p, f"Prompt {i}: vul de [haakjes] in voor je plakt")
     tabel = bewaar_tekst(s["plak_label"], "tabel", area=True, height=180)
-    navigatie(all(vinkjes) and bool(tabel), "Zet de 3 vinkjes en plak je tabel.")
+    navigatie(all(vinkjes) and bool(tabel), "Zet de 3 vinkjes en plak je tabel.", s=s)
 
 elif ss.stap == 4:
     s = S["wiedoetwat"]
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    waarom(s)
-    st.code(s["prompt"], language=None, wrap_lines=True)
+    prompt(s["prompt"])
     st.subheader("Jouw controle")
     vinkjes_intro(s)
     vinkjes = [bewaar_vinkje(t, f"w_v{i}") for i, t in enumerate(s["vinkjes"])]
     anders = bewaar_tekst(s["anders_label"], "anders", area=True, height=90)
     if anders:
         deel_in_teams(vul_in(s["teams"], anders=anders))
-    navigatie(all(vinkjes) and bool(anders), "Zet de 3 vinkjes en schrijf op welke stap je anders indeelde.")
+    navigatie(all(vinkjes) and bool(anders), "Zet de 3 vinkjes en schrijf op welke stap je anders indeelde.", s=s)
 
 elif ss.stap == 5 and not ss.code2:
     s = S["wacht"]
@@ -325,7 +328,6 @@ elif ss.stap == 5:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    waarom(s)
     stap = bewaar_tekst(s["stap_label"], "stap_keuze")
     if "oplevert" not in ss:
         ss["oplevert"] = ss.get("resultaat", "")
@@ -335,22 +337,17 @@ elif ss.stap == 5:
     vinkjes = [bewaar_vinkje(t, f"k_v{i}") for i, t in enumerate(s["vinkjes"])]
     st.success(s["past_niet"])
     bewaar_tekst(s["idee_label"], "idee")
-    navigatie(bool(stap) and bool(oplevert) and all(vinkjes), "Vul je stap in en zet de 3 vinkjes.")
+    navigatie(bool(stap) and bool(oplevert) and all(vinkjes), "Vul je stap in en zet de 3 vinkjes.", s=s)
 
 elif ss.stap == 6:
     s = S["eerste"]
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    waarom(s)
-    st.code(
-        vul_in(s["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", "")),
-        language=None,
-        wrap_lines=True,
-    )
+    prompt(vul_in(s["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", "")))
     st.warning(s["bronnen_tip"])
     with st.expander(s["hulp"][0]["label"]):
-        st.code(s["hulp"][0]["prompt"], language=None, wrap_lines=True)
+        prompt(s["hulp"][0]["prompt"])
     st.subheader("Controleer de uitkomst")
     vinkjes_intro(s)
     for i, t in enumerate(s["controle"]):
@@ -366,14 +363,13 @@ elif ss.stap == 6:
     herstel = bewaar_tekst(s["herstel_label"], "herstel", area=True, height=90)
     if keuze and herstel:
         deel_in_teams(vul_in(s["teams"], stap=ss.get("stap_keuze", ""), score=keuze.lower(), herstel=herstel))
-    navigatie(bool(keuze) and bool(herstel), "Kies een score en vul in wat je zelf nog moest doen.")
+    navigatie(bool(keuze) and bool(herstel), "Kies een score en vul in wat je zelf nog moest doen.", s=s)
 
 elif ss.stap == 7:
     s = S["plan"]
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    waarom(s)
     for i in (1, 2, 3):
         bewaar_tekst(f"Test {i}", f"test{i}")
     st.subheader("Bewaar je werk")
@@ -388,4 +384,4 @@ elif ss.stap == 7:
     with st.expander("Of kopieer een korte samenvatting"):
         st.code(samenvatting(), language=None, wrap_lines=True)
     st.success(s["afsluiting"])
-    navigatie()
+    navigatie(s=s)
