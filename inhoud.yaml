@@ -1,0 +1,121 @@
+# Inhoud van de kickoff-route. Pas teksten, prompts, tijden en codewoorden hier aan.
+# In prompts worden {resultaat}, {stap}, {oplevert} automatisch ingevuld.
+
+titel: "Van resultaat naar taak"
+pilot: "AI-pilot Customer Care"
+sessie: "Kickoff, deel 2"
+
+codewoorden:
+  start: "COPILOOT"
+  verder: "PAKKETPROMPT"
+
+zijbalk_waarschuwingen:
+  - "Ververs deze pagina niet. Dan ben je je invoer kwijt."
+  - "Geen klantgegevens invullen."
+
+start:
+  tekst: "Je hebt net uitleg en 2 demo's gezien. Nu ga je zelf aan de slag, op je eigen tempo. Elke stap heeft 1 actie. Pas als je die hebt gedaan, ga je door."
+  zo_werk_je: "Zet deze app links op je scherm en Copilot Chat rechts. Kopieer prompts met het icoon rechtsboven in het grijze vak."
+
+stappen:
+  resultaat:
+    titel: "Je resultaat"
+    tijd: 5
+    intro: "Kies iets dat je regelmatig oplevert aan iemand anders. Denk aan de laatste keer dat je het maakte."
+    goed_resultaat:
+      - "komt minstens elke maand terug, of is steeds hetzelfde soort werk"
+      - "gaat naar iemand anders: klant, collega, leidinggevende of andere afdeling"
+      - "kost je moeite of tijd"
+      - "kun je maken zonder klantgegevens uit Salesforce"
+    te_groot: "Klantvragen beantwoorden"
+    beter: "Antwoord op een vraag over een vertraagd internationaal pakket"
+    demos:
+      - "Een mail aan Insurance opstellen met alle gegevens van een schadegeval"
+      - "Een brief van een klant samenvatten en 3 mogelijke reacties voorstellen"
+    demo_noot: "In de demo's werkt de AI binnen Salesforce. In Copilot gebruik je geen klantgegevens uit Salesforce."
+    weet_niet_prompt: "Bekijk mijn verzonden mails en mijn agenda van de afgelopen 2 weken. Welke 5 resultaten lever ik regelmatig op aan anderen, zoals antwoorden, overzichten of updates? Geef per resultaat: wat het is, voor wie, en hoe vaak ongeveer. Noem geen klantgegevens. Geef alleen een tabel."
+  interview:
+    titel: "Laat Copilot je interviewen"
+    tijd: 10
+    intro: "Kopieer de prompt en plak hem in Copilot Chat. Beantwoord de vragen 1 voor 1. Jouw resultaat staat er al in."
+    prompt: |-
+      Ik werk bij Customer Care van PostNL. Ik wil onderzoeken waar AI mij helpt bij dit resultaat: {resultaat}. Check eerst in 1 zin of dit iets is dat ik regelmatig voor een ander maak. Zo niet, help me met maximaal 2 vragen een beter resultaat te kiezen.
+
+      Interview me daarna over de laatste keer dat ik het maakte. Stel 1 vraag tegelijk en zet erbij welke vraag het is, bijvoorbeeld "Vraag 2 van maximaal 8". Geef bij elke vraag een kort voorbeeld van een antwoord. Bouw voort op mijn antwoorden. Past een vraag niet bij mijn situatie, sla hem dan over. Vraag 1 keer door bij de stap die de meeste moeite kostte. Vraag niet naar tijd of minuten.
+
+      Onderwerpen: wat ik eerst deed, wat daarna, waar het stokte (zoeken, wachten of afstemmen), en wat ik die keer opnieuw moest doen.
+
+      Vat na 4 vragen in 2 zinnen samen wat je begrijpt en vraag of het klopt. Herhaal geen eerdere tabellen. Noem geen klantgegevens.
+
+      Geef na maximaal 8 vragen alleen een tabel: stap, wat ik deed, waar het moeite kostte. Alleen stappen van die ene keer. Bedenk nog geen oplossingen.
+    waarschuwing: "Vraagt Copilot naar een klant of een klantnummer? Antwoord in algemene woorden: \"een klant met een vraag over een pakket\"."
+    terug_tip: "Stelt Copilot voor om een ander resultaat te kiezen? Ga terug naar stap 1 en pas het aan. De prompts passen zich vanzelf aan."
+    hulp:
+      - label: "Ik snap de vraag niet"
+        prompt: "Ik snap je vraag niet. Leg in 1 zin uit waarom je dit vraagt en geef een voorbeeld van een antwoord."
+      - label: "Begrijpt Copilot mij wel?"
+        prompt: "Vat in 3 zinnen samen wat je tot nu toe van mijn situatie begrijpt. Wat mis je nog over hoe het ging? Vraag niet naar tijd."
+      - label: "Geen van de opties past"
+        prompt: "Geen van je opties past. Het zit zo: [jouw situatie]. Ga verder met je volgende vraag."
+    vinkje: "Copilot heeft mijn stappen in een tabel gezet"
+  check:
+    titel: "Check je tabel"
+    tijd: 4
+    intro: "Copilot schreef op wat jij vertelde. Klopt het ook? Jij kent je werk, Copilot niet."
+    vinkjes:
+      - "De volgorde klopt: zo ging het echt, niet zoals het zou moeten"
+      - "Er mist geen stap. Vaak vergeten: wachten op iemand, afstemmen, zelf controleren"
+      - "Er staat niets in dat ik niet zei"
+    bijsturen:
+      - "Je mist een stap: [stap]. Voeg hem toe op de juiste plek. Verander verder niets. Geef alleen de tabel."
+      - "Stap [nummer] klopt niet. Het ging zo: [wat er echt gebeurde]. Verander verder niets. Geef alleen de tabel."
+    plak_label: "Plak hier je tabel (kopieer hem met de kopieerknop onder het antwoord van Copilot)"
+  wiedoetwat:
+    titel: "Wie doet wat?"
+    tijd: 5
+    intro: "Laat Copilot een eerste indeling maken. Daarna beoordeel jij."
+    prompt: "Zet bij elke stap uit de tabel: Mens, Mens + AI of AI, met 1 zin uitleg. Markeer stappen met klantgegevens van buiten Copilot als Mag niet. Geef alleen de tabel."
+    vinkjes:
+      - "Ik heb bij elke stap gekeken of de indeling klopt"
+      - "Ik heb minimaal 1 stap anders ingedeeld dan Copilot"
+      - "Er is minimaal 1 Mens-stap: daar beoordeel ik of het resultaat goed is"
+    anders_label: "Welke stap deelde je anders in, en waarom?"
+    teams: "Hier was ik het oneens met Copilot: {anders}"
+  wacht:
+    titel: "Wacht op Gijs"
+    tekst: "We bespreken kort wat jullie zagen. Daarna geeft Gijs het codewoord voor de volgende stap."
+    tip: "Klaar en tijd over? Zet je zin uit stap 4 in de draad in het Teams-kanaal."
+  kies:
+    titel: "Kies 1 stap"
+    tijd: 3
+    intro: "Kies de stap waarmee je deze week gaat experimenteren."
+    stap_label: "Mijn stap"
+    oplevert_label: "Wat moet deze stap opleveren?"
+    vinkjes:
+      - "Deze stap kost nu moeite"
+      - "Het is een AI- of Mens + AI-stap"
+      - "Mag het: de data zit binnen Copilot, geen klantgegevens van buiten Copilot"
+    past_niet: "Past je stap niet? Kies een andere stap uit je tabel. Een stap met Mag niet is wel een idee voor later. Schrijf hem hieronder op, dan staat hij in je pdf."
+    idee_label: "Idee voor later (optioneel)"
+  eerste:
+    titel: "Je eerste resultaat"
+    tijd: 15
+    intro: "Probeer je stap nu echt met Copilot."
+    prompt: "Ik wil hulp bij deze stap: {stap}. Dit moet het opleveren: {oplevert}. Stel me eerst maximaal 3 vragen, 1 tegelijk. Stel een open vraag als een keuze uit 2 niet past. Vraag ook welke bronnen je mag gebruiken. Doe daarna de stap. Houd het kort. Benoem je aannames, ontbrekende informatie en wat ik zelf moet controleren."
+    bronnen_tip: "Vraagt Copilot welke bronnen hij mag gebruiken? Kies bewust. Geen mailbox met klantmails."
+    hulp:
+      - label: "Antwoord te lang?"
+        prompt: "Geef alleen het resultaat, zonder advies en uitleg."
+    controle:
+      - "Klopt het? Feiten en bronnen nagekeken"
+      - "Past het? Bij de ontvanger, de toon, PostNL"
+      - "Helpt het? Sneller, beter, consistenter of makkelijker"
+      - "Mag het? Input en output veilig"
+    scores: ["Bruikbaar", "Deels bruikbaar", "Niet bruikbaar"]
+    herstel_label: "Wat moest je zelf nog doen voordat het bruikbaar was?"
+    teams: "Mijn stap: {stap}. Score: {score}. Wat ik nog moest doen: {herstel}"
+  plan:
+    titel: "Je plan"
+    tijd: 5
+    intro: "Plan 3 momenten deze week waarop je dit opnieuw doet, op echt werk. Zet ze nu in je agenda."
+    afsluiting: "Zet je pdf in de map Kickoff in het Teams-kanaal. Wacht daarna op Gijs voor de afsluiting."
