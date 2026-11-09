@@ -23,8 +23,14 @@ stappen:
     tests_vraag: "Hoe gingen je tests sinds workshop 2?"
     tests_opties: ["Bruikbaar", "Deels bruikbaar", "Niet bruikbaar", "Niet getest"]
     opleveren_label: "Wat levert je oplossing op, en voor wie? (1 zin)"
-    waar_label: "Waar vindt de tester je oplossing? (bijvoorbeeld: de naam van je agent in Copilot, of: de prompt hieronder)"
-    prompt_label: "Je prompt of instructie (alleen als je geen agent hebt)"
+    vorm_vraag: "Wat voor oplossing heb je?"
+    vormen: ["Een agent", "Een prompt of instructie"]
+    agent_label: "Naam van je agent, en de link als je die hebt"
+    agent_hulp: "De tester werkt op jouw laptop, dus de naam is genoeg. De link heb je pas nodig als je je agent later deelt."
+    prompt_label: "Je prompt of instructie (zonder klantgegevens)"
+    waar_label: "Waar gebruik je de prompt?"
+    waar_standaard: "Copilot Chat"
+    nieuwe_chat: "De tester start voor elke test een nieuwe chat. Anders onthoudt Copilot de vorige test."
     vinkje_klaar: "Mijn oplossing en de input staan klaar op mijn laptop. Geen klantgegevens."
     voorbeelden_titel: "🔎 Voorbeelden: wat is 1 ding anders, wat is een randgeval?"
     voorbeelden:
@@ -49,6 +55,8 @@ stappen:
     kop: "Testopdracht"
     tester_instructie: "Voer elke test uit zonder hulp van de maker. Beoordeel na elke test: werkte het, deels, of niet? Vergelijk met wat erin moet en wat er niet in mag."
     test4: "Test 4: bedenk zelf 1 vraag of input die de maker niet bedacht."
+    zo_agent: "Zo test je: open de agent {agent} in Copilot. Start voor elke test een nieuwe chat en voer de invoer van de test in."
+    zo_prompt: "Zo test je: open {waar}. Start voor elke test een nieuwe chat. Plak eerst de prompt hieronder, voer daarna de invoer van de test in."
     vinkje: "Mijn testopdracht staat open op mijn laptop"
 
   ronde:

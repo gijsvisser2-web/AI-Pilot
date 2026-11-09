@@ -103,9 +103,11 @@ def testopdracht():
     k, d = S["klaarzetten"], S["delen"]
     regels = [f"{d['kop']} van: {g('functie')}, {g('afdeling')}", ""]
     regels.append("Wat het oplevert: " + (g("opleveren") or "-"))
-    regels.append("Waar vind je de oplossing: " + (g("waar") or "-"))
-    if g("prompt"):
-        regels += ["", "Prompt of instructie:", g("prompt")]
+    if ss.get("vorm") == k["vormen"][0]:
+        regels.append(vul_in(d["zo_agent"], agent=g("agent")))
+    else:
+        regels.append(vul_in(d["zo_prompt"], waar=g("waar")))
+        regels += ["", "Prompt:", g("prompt") or "-"]
     regels.append("")
     for i, naam in enumerate(k["test_namen"]):
         regels.append(naam)
@@ -298,8 +300,17 @@ elif ss.stap == 1:
     st.write(s["intro"])
     tests = bewaar_keuze(s["tests_vraag"], s["tests_opties"], "tests", horizontal=True)
     opleveren = bewaar_tekst(s["opleveren_label"], "opleveren")
-    waar = bewaar_tekst(s["waar_label"], "waar")
-    bewaar_tekst(s["prompt_label"], "prompt", area=True, height=100)
+    vorm = bewaar_keuze(s["vorm_vraag"], s["vormen"], "vorm", horizontal=True)
+    vorm_ok = False
+    if vorm == s["vormen"][0]:
+        vorm_ok = bool(bewaar_tekst(s["agent_label"], "agent"))
+        st.caption(s["agent_hulp"])
+    elif vorm == s["vormen"][1]:
+        p = bewaar_tekst(s["prompt_label"], "prompt", area=True, height=120)
+        w = bewaar_tekst(s["waar_label"], "waar", standaard=s["waar_standaard"])
+        vorm_ok = bool(p) and bool(w)
+    if vorm:
+        st.caption(s["nieuwe_chat"])
     with st.expander(s["voorbeelden_titel"]):
         for regel in s["voorbeelden"]:
             st.markdown(f"- {regel}")
@@ -316,8 +327,8 @@ elif ss.stap == 1:
     waarom(s)
     klaar = bewaar_vinkje(s["vinkje_klaar"], "klaar1")
     navigatie(
-        bool(tests) and bool(opleveren) and bool(waar) and all(gevuld) and klaar,
-        "Vul in wat je oplossing oplevert en waar de tester hem vindt. Vul per test in wat de tester invoert en wat erin moet staan. Zet daarna het vinkje.",
+        bool(tests) and bool(opleveren) and vorm_ok and all(gevuld) and klaar,
+        "Vul in wat je oplossing oplevert. Kies agent of prompt en vul de naam of je prompt in. Vul per test in wat de tester invoert en wat erin moet staan. Zet daarna het vinkje.",
     )
 
 elif ss.stap == 2:
