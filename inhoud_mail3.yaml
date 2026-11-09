@@ -22,7 +22,7 @@ stappen:
     intro: "Je tester gebruikt straks jouw oplossing op jouw laptop. Jij schrijft nu de test. In de volgende stap zie je wat je met je tester deelt."
     tests_vraag: "Hoe gingen je tests sinds workshop 2?"
     tests_opties: ["Bruikbaar", "Deels bruikbaar", "Niet bruikbaar", "Niet getest"]
-    opleveren_label: "Wat levert je oplossing op, en voor wie? (1 zin)"
+    opleveren_label: "Wat levert je oplossing op, en voor wie? (1 zin. Dit is de lat voor je tester)"
     vorm_vraag: "Wat voor oplossing heb je?"
     vormen: ["Een agent", "Een prompt of instructie"]
     agent_label: "Naam van je agent, en de link als je die hebt"
@@ -43,17 +43,15 @@ stappen:
       - "Test 2: 1 ding anders"
       - "Test 3: randgeval (het goede antwoord is: dat weet ik niet, of dat mag niet)"
     invoer_label: "Wat voert de tester in?"
-    moet_label: "Moet erin staan"
-    magniet_label: "Mag er niet in staan"
     test4: "Test 4 schrijf je niet. Die bedenkt de tester zelf: 1 vraag of input die jij niet bedacht."
-    waarom: "Wie vooraf opschrijft wat goed is, ziet straks wat er misgaat. Zonder lat zegt iedereen: ziet er goed uit."
+    waarom: "Je zin over wat je oplossing oplevert, is de lat voor je tester. Zonder lat zegt iedereen: ziet er goed uit."
 
   delen:
     titel: "Deel je testopdracht"
     tijd: 2
     intro: "Kopieer de testopdracht met het icoon rechtsboven in het grijze vlak. Zet hem in een Word-bestand of kladblok naast Copilot op je laptop. Daar leest je tester hem."
     kop: "Testopdracht"
-    tester_instructie: "Voer elke test uit zonder hulp van de maker. Beoordeel na elke test: werkte het, deels, of niet? Vergelijk met wat erin moet en wat er niet in mag."
+    tester_instructie: "Voer elke test uit zonder hulp van de maker. Beoordeel elke test: klopt het, past het, helpt het en mag het? Ja op alle 4: werkte. Deels: deels. Anders: werkte niet."
     test4: "Test 4: bedenk zelf 1 vraag of input die de maker niet bedacht."
     zo_agent: "Zo test je: open de agent {agent} in Copilot. Start voor elke test een nieuwe chat en voer de invoer van de test in."
     zo_prompt: "Zo test je: open {waar}. Start voor elke test een nieuwe chat. Plak eerst de prompt hieronder, voer daarna de invoer van de test in."
@@ -73,9 +71,10 @@ stappen:
     maker_intro: "Kijk mee en schrijf direct op wat er gebeurt. Niet helpen, niet uitleggen."
     tester_intro: "Gebruik de oplossing zoals de testopdracht zegt. Lukt het niet zonder hulp? Dan is dat de uitkomst."
     test4_naam: "Test 4: bedacht door de tester"
+    uitkomst_label: "Uitkomst: klopt, past, helpt en mag het?"
     uitkomst_opties: ["Werkte", "Deels", "Werkte niet"]
     mis_label: "Wat ging er mis? (mag leeg als het werkte)"
-    magniet_vraag: "Stond er iets in dat er niet in mocht?"
+    magniet_vraag: "Mag het? Stond er iets in dat er niet in mocht, zoals klantgegevens of iets gevoeligs?"
     magniet_opties: ["Nee", "Ja"]
     oorzaak_vraag: "Werkte iets niet? Wat was de oorzaak?"
     oorzaken:

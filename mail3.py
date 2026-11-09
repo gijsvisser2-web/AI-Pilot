@@ -102,7 +102,7 @@ def g(k):
 def testopdracht():
     k, d = S["klaarzetten"], S["delen"]
     regels = [f"{d['kop']} van: {g('functie')}, {g('afdeling')}", ""]
-    regels.append("Wat het oplevert: " + (g("opleveren") or "-"))
+    regels.append("Wat het moet opleveren (de lat): " + (g("opleveren") or "-"))
     if ss.get("vorm") == k["vormen"][0]:
         regels.append(vul_in(d["zo_agent"], agent=g("agent")))
     else:
@@ -112,9 +112,6 @@ def testopdracht():
     for i, naam in enumerate(k["test_namen"]):
         regels.append(naam)
         regels.append("  Voer in: " + (g(f"invoer{i}") or "-"))
-        regels.append("  Moet erin staan: " + (g(f"moet{i}") or "-"))
-        if g(f"magniet{i}"):
-            regels.append("  Mag er niet in staan: " + g(f"magniet{i}"))
     regels += [d["test4"], "", d["tester_instructie"]]
     return "\n".join(regels)
 
@@ -136,9 +133,9 @@ def maker_frame():
     uitkomsten = []
     for i, naam in enumerate(namen):
         st.markdown(f"**{naam}**")
-        if i < 3 and (g(f"moet{i}") or g(f"magniet{i}")):
-            st.caption(f"Moet erin: {g(f'moet{i}') or '-'}. Mag er niet in: {g(f'magniet{i}') or '-'}.")
-        uitkomsten.append(bewaar_keuze("Uitkomst", s["uitkomst_opties"], f"m_uit{i}", horizontal=True))
+        if i < 3 and g(f"invoer{i}"):
+            st.caption("Invoer: " + g(f"invoer{i}"))
+        uitkomsten.append(bewaar_keuze(s["uitkomst_label"], s["uitkomst_opties"], f"m_uit{i}", horizontal=True))
         bewaar_tekst(s["mis_label"], f"m_mis{i}")
     magniet_fout = bewaar_keuze(s["magniet_vraag"], s["magniet_opties"], "m_magniet", horizontal=True)
     oorzaak = bewaar_keuze(s["oorzaak_vraag"], s["oorzaken"], "m_oorzaak")
@@ -318,17 +315,12 @@ elif ss.stap == 1:
     for i, naam in enumerate(s["test_namen"]):
         st.markdown(f"**{naam}**")
         gevuld.append(bewaar_tekst(s["invoer_label"], f"invoer{i}"))
-        a, b = st.columns(2)
-        with a:
-            gevuld.append(bewaar_tekst(s["moet_label"], f"moet{i}", area=True, height=70))
-        with b:
-            bewaar_tekst(s["magniet_label"], f"magniet{i}", area=True, height=70)
     st.caption(s["test4"])
     waarom(s)
     klaar = bewaar_vinkje(s["vinkje_klaar"], "klaar1")
     navigatie(
         bool(tests) and bool(opleveren) and vorm_ok and all(gevuld) and klaar,
-        "Vul in wat je oplossing oplevert. Kies agent of prompt en vul de naam of je prompt in. Vul per test in wat de tester invoert en wat erin moet staan. Zet daarna het vinkje.",
+        "Vul in wat je oplossing oplevert. Kies agent of prompt en vul de naam of je prompt in. Vul per test in wat de tester invoert. Zet daarna het vinkje.",
     )
 
 elif ss.stap == 2:
