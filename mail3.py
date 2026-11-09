@@ -15,13 +15,21 @@ MAP = Path(__file__).parent
 C = yaml.safe_load((MAP / "inhoud_mail3.yaml").read_text(encoding="utf-8"))
 S = C["stappen"]
 
-STAPPEN = ["Start", "1. Bereid je test voor", "2. Testronde 1", "3. Testronde 2", "4. Besluit en volgende stap"]
+STAPPEN = [
+    "Start",
+    "1. Zet je test klaar",
+    "2. Deel je testopdracht",
+    "3. Testronde 1",
+    "4. Testronde 2",
+    "5. Pas 1 ding aan",
+    "6. Besluit en showcase",
+]
 LAATSTE = len(STAPPEN) - 1
 
 st.set_page_config(page_title=C["titel"], page_icon="✉", layout="centered")
 ss = st.session_state
 ss.setdefault("stap", 0)
-ss.setdefault("code1", False)
+ss.setdefault("gestart", False)
 
 
 # ---------- hulpfuncties ----------
@@ -77,37 +85,95 @@ def kort(keuze):
     return (keuze or "").split(":")[0]
 
 
+def rol_in(r):
+    """Rol in ronde r. Ronde 2 is automatisch de andere rol."""
+    eerste = ss.get("rol1")
+    if r == 1 or not eerste:
+        return eerste
+    rollen = S["ronde"]["rollen"]
+    return rollen[1] if eerste == rollen[0] else rollen[0]
+
+
+def g(k):
+    v = ss.get(k)
+    return v.strip() if isinstance(v, str) else ""
+
+
+def testopdracht():
+    k, d = S["klaarzetten"], S["delen"]
+    regels = [f"{d['kop']} van: {g('functie')}, {g('afdeling')}", ""]
+    regels.append("Wat het oplevert: " + (g("opleveren") or "-"))
+    regels.append("Waar vind je de oplossing: " + (g("waar") or "-"))
+    if g("prompt"):
+        regels += ["", "Prompt of instructie:", g("prompt")]
+    regels.append("")
+    for i, naam in enumerate(k["test_namen"]):
+        regels.append(naam)
+        regels.append("  Voer in: " + (g(f"invoer{i}") or "-"))
+        regels.append("  Moet erin staan: " + (g(f"moet{i}") or "-"))
+        if g(f"magniet{i}"):
+            regels.append("  Mag er niet in staan: " + g(f"magniet{i}"))
+    regels += [d["test4"], "", d["tester_instructie"]]
+    return "\n".join(regels)
+
+
+def uitkomst_kort():
+    uit = [ss.get(f"m_uit{i}") for i in range(4)]
+    gedaan = [u for u in uit if u]
+    if not gedaan:
+        return ""
+    werkte = sum(1 for u in gedaan if u == "Werkte")
+    return f"{werkte} van {len(gedaan)} tests werkten"
+
+
+def maker_frame():
+    s = S["ronde"]
+    k = S["klaarzetten"]
+    st.info(s["maker_intro"])
+    namen = k["test_namen"] + [s["test4_naam"]]
+    uitkomsten = []
+    for i, naam in enumerate(namen):
+        st.markdown(f"**{naam}**")
+        if i < 3 and (g(f"moet{i}") or g(f"magniet{i}")):
+            st.caption(f"Moet erin: {g(f'moet{i}') or '-'}. Mag er niet in: {g(f'magniet{i}') or '-'}.")
+        uitkomsten.append(bewaar_keuze("Uitkomst", s["uitkomst_opties"], f"m_uit{i}", horizontal=True))
+        bewaar_tekst(s["mis_label"], f"m_mis{i}")
+    magniet_fout = bewaar_keuze(s["magniet_vraag"], s["magniet_opties"], "m_magniet", horizontal=True)
+    oorzaak = bewaar_keuze(s["oorzaak_vraag"], s["oorzaken"], "m_oorzaak")
+    if oorzaak:
+        st.caption(s["wat_nu"][kort(oorzaak)])
+    bewaar_tekst(s["herstel_label"], "m_herstel")
+    ding = bewaar_tekst(s["ding_label"], "m_ding")
+    return all(uitkomsten) and bool(magniet_fout) and bool(oorzaak) and bool(ding)
+
+
+def tester_frame():
+    s = S["ronde"]
+    st.info(s["tester_intro"])
+    wat = bewaar_tekst(s["tester_oplossing_label"], "t_partner")
+    bewaar_tekst(s["tester_test4_label"], "t_test4", area=True, height=70)
+    gebruik = bewaar_keuze(s["gebruik_vraag"], s["gebruik_opties"], "t_gebruik")
+    bewaar_tekst(s["tester_leer_label"], "t_leer", area=True, height=70)
+    return bool(wat) and bool(gebruik)
+
+
 def testronde(r):
-    """Scherm voor testronde r (1 of 2). Geeft True als alles verplicht is ingevuld."""
     s = S["ronde"]
     st.title(s[f"titel_{r}"])
     tijd(s["tijd"])
-    st.write(s["intro"])
+    if r == 1:
+        rol = bewaar_keuze(s["rol_vraag"], s["rollen"], "rol1", horizontal=True)
+    else:
+        rol = rol_in(2)
+        st.markdown(f"**{vul_in(s['rol_2'], rol=(rol or '').lower())}**")
     with st.container(border=True):
         for regel in s["regels"]:
             st.markdown(f"- {regel}")
+    if not rol:
+        return False
+    ok = maker_frame() if rol == s["rollen"][0] else tester_frame()
     waarom(s)
-    maker, tester = st.tabs([s["maker_tab"], s["tester_tab"]])
-    with maker:
-        uitkomsten = []
-        for i, naam in enumerate(S["voorbereiden"]["test_namen"]):
-            st.markdown(f"**{naam}**")
-            moet = ss.get(f"moet{i}", "")
-            magniet = ss.get(f"magniet{i}", "")
-            if moet or magniet:
-                st.caption(f"Moet erin: {moet or '-'}. Mag er niet in: {magniet or '-'}.")
-            uitkomsten.append(bewaar_keuze("Uitkomst", s["uitkomst_opties"], f"r{r}_uit{i}", horizontal=True))
-        magniet_fout = bewaar_keuze(s["magniet_vraag"], s["magniet_opties"], f"r{r}_magniet", horizontal=True)
-        oorzaak = bewaar_keuze(s["oorzaak_vraag"], s["oorzaken"], f"r{r}_oorzaak")
-        bewaar_tekst(s["herstel_label"], f"r{r}_herstel")
-        ding = bewaar_tekst(s["ding_label"], f"r{r}_ding")
-    with tester:
-        bewaar_tekst(s["tester_oplossing_label"], f"r{r}_partner")
-        gebruik = bewaar_keuze(s["gebruik_vraag"], s["gebruik_opties"], f"r{r}_gebruik")
-        bewaar_tekst(s["tester_leer_label"], f"r{r}_leer", area=True, height=70)
-    m = bewaar_vinkje(s["vinkjes"][0], f"r{r}_m")
-    t = bewaar_vinkje(s["vinkjes"][1], f"r{r}_t")
-    return all(uitkomsten) and bool(magniet_fout) and bool(oorzaak) and bool(ding) and bool(gebruik) and m and t
+    return ok
 
 
 # ---------- pdf ----------
@@ -144,34 +210,40 @@ def maak_pdf():
     pdf.set_text_color(90, 90, 90)
     pdf.cell(w, 6, latin(f"{C['sessie']}, {date.today():%d-%m-%Y}"), new_x="LMARGIN", new_y="NEXT")
 
-    g = ss.get
-    v = S["voorbereiden"]
-    kop("1. Mijn oplossing en mijn test")
-    tekst("Functie: " + g("functie", "") + ", afdeling: " + g("afdeling", ""))
+    kop("1. Mijn testopdracht")
     tekst("Tests sinds workshop 2: " + (g("tests") or "-"))
-    tekst("Wat het moet opleveren: " + g("opleveren", ""))
-    tekst("Soort oplossing: " + (g("soort") or "-"))
-    for i, naam in enumerate(v["test_namen"]):
-        tekst(f"{naam}. Moet erin: {g(f'moet{i}', '') or '-'}. Mag er niet in: {g(f'magniet{i}', '') or '-'}.")
-    for r in (1, 2):
-        kop(f"{1 + r}. Testronde {r}")
-        uit = ", ".join(f"test {i + 1}: {(g(f'r{r}_uit{i}') or '-').lower()}" for i in range(3))
-        tekst("Als maker: " + uit + ". Iets dat er niet in mocht: " + (g(f"r{r}_magniet") or "-") + ".")
-        tekst("Oorzaak: " + (g(f"r{r}_oorzaak") or "-"))
-        tekst("Wat de tester zelf nog moest doen: " + g(f"r{r}_herstel", ""))
-        tekst("1 ding dat ik aanpas: " + g(f"r{r}_ding", ""))
-        tekst("Als tester: " + g(f"r{r}_partner", "") + ". Zelf gebruiken: " + (g(f"r{r}_gebruik") or "-") + ".")
-        if g(f"r{r}_leer", "").strip():
-            tekst("Wat ik meenam: " + g(f"r{r}_leer", ""))
-    kop("4. Besluit en volgende stap")
-    tekst((g("besluit") or "-") + ". Waarom: " + g("besluit_waarom", ""))
-    if g("delen_waar", "").strip():
-        tekst("Delen met en waar: " + g("delen_waar", ""))
-    if g("door_wat", "").strip():
-        tekst("Nodige koppeling: " + g("door_wat", ""))
-    tekst(f"Trigger: als {g('als', '')}, dan {g('dan', '')}.")
-    tekst("Oplossing van een collega die ik ga gebruiken: " + (g("overnemen") or "-") + ". Eerste keer: " + g("overnemen_wanneer", ""))
-    tekst("Laten zien aan: " + g("buiten", "") + ", " + g("buiten_wanneer", ""))
+    tekst(testopdracht())
+
+    kop("2. Als maker")
+    namen = S["klaarzetten"]["test_namen"] + [S["ronde"]["test4_naam"]]
+    for i, naam in enumerate(namen):
+        regel = f"{naam}: {(ss.get(f'm_uit{i}') or '-').lower()}."
+        if g(f"m_mis{i}"):
+            regel += " Mis: " + g(f"m_mis{i}")
+        tekst(regel)
+    tekst("Iets dat er niet in mocht: " + (ss.get("m_magniet") or "-"))
+    tekst("Oorzaak: " + (ss.get("m_oorzaak") or "-"))
+    tekst("Wat de tester zelf nog moest doen: " + g("m_herstel"))
+    tekst("1 ding dat ik aanpas: " + g("m_ding"))
+
+    kop("3. Als tester")
+    tekst("De oplossing van mijn partner: " + g("t_partner"))
+    tekst("Test 4: " + g("t_test4"))
+    tekst("Zelf gebruiken: " + (ss.get("t_gebruik") or "-"))
+    tekst("Wat ik meeneem: " + g("t_leer"))
+
+    kop("4. Aangepast")
+    tekst("Wat ik aanpaste: " + g("aangepast"))
+    tekst("Werkt het nu: " + (ss.get("werkt") or "-"))
+
+    kop("5. Besluit")
+    tekst((ss.get("besluit") or "-") + ". Waarom: " + g("besluit_waarom"))
+    if g("delen_waar"):
+        tekst("Delen met en waar: " + g("delen_waar"))
+    if g("door_wat"):
+        tekst("Nodige koppeling: " + g("door_wat"))
+    if g("als") or g("dan"):
+        tekst(f"Als {g('als')}, dan {g('dan')}.")
     return bytes(pdf.output())
 
 
@@ -183,7 +255,7 @@ with st.sidebar:
             st.markdown(f":green[✓ {naam}]")
         elif i == ss.stap:
             st.markdown(f":orange[**● {naam}**]")
-        elif i >= 1 and not ss.code1:
+        elif i >= 1 and not ss.gestart:
             st.markdown(f":gray[🔒 {naam}]")
         else:
             st.markdown(f"○ {naam}")
@@ -215,45 +287,68 @@ if ss.stap == 0:
         if not functie or not afdeling:
             st.error("Vul eerst je functie en je afdeling in.")
         else:
-            ss.code1 = True
+            ss.gestart = True
             ss.stap = 1
             st.rerun()
 
 elif ss.stap == 1:
-    s = S["voorbereiden"]
+    s = S["klaarzetten"]
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
     tests = bewaar_keuze(s["tests_vraag"], s["tests_opties"], "tests", horizontal=True)
     opleveren = bewaar_tekst(s["opleveren_label"], "opleveren")
-    bewaar_tekst(s["input_label"], "input")
-    soort = bewaar_keuze(s["soort_vraag"], s["soorten"], "soort", horizontal=True)
-    if soort:
-        with st.container(border=True):
-            st.markdown(f"**Voorbeelden bij {soort.lower()}**")
-            for regel in s["voorbeelden"][soort]:
-                st.markdown(f"- {regel}")
+    waar = bewaar_tekst(s["waar_label"], "waar")
+    bewaar_tekst(s["prompt_label"], "prompt", area=True, height=100)
+    with st.expander(s["voorbeelden_titel"]):
+        for regel in s["voorbeelden"]:
+            st.markdown(f"- {regel}")
     gevuld = []
     for i, naam in enumerate(s["test_namen"]):
         st.markdown(f"**{naam}**")
+        gevuld.append(bewaar_tekst(s["invoer_label"], f"invoer{i}"))
         a, b = st.columns(2)
         with a:
             gevuld.append(bewaar_tekst(s["moet_label"], f"moet{i}", area=True, height=70))
         with b:
             bewaar_tekst(s["magniet_label"], f"magniet{i}", area=True, height=70)
+    st.caption(s["test4"])
     waarom(s)
-    klaar = bewaar_vinkje(s["vinkje"], "v1")
+    klaar = bewaar_vinkje(s["vinkje_klaar"], "klaar1")
     navigatie(
-        bool(tests) and bool(opleveren) and bool(soort) and all(gevuld) and klaar,
-        "Kies hoe je tests gingen, vul in wat je oplossing oplevert en wat er bij elke test in moet staan. Zet daarna het vinkje.",
+        bool(tests) and bool(opleveren) and bool(waar) and all(gevuld) and klaar,
+        "Vul in wat je oplossing oplevert en waar de tester hem vindt. Vul per test in wat de tester invoert en wat erin moet staan. Zet daarna het vinkje.",
     )
 
-elif ss.stap in (2, 3):
-    r = ss.stap - 1
-    ok = testronde(r)
-    navigatie(ok, "Vul op het tabblad Ik was maker de 3 uitkomsten, de oorzaak en je 1 ding in. Kies op het tabblad Ik was tester of je de oplossing zelf zou gebruiken. Zet daarna beide vinkjes.")
+elif ss.stap == 2:
+    s = S["delen"]
+    st.title(s["titel"])
+    tijd(s["tijd"])
+    st.write(s["intro"])
+    st.code(testopdracht(), language=None, wrap_lines=True)
+    klaar = bewaar_vinkje(s["vinkje"], "gedeeld")
+    navigatie(klaar, "Zet je testopdracht open op je laptop en zet dan het vinkje.")
 
-elif ss.stap == 4:
+elif ss.stap in (3, 4):
+    r = ss.stap - 2
+    ok = testronde(r)
+    navigatie(ok, "Kies je rol en vul je scherm in. Als maker: de 4 uitkomsten, de oorzaak en je 1 ding. Als tester: wat de oplossing doet en of je hem zelf zou gebruiken.")
+
+elif ss.stap == 5:
+    s = S["aanpassen"]
+    st.title(s["titel"])
+    tijd(s["tijd"])
+    st.write(s["intro"])
+    with st.container(border=True):
+        st.markdown(f"**{s['ding_kop']}:** {g('m_ding') or '-'}")
+        if ss.get("m_oorzaak"):
+            st.caption(S["ronde"]["wat_nu"][kort(ss.m_oorzaak)])
+    bewaar_tekst(s["gedaan_label"], "aangepast")
+    bewaar_keuze(s["werkt_vraag"], s["werkt_opties"], "werkt", horizontal=True)
+    waarom(s)
+    navigatie()
+
+elif ss.stap == 6:
     s = S["besluit"]
     st.title(s["titel"])
     tijd(s["tijd"])
@@ -270,23 +365,21 @@ elif ss.stap == 4:
         extra_ok = all(veilig) and bool(waar)
     elif kort(besluit) == "Doorverwijzen":
         extra_ok = bool(bewaar_tekst(s["door_label"], "door_wat"))
-    st.markdown(f"**{s['trigger_intro']}**")
-    als = bewaar_tekst(s["als_label"], "als")
-    dan = bewaar_tekst(s["dan_label"], "dan")
-    overnemen = bewaar_keuze(s["overnemen_vraag"], s["overnemen_opties"], "overnemen", horizontal=True)
-    if overnemen and overnemen != s["overnemen_opties"][2]:
-        bewaar_tekst(s["overnemen_label"], "overnemen_wanneer")
-    st.markdown(f"**{s['buiten_intro']}**")
-    buiten = bewaar_tekst(s["buiten_label"], "buiten")
-    bewaar_tekst(s["buiten_wanneer"], "buiten_wanneer")
+    trigger_ok = True
+    if besluit and kort(besluit) != "Stoppen":
+        st.markdown(f"**{s['trigger_intro']}**")
+        als = bewaar_tekst(s["als_label"], "als")
+        dan = bewaar_tekst(s["dan_label"], "dan")
+        trigger_ok = bool(als) and bool(dan)
     waarom(s)
-    klaar = bool(besluit) and bool(reden) and extra_ok and bool(overnemen) and bool(buiten)
-    if kort(besluit) != "Stoppen":
-        klaar = klaar and bool(als) and bool(dan)
-    if klaar:
+    if bool(besluit) and bool(reden) and extra_ok and trigger_ok:
+        with st.container(border=True):
+            st.markdown(f"**{s['showcase_kop']}**")
+            for regel in s["showcase"]:
+                st.markdown(f"- {regel}")
         st.markdown("**Deel in Teams**")
         st.caption("Plak deze zin in de draad in het Teams-kanaal. Geen klantgegevens.")
-        st.code(vul_in(s["teams"], oplossing=ss.get("opleveren", ""), besluit=kort(besluit), overnemen=(overnemen or "").lower()), language=None, wrap_lines=True)
+        st.code(vul_in(s["teams"], oplossing=g("opleveren"), uitkomst=uitkomst_kort(), besluit=kort(besluit)), language=None, wrap_lines=True)
         st.download_button(
             "⬇ Download alles als pdf",
             data=maak_pdf(),
@@ -296,5 +389,5 @@ elif ss.stap == 4:
         )
         st.success(s["afsluiting"])
     else:
-        st.caption("Kies je besluit, schrijf op waarom, vul je trigger in (niet nodig bij stoppen), kies welke oplossing je overneemt en aan wie je hem laat zien. Bij delen: de veiligheidscheck. Dan verschijnt de pdf.")
+        st.caption("Kies je besluit, schrijf op waarom en vul je trigger in (niet nodig bij stoppen). Bij delen: de veiligheidscheck. Dan zie je wat we in de showcase verwachten en verschijnt de pdf.")
     navigatie()

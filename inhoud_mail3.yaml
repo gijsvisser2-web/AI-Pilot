@@ -7,68 +7,66 @@ sessie: "Workshop 3"
 zijbalk_waarschuwingen:
   - "Ververs deze pagina niet. Dan ben je je invoer kwijt."
   - "Geen klantgegevens invullen."
-  - "Tijdens een testronde blijft deze app dicht."
 
 start:
-  tekst: "Vandaag gebruikt een collega jouw oplossing, en jij die van 2 collega's. Zo zie je of jouw oplossing zonder jou werkt, en doe je zelf nieuwe ervaring op."
+  tekst: "Vandaag gebruikt een collega jouw oplossing, en jij die van een collega. Zo zie je of jouw oplossing zonder jou werkt, en doe je zelf ervaring op met AI op werk dat je niet kent."
   waarom: "Een oplossing die alleen werkt als jij erbij bent, kan niemand anders gebruiken. Pas als een ander hem zonder uitleg gebruikt, weet je wat hij waard is."
   functie_label: "Mijn functie (geen naam)"
   afdeling_label: "Mijn afdeling of team"
   afdeling_standaard: "Mail Commercie"
 
 stappen:
-  voorbereiden:
-    titel: "Bereid je test voor"
-    tijd: 6
-    intro: "Je tester krijgt straks 3 opdrachten op jouw oplossing. Leg nu vast wat er goed uit moet komen. Zo kun je straks echt beoordelen of het werkt."
+  klaarzetten:
+    titel: "Zet je test klaar"
+    tijd: 8
+    intro: "Je tester gebruikt straks jouw oplossing op jouw laptop. Jij schrijft nu de test. In de volgende stap zie je wat je met je tester deelt."
     tests_vraag: "Hoe gingen je tests sinds workshop 2?"
     tests_opties: ["Bruikbaar", "Deels bruikbaar", "Niet bruikbaar", "Niet getest"]
-    opleveren_label: "Wat moet mijn oplossing opleveren, en voor wie? (1 zin, die zeg je straks tegen je tester)"
-    input_label: "Welke input heeft de tester nodig? (zonder klantgegevens)"
-    soort_vraag: "Wat voor oplossing heb je?"
-    soorten:
-      - "Analyse in Excel"
-      - "Incidentenmelder"
-      - "Informatie voor een bila"
-      - "Iets anders"
+    opleveren_label: "Wat levert je oplossing op, en voor wie? (1 zin)"
+    waar_label: "Waar vindt de tester je oplossing? (bijvoorbeeld: de naam van je agent in Copilot, of: de prompt hieronder)"
+    prompt_label: "Je prompt of instructie (alleen als je geen agent hebt)"
+    vinkje_klaar: "Mijn oplossing en de input staan klaar op mijn laptop. Geen klantgegevens."
+    voorbeelden_titel: "🔎 Voorbeelden: wat is 1 ding anders, wat is een randgeval?"
     voorbeelden:
-      "Analyse in Excel":
-        - "1 ding anders: een vraag die je niet bedacht, of een ander bestand."
-        - "Randgeval: een vraag waarvan het antwoord niet in de data staat. Goed antwoord: dat weet ik niet."
-        - "Controleer zelf: reken 1 getal na."
-      "Incidentenmelder":
-        - "1 ding anders: een melding in steekwoorden, vaag of in het Engels."
-        - "Randgeval: iets dat geen incident is, of zonder locatie. Goed antwoord: doorvragen, niet zelf invullen."
-        - "Controleer zelf: vraagt hij door of vult hij zelf in?"
-      "Informatie voor een bila":
-        - "1 ding anders: een andere collega of een andere periode."
-        - "Randgeval: een gevoelig onderwerp. Goed antwoord: dat hoort niet in deze samenvatting."
-        - "Controleer zelf: mist er iets, en hoort alles in een bila? De output gaat over collega's. Mag het is hier de belangrijkste controle."
-      "Iets anders":
-        - "1 ding anders: andere input, een ander format of een andere vraag."
-        - "Randgeval: een vraag waarop het goede antwoord is: dat weet ik niet, of dat mag niet."
-        - "Controleer zelf: kies 1 feit dat je kunt nakijken."
+      - "**Analyse in Excel.** 1 ding anders: een vraag die je niet bedacht, of een ander bestand. Randgeval: een vraag waarvan het antwoord niet in de data staat. Goed antwoord: dat weet ik niet."
+      - "**Incidentenmelder.** 1 ding anders: een melding in steekwoorden, vaag of in het Engels. Randgeval: iets dat geen incident is, of zonder locatie. Goed antwoord: doorvragen, niet zelf invullen."
+      - "**Informatie voor een bila.** 1 ding anders: een andere collega of een andere periode. Randgeval: een gevoelig onderwerp. Goed antwoord: dat hoort er niet in."
+      - "**Iets anders.** 1 ding anders: andere input, een ander format of een andere vraag. Randgeval: een vraag waarop het goede antwoord is: dat weet ik niet, of dat mag niet."
     test_namen:
-      - "Test 1: exact overnemen"
+      - "Test 1: exact zoals jij het gebruikt"
       - "Test 2: 1 ding anders"
       - "Test 3: randgeval (het goede antwoord is: dat weet ik niet, of dat mag niet)"
+    invoer_label: "Wat voert de tester in?"
     moet_label: "Moet erin staan"
     magniet_label: "Mag er niet in staan"
-    vinkje: "Mijn test is voorbereid en mijn input bevat geen klantgegevens"
-    waarom: "Wie vooraf opschrijft wat goed is, ziet straks wat er mis gaat. Zonder lat zegt iedereen: ziet er goed uit."
+    test4: "Test 4 schrijf je niet. Die bedenkt de tester zelf: 1 vraag of input die jij niet bedacht."
+    waarom: "Wie vooraf opschrijft wat goed is, ziet straks wat er misgaat. Zonder lat zegt iedereen: ziet er goed uit."
+
+  delen:
+    titel: "Deel je testopdracht"
+    tijd: 2
+    intro: "Kopieer de testopdracht met het icoon rechtsboven in het grijze vlak. Zet hem in een Word-bestand of kladblok naast Copilot op je laptop. Daar leest je tester hem."
+    kop: "Testopdracht"
+    tester_instructie: "Voer elke test uit zonder hulp van de maker. Beoordeel na elke test: werkte het, deels, of niet? Vergelijk met wat erin moet en wat er niet in mag."
+    test4: "Test 4: bedenk zelf 1 vraag of input die de maker niet bedacht."
+    vinkje: "Mijn testopdracht staat open op mijn laptop"
 
   ronde:
     titel_1: "Testronde 1"
     titel_2: "Testronde 2"
-    tijd: 32
-    intro: "2 rondes van 15 minuten met dezelfde partner. In de ene ronde ben jij maker, in de andere tester. Tijdens de ronde blijft deze app dicht. Vul hem in na jouw ronde."
+    tijd: 20
+    rol_vraag: "Wat ben je in ronde 1?"
+    rollen: ["Maker", "Tester"]
+    rol_2: "In ronde 2 ben je {rol}. Je partner blijft dezelfde."
     regels:
       - "De tester typt, achter de laptop van de maker."
-      - "De maker zwijgt. Handen thuis, mond dicht."
-      - "Gijs roept af: exact, 1 ding anders, randgeval, stop."
-    maker_tab: "Ik was maker"
-    tester_tab: "Ik was tester"
+      - "De maker zwijgt en schrijft mee in deze app."
+      - "Gijs roept af: test 1, test 2, test 3, test 4, stop."
+    maker_intro: "Kijk mee en schrijf direct op wat er gebeurt. Niet helpen, niet uitleggen."
+    tester_intro: "Gebruik de oplossing zoals de testopdracht zegt. Lukt het niet zonder hulp? Dan is dat de uitkomst."
+    test4_naam: "Test 4: bedacht door de tester"
     uitkomst_opties: ["Werkte", "Deels", "Werkte niet"]
+    mis_label: "Wat ging er mis? (mag leeg als het werkte)"
     magniet_vraag: "Stond er iets in dat er niet in mocht?"
     magniet_opties: ["Nee", "Ja"]
     oorzaak_vraag: "Werkte iets niet? Wat was de oorzaak?"
@@ -78,21 +76,35 @@ stappen:
       - "Vorm: een agent, maar je stuurt elke keer bij"
       - "Geen AI-taak: na 2 pogingen nog niet bruikbaar"
       - "Alles werkte"
+    wat_nu:
+      "Input": "Wat nu? Laat AI de input eerst ordenen en markeren wat ontbreekt."
+      "Instructie": "Wat nu? Scherp 1 ding aan in je instructie en test opnieuw."
+      "Vorm": "Wat nu? Terug naar assisteren: laat Copilot eerst meedenken, daarna pas delegeren."
+      "Geen AI-taak": "Wat nu? Stoppen is een goed besluit. Je weet nu waar AI niet helpt."
+      "Alles werkte": "Wat nu? Probeer straks bij het aanpassen een moeilijker randgeval."
     herstel_label: "Wat moest de tester zelf nog doen voordat het bruikbaar was?"
     ding_label: "1 ding dat ik aanpas in mijn oplossing"
-    tester_oplossing_label: "Wat deed de oplossing van je partner? (1 zin)"
+    tester_oplossing_label: "Wat doet de oplossing van je partner? (1 zin)"
+    tester_test4_label: "Wat bedacht je bij test 4, en wat gebeurde er?"
     gebruik_vraag: "Zou je deze oplossing zelf willen gebruiken?"
     gebruik_opties: ["Ja", "Misschien, met een aanpassing", "Nee, past niet bij mijn werk"]
-    tester_leer_label: "Wat nam je mee voor je eigen werk met Copilot?"
-    vinkjes:
-      - "Ik ben maker geweest"
-      - "Ik ben tester geweest"
+    tester_leer_label: "Wat neem je mee voor je eigen werk met Copilot?"
     waarom: "Als tester gebruik je AI op een taak die je niet kent. Dat is nieuwe ervaring. Als maker zie je waar je oplossing nog op jou leunt."
 
+  aanpassen:
+    titel: "Pas 1 ding aan"
+    tijd: 10
+    intro: "Pas het ding aan dat je in je testronde vond. Test daarna zelf opnieuw, met de test die misging."
+    ding_kop: "Jouw 1 ding"
+    gedaan_label: "Wat heb je aangepast?"
+    werkt_vraag: "Werkt het nu?"
+    werkt_opties: ["Ja", "Deels", "Nee", "Niet aan toegekomen"]
+    waarom: "Een aanpassing die je meteen test, is een besluit met grond. Anders blijft het een voornemen."
+
   besluit:
-    titel: "Besluit en volgende stap"
-    tijd: 15
-    intro: "Je hebt je oplossing 2 keer laten testen en 2 oplossingen van anderen gebruikt. Wat doe je nu?"
+    titel: "Besluit en showcase"
+    tijd: 10
+    intro: "Je oplossing is getest door een collega, en jij hebt die van een collega gebruikt. Wat doe je nu?"
     opties:
       - "Borgen: ik gebruik hem vast, alleen voor mezelf"
       - "Delen: ik deel hem met mijn team"
@@ -110,12 +122,12 @@ stappen:
     trigger_intro: "Wanneer gebruik je je oplossing? Maak het concreet."
     als_label: "Als ... (bijvoorbeeld: als ik een melding krijg, of: elke maandag bij de planning)"
     dan_label: "dan ..."
-    overnemen_vraag: "Welke oplossing van een collega ga je zelf gebruiken?"
-    overnemen_opties: ["Die van partner 1", "Die van partner 2", "Geen van beide"]
-    overnemen_label: "Wanneer probeer je hem voor het eerst?"
-    buiten_intro: "Laat je oplossing vóór de showcase zien aan 1 collega buiten de groep. In de showcase vertel je hoe dat ging."
-    buiten_label: "Aan wie? (rol, geen naam)"
-    buiten_wanneer: "Wanneer?"
-    teams: "Mijn oplossing: {oplossing}. Besluit: {besluit}. Ik ga ook de oplossing van een collega gebruiken: {overnemen}"
+    showcase_kop: "Volgende week: de showcase"
+    showcase:
+      - "Je laat je oplossing live zien, 3 minuten."
+      - "Vertel wat het oplevert, wat er misging in de test, wat je aanpaste en wat je besluit."
+      - "Oefen 1 keer. Zet een screenshot van een goede uitkomst klaar, voor als het live niet werkt."
+      - "Extra: laat je oplossing vóór de showcase zien aan 1 collega buiten de groep. Laat hem of haar zelf typen."
+    teams: "Mijn oplossing: {oplossing}. Getest door een collega: {uitkomst}. Besluit: {besluit}."
     afsluiting: "Zet je pdf in de map Workshop 3 in het Teams-kanaal."
-    waarom: "Een oplossing zonder besluit blijft liggen. En een oplossing die je laat zien aan 1 collega, heeft meteen een kans op een tweede gebruiker."
+    waarom: "Een oplossing zonder besluit blijft liggen."
