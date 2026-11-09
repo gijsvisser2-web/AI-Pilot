@@ -48,7 +48,7 @@ stappen:
 
   ontwerp:
     titel: "Ontwerp je werkwijze met Copilot"
-    tijd: 12
+    tijd: 15
     opdracht: "Laat Copilot je interviewen over hoe je deze stap doet. Schrijf de prompt zelf, in een nieuw gesprek in Copilot Chat. Aan het eind wil je een kort overzicht met 5 kopjes: Input, Aanpak, Output, Controle, Wanneer niet gebruiken."
     tip: "Kijk naar de opbouw van je interviewprompt uit de kickoff (in je pdf): wie je bent, wat je wilt, hoe Copilot moet werken, wat je terug wilt."
     hulp1:
@@ -84,7 +84,7 @@ stappen:
 
   instructie:
     titel: "Schrijf je instructie"
-    tijd: 10
+    tijd: 12
     intro: "Gebruik het overzicht van Copilot als spiekbrief. Schrijf in je eigen woorden. Kort mag. De app maakt er 1 instructie van."
     velden:
       doel: "Doel: wat lever je op, en voor wie?"
@@ -119,7 +119,7 @@ stappen:
 
   test:
     titel: "Test met normale input"
-    tijd: 10
+    tijd: 12
     intro: "Denk eerst zelf na: wat moet er in het resultaat staan? Open daarna een nieuw gesprek in Copilot. Plak je instructie. Geef daarna je input van een gewone taak, zonder klantgegevens."
     punten_label: "Schrijf 3 punten op die zeker in het resultaat moeten staan"
     waarom: "In een nieuw gesprek kent Copilot je interview niet. Zo test je of je instructie op zichzelf werkt, zoals straks in je echte werk."
@@ -169,7 +169,7 @@ stappen:
 
   verander:
     titel: "Verander 1 ding"
-    tijd: 8
+    tijd: 10
     intro: "Kies 1 ding dat je aanpast in je instructie. Alleen 1. Maakte een bijsturing in stap 4 het verschil? Zet die zin dan in je instructie. Test daarna opnieuw met hetzelfde lastige voorbeeld."
     velden_noot: "Hieronder staat je tekst uit stap 3. Pas er 1 ding in aan."
     aanpas_label: "Wat pas je aan, en waarom?"
@@ -180,25 +180,9 @@ stappen:
     beter_opties: ["Beter", "Hetzelfde", "Slechter"]
     waarom: "Verander je 1 ding, dan zie je wat het verschil maakt. Verander je alles tegelijk, dan weet je dat niet."
 
-  college:
-    titel: "Collegacheck"
-    tijd: 20
-    intro: "Je werkt in een tweetal in een breakout room. Er zijn 2 rondes van 8 minuten. In elke ronde test de 1 de instructie van de ander."
-    stappen:
-      - "De maker plakt alleen zijn instructie in de chat van de breakout room. Geen uitleg."
-      - "De tester deelt zijn scherm, plakt de instructie in zijn eigen Copilot en bedenkt zelf een voorbeeld, zonder klantgegevens."
-      - "De tester typt. De maker zwijgt en kijkt."
-      - "Na afloop zegt de tester 1 ding: wat was onduidelijk, of wat ging mis?"
-      - "Wissel van rol."
-    waarom: "Kan een collega je instructie zonder uitleg gebruiken? Dan kun je hem delen met je team."
-    collega_label: "Wat zag je collega dat jij niet zag?"
-    nog_label: "Wat pas je nog aan? (mag leeg blijven)"
-    teams: "Mijn werkwijze: {doel}. Wat mijn collega opviel: {collega}"
-    vinkje: "We hebben allebei elkaars instructie getest"
-
   bewaar:
     titel: "Bewaar en plan"
-    tijd: 7
+    tijd: 8
     intro: "Je hebt een eerste vaste werkwijze. Nu moet hij zich bewijzen in je echte werk."
     veilig_intro: "Check dit voordat je je werkwijze bewaart of deelt."
     veilig:
@@ -226,6 +210,7 @@ stappen:
       - "Test hem in het testvenster, met een verzonnen voorbeeld."
       - "Delen? Doe eerst de veiligheidscheck hierboven. Twijfel? Vraag het AI CoE."
     agent_noot: "De knoppen kunnen er iets anders uitzien. Loop je vast? Vraag het je buddy of Gijs."
-    na_tests: "Na je 3 tests (komt in workshop 3 terug): als dit werkt, wat verandert er dan in je werk? Niet in uren, in je eigen woorden."
+    na_tests: "Na je 3 tests (komt terug in sessie 3, waar je in tweetallen elkaars werkwijze test): als dit werkt, wat verandert er dan in je werk? Niet in uren, in je eigen woorden."
+    teams: "Mijn werkwijze: {doel}. Versie 0.2 vergeleken met 0.1: {beter}. Dit blijft mensenwerk: {mensenwerk}"
     afsluiting: "Zet je pdf in de map Werkwijzen in het Teams-kanaal. Wacht daarna op Gijs voor de afsluiting."
     waarom: "Een goed voornemen vergeet je op een drukke dag. Een vast moment in je werk (als dit, dan dat) en een instructie binnen handbereik maken het makkelijk om het echt te doen."

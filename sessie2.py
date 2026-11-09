@@ -24,8 +24,7 @@ STAPPEN = [
     "4. Test",
     "5. Breek je werkwijze",
     "6. Verander 1 ding",
-    "7. Collegacheck",
-    "8. Bewaar en plan",
+    "7. Bewaar en plan",
 ]
 LAATSTE = len(STAPPEN) - 1
 SLOT_VANAF = 4  # vanaf deze stap is codewoord 2 nodig
@@ -212,11 +211,7 @@ def maak_pdf():
     tekst("Wat ik aanpaste en waarom: " + ss.get("aanpas", ""))
     tekst("Versie 0.2 was: " + (ss.get("beter") or "-"))
     tekst(instructie(2), mono=True)
-    kop("7. Collegacheck")
-    tekst("Wat mijn collega zag: " + ss.get("collega", ""))
-    if ss.get("nog", "").strip():
-        tekst("Wat ik nog aanpas: " + ss.get("nog", ""))
-    kop("8. Mijn plan")
+    kop("7. Mijn plan")
     tekst(f"Als {ss.get('als', '')}, dan {ss.get('dan', '')}.")
     tekst("Hier bewaar ik mijn instructie: " + ss.get("bewaarplek", ""))
     for i in (1, 2, 3):
@@ -452,26 +447,6 @@ elif ss.stap == 6:
     navigatie(bool(aanpas) and klaar and bool(beter), "Schrijf op wat je aanpast, test versie 0.2 en kies of hij beter was.")
 
 elif ss.stap == 7:
-    s = S["college"]
-    st.title(s["titel"])
-    tijd(s["tijd"])
-    st.write(s["intro"])
-    with st.container(border=True):
-        st.markdown("**Zo werkt het**")
-        for i, t in enumerate(s["stappen"], 1):
-            st.markdown(f"{i}. {t}")
-    prompt(instructie(2), "Jouw instructie om in de chat te plakken")
-    waarom(s)
-    collega = bewaar_tekst(s["collega_label"], "collega", area=True, height=80)
-    bewaar_tekst(s["nog_label"], "nog")
-    if collega:
-        st.markdown("**Deel in Teams**")
-        st.caption("Plak deze zin in de draad in het Teams-kanaal. Geen klantgegevens.")
-        st.code(vul_in(s["teams"], doel=ss.get("doel2", ""), collega=collega), language=None, wrap_lines=True)
-    klaar = bewaar_vinkje(s["vinkje"], "v7")
-    navigatie(bool(collega) and klaar, "Vul in wat je collega zag en zet het vinkje.")
-
-elif ss.stap == 8:
     s = S["bewaar"]
     st.title(s["titel"])
     tijd(s["tijd"])
@@ -498,6 +473,9 @@ elif ss.stap == 8:
         st.caption(s["agent_noot"])
     st.info(s["na_tests"])
     if all(veilig) and als and dan and plek:
+        st.markdown("**Deel in Teams**")
+        st.caption("Plak deze zin in de draad in het Teams-kanaal. Geen klantgegevens.")
+        st.code(vul_in(s["teams"], doel=ss.get("doel2", ""), beter=(ss.get("beter") or "").lower(), mensenwerk=ss.get("mensenwerk", "")), language=None, wrap_lines=True)
         st.download_button(
             "⬇ Download alles als pdf",
             data=maak_pdf(),
