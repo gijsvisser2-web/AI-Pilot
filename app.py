@@ -160,8 +160,11 @@ def maak_pdf():
     if ss.get("idee", "").strip():
         tekst("Idee voor later: " + ss.get("idee", ""))
     kop("6. Mijn eerste resultaat")
+    tekst("Dit moest er zeker in staan: " + ss.get("punten", ""))
     tekst("Score: " + (ss.get("score") or "-"))
     tekst("Wat ik zelf nog moest doen: " + ss.get("herstel", ""))
+    if ss.get("bijsturing", "").strip():
+        tekst("Deze bijsturing maakte het verschil: " + ss.get("bijsturing", ""))
     kop("7. Mijn plan")
     for i in (1, 2, 3):
         tekst(f"Test {i}: " + ss.get(f"test{i}", ""))
@@ -178,7 +181,7 @@ def gebruikte_prompts():
     return [
         ("Interview", vul_in(S["interview"]["prompt"], resultaat=ss.get("resultaat", ""))),
         ("Wie doet wat", S["wiedoetwat"]["prompt"]),
-        ("Eerste resultaat", vul_in(S["eerste"]["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", ""))),
+        ("Eerste resultaat", vul_in(S["eerste"]["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", ""), punten=ss.get("punten", ""))),
     ]
 
 
@@ -345,11 +348,16 @@ elif ss.stap == 6:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    prompt(vul_in(s["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", "")))
+    punten = bewaar_tekst(s["punten_label"], "punten", area=True, height=90)
+    st.caption(s["punten_hulp"])
+    prompt(vul_in(s["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", ""), punten=punten))
     waarom(s)
     st.warning(s["bronnen_tip"])
-    with st.expander(s["hulp"][0]["label"]):
-        prompt(s["hulp"][0]["prompt"])
+    with st.expander(s["bijsturen_titel"]):
+        st.caption(s["bijsturen_tip"])
+        for h in s["bijsturen"]:
+            prompt(h["prompt"], h["label"])
+    bewaar_tekst(s["bijsturing_label"], "bijsturing")
     st.subheader("Controleer de uitkomst")
     vinkjes_intro(s)
     for i, t in enumerate(s["controle"]):
@@ -365,7 +373,7 @@ elif ss.stap == 6:
     herstel = bewaar_tekst(s["herstel_label"], "herstel", area=True, height=90)
     if keuze and herstel:
         deel_in_teams(vul_in(s["teams"], stap=ss.get("stap_keuze", ""), score=keuze.lower(), herstel=herstel))
-    navigatie(bool(keuze) and bool(herstel), "Kies een score en vul in wat je zelf nog moest doen.")
+    navigatie(bool(punten) and bool(keuze) and bool(herstel), "Vul je 3 punten in, kies een score en vul in wat je zelf nog moest doen.")
 
 elif ss.stap == 7:
     s = S["plan"]
