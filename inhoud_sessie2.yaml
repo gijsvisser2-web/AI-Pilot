@@ -1,0 +1,229 @@
+# Inhoud van sessie 2: Bouw je werkwijze. Pas teksten, prompts en codewoorden hier aan.
+# In prompts vult de app {functie}, {stap}, {oplevert}, {tests}, {herstel} en {instructie} in.
+
+titel: "Bouw je werkwijze"
+pilot: "AI-pilot Customer Care"
+sessie: "Sessie 2"
+
+codewoorden:
+  start: "WERKWIJZE"
+  verder: "VERSIE"
+
+zijbalk_waarschuwingen:
+  - "Ververs deze pagina niet. Dan ben je je invoer kwijt."
+  - "Geen klantgegevens invullen."
+
+start:
+  tekst: "Vorige keer koos je 1 stap en testte je die. Vandaag maak je daar een vaste werkwijze van: een instructie die je zelf schrijft, test en verbetert. Houd je pdf van de kickoff bij de hand."
+  zo_werk_je: "Zet deze app links op je scherm en Copilot Chat rechts. Kopieer prompts met het icoon rechtsboven in het grijze vak."
+  waarom: "Een prompt die je 1 keer gebruikt, geeft elke keer iets anders. Een vaste werkwijze geeft elke keer bruikbare output."
+  functie_label: "Mijn functie (bijvoorbeeld: medewerker klantenservice, specialist schade, teamleider)"
+  functie_hulp: "De app zet je functie in de prompts. Geen naam invullen."
+
+stappen:
+  tests:
+    titel: "Terug naar je tests"
+    tijd: 8
+    intro: "Pak je pdf van de kickoff erbij. Kijk hoe je tests gingen en kies hoe je verdergaat."
+    waarom: "Je tests laten zien wat Copilot nog mist. Daar begint je werkwijze."
+    stap_label: "Mijn stap (staat in je pdf bij 5)"
+    oplevert_label: "Dit moet de stap opleveren (staat in je pdf bij 5)"
+    scores: ["Bruikbaar", "Deels bruikbaar", "Niet bruikbaar", "Niet gedaan"]
+    opbrengst: ["Sneller", "Beter", "Consistenter", "Makkelijker", "Geen voordeel"]
+    niet_getest: "Niet getest? Geen probleem, dat geldt voor veel mensen. Je gebruikt vandaag je eerste resultaat uit de kickoff. Vandaag test je alsnog, in stap 4."
+    waarom_niet: ["Geen tijd", "Vergeten", "Wist niet hoe", "Geen geschikte taak voorbijgekomen", "Anders"]
+    kickoff_label: "Je eerste resultaat uit de kickoff: score en wat je zelf nog moest doen (staat in je pdf bij 6)"
+    verder_opties:
+      - "Doorgaan: mijn stap werkt, ik maak er een vaste werkwijze van"
+      - "Aanpassen: mijn stap werkt deels, ik maak hem kleiner of anders"
+      - "Andere stap: deze stap past niet, ik kies een andere uit mijn tabel"
+    aanpassen_tekst: "Laat Copilot je helpen de stap kleiner of anders te maken. Pas daarna het veld Mijn stap hierboven aan."
+    aanpassen_prompt: "Ik werk als {functie} bij Customer Care van PostNL. Ik wil AI gebruiken bij deze stap: {stap}. Het werkte deels. Dit moest ik zelf nog doen: {herstel}. Help me de stap kleiner of anders te maken. Stel me eerst maximaal 3 vragen, 1 tegelijk. Geef daarna 2 opties: een kleinere versie van de stap en een andere aanpak. Kies niet voor mij. Noem geen klantgegevens."
+    andere_tekst: "Pak je tabel uit de pdf (bij 2 en 3). Laat Copilot meedenken over een betere stap. Pas daarna het veld Mijn stap hierboven aan."
+    andere_prompt: "Ik werk als {functie} bij Customer Care van PostNL. Dit zijn de stappen van een taak die ik regelmatig doe: [plak je tabel uit de pdf]. Ik koos eerst deze stap: {stap}. Die past niet, omdat: [waarom]. Welke 2 stappen passen beter om met AI te proberen? Leg per stap in 1 zin uit waarom. Kies niet voor mij. Noem geen klantgegevens."
+    vinkjes_intro: "Klaar? Zet het vinkje en ga verder."
+    vinkje: "Ik heb mijn stap ingevuld en gekozen hoe ik verderga"
+
+  ontwerp:
+    titel: "Ontwerp je werkwijze met Copilot"
+    tijd: 12
+    opdracht: "Laat Copilot je interviewen over hoe je deze stap doet. Schrijf de prompt zelf, in een nieuw gesprek in Copilot Chat. Aan het eind wil je een kort overzicht met 5 kopjes: Input, Aanpak, Output, Controle, Wanneer niet gebruiken."
+    tip: "Kijk naar de opbouw van je interviewprompt uit de kickoff (in je pdf): wie je bent, wat je wilt, hoe Copilot moet werken, wat je terug wilt."
+    hulp1:
+      - "Wat moet Copilot van jou weten? Denk aan je functie, je stap en hoe je tests gingen."
+      - "Hoe wil je dat Copilot vragen stelt? Alles tegelijk, of 1 voor 1?"
+      - "Wat wil je aan het eind terug?"
+    hulp2:
+      - ["Wie ben je", "Ik werk als {functie} bij Customer Care van PostNL."]
+      - ["Wat wil je", "Ik wil van deze stap een vaste werkwijze maken: {stap}. Dit moet het opleveren: {oplevert}."]
+      - ["Wat weet je al", "Zo gingen mijn tests: {tests}."]
+      - ["Hoe moet Copilot werken", "Interview me. Stel 1 vraag tegelijk. Geef bij elke vraag een voorbeeld van een antwoord. Noem geen klantgegevens."]
+      - ["Wat wil je terug", "Geef na maximaal 6 vragen alleen een overzicht met 5 kopjes: Input, Aanpak, Output, Controle, Wanneer niet gebruiken."]
+    prompt: |-
+      Ik werk als {functie} bij Customer Care van PostNL. Ik wil van deze stap een vaste werkwijze maken: {stap}. Dit moet het opleveren: {oplevert}. Zo gingen mijn tests: {tests}.
+
+      Interview me om de werkwijze te ontwerpen. Stel 1 vraag tegelijk en zet erbij welke vraag het is, bijvoorbeeld "Vraag 2 van maximaal 6". Geef bij elke vraag een kort voorbeeld van een antwoord. Bouw voort op mijn antwoorden. Past een vraag niet, sla hem dan over.
+
+      Onderwerpen: welke input ik elke keer heb, wat de output precies moet zijn en voor wie, wat er in mijn tests misging, wat ik altijd zelf controleer, en wanneer ik de uitkomst niet gebruik.
+
+      Noem geen klantgegevens. Vraag niet naar tijd.
+
+      Geef na maximaal 6 vragen alleen een overzicht met 5 kopjes: Input, Aanpak, Output, Controle, Wanneer niet gebruiken. Maximaal 3 regels per kopje. Schrijf nog geen prompt.
+    hulp_opties: ["Geen", "Hulp 1", "Hulp 2", "Hulp 3"]
+    waarschuwing: "Vraagt Copilot naar een klant? Antwoord in algemene woorden: \"een klant met een vraag over een pakket\"."
+    waarom: "Straks is er geen app. Wie zelf een prompt kan opbouwen, kan Copilot ook maandag aan het werk zetten. De hulp is er voor als je vastloopt, niet als startpunt."
+    vastlopen:
+      - label: "Ik snap de vraag niet"
+        prompt: "Ik snap je vraag niet. Leg in 1 zin uit waarom je dit vraagt en geef een voorbeeld van een antwoord."
+      - label: "Het overzicht is te lang"
+        prompt: "Maak het overzicht korter. Maximaal 2 regels per kopje. Geef alleen het overzicht."
+    vinkje_intro: "Staat het overzicht met 5 kopjes in Copilot? Zet dan het vinkje. In de volgende stap schrijf je je instructie."
+    vinkje: "Copilot heeft het overzicht met 5 kopjes gegeven"
+
+  instructie:
+    titel: "Schrijf je instructie"
+    tijd: 10
+    intro: "Gebruik het overzicht van Copilot als spiekbrief. Schrijf in je eigen woorden. Kort mag. De app maakt er 1 instructie van."
+    velden:
+      doel: "Doel: wat lever je op, en voor wie?"
+      input: "Input: wat geef je Copilot elke keer?"
+      aanpak: "Aanpak: wat moet Copilot doen, in welke volgorde?"
+      output: "Output: hoe moet het eruitzien? Denk aan lengte, opbouw en toon."
+    controle_label: "Mijn controle: wat controleer jij altijd zelf? (komt in je pdf, niet in de instructie)"
+    niet_label: "Wanneer gebruik ik de uitkomst niet? (komt in je pdf, niet in de instructie)"
+    mensenwerk_label: "Dit blijft mensenwerk: welk besluit neem ik altijd zelf?"
+    tip: "Neem niets over wat je zelf niet zou zeggen. Snap je een regel uit het overzicht niet? Laat hem weg."
+    sjabloon: "Ik werk als {functie} bij Customer Care van PostNL. Doel: {doel}. Ik geef je: {input}. Doe dit: {aanpak}. Lever dit op: {output}. Ontbreekt er informatie? Stel dan eerst maximaal 2 vragen, 1 tegelijk. Noem geen klantgegevens. Benoem aan het eind je aannames, ontbrekende informatie en wat ik zelf moet controleren."
+    kleur_vraag: "Mag het? Kies 1 kleur voor de input die je gaat gebruiken"
+    kleuren:
+      - "Groen: alleen data binnen Copilot, geen klant- of persoonsgegevens"
+      - "Oranje: ik twijfel"
+      - "Rood: klantdata of gevoelige data van buiten Copilot"
+    groen: "Ga door."
+    oranje: "Zoek het uit met Copilot of vraag het AI CoE. Test vandaag met een verzonnen voorbeeld."
+    rood: "Niet gebruiken. Laat Copilot een verzonnen voorbeeld maken, of kies andere input of een andere stap."
+    uitzoeken_prompt: "Ik wil deze soort input gebruiken voor een taak: [beschrijf de input, plak geen echte gegevens]. Zitten hier klant- of persoonsgegevens in? Leg in 3 zinnen uit waarom wel of niet. Wat kan ik weglaten of algemeen maken?"
+    uitzoeken_noot: "Twijfel je daarna nog? Vraag het AI CoE. Copilot helpt je nadenken, maar beslist niet wat mag."
+    verzonnen_prompt: "Maak 1 verzonnen voorbeeld van [soort input, bijvoorbeeld: een klantmail over een beschadigd pakket] voor mijn werk als {functie} bij Customer Care. Gebruik geen echte namen, adressen, telefoonnummers of zendingnummers. Maak het realistisch, maar duidelijk verzonnen."
+    rood_vinkje: "Ik gebruik een verzonnen voorbeeld of andere input"
+    vinkje_intro: "Lees je instructie nog 1 keer. Klopt hij? Zet dan het vinkje."
+    vinkje: "Een collega snapt deze instructie zonder uitleg van mij"
+    waarom: "Een instructie die je zelf schrijft, kun je ook zelf verbeteren en uitleggen aan een collega."
+
+  wacht:
+    titel: "Pauze"
+    tekst: "Na de pauze geeft Gijs het codewoord voor de volgende stap."
+    tip: "Wil je niet wachten? Plak je instructie alvast in een nieuw gesprek in Copilot en kijk wat er gebeurt."
+
+  test:
+    titel: "Test met normale input"
+    tijd: 10
+    intro: "Denk eerst zelf na: wat moet er in het resultaat staan? Open daarna een nieuw gesprek in Copilot. Plak je instructie. Geef daarna je input van een gewone taak, zonder klantgegevens."
+    punten_label: "Schrijf 3 punten op die zeker in het resultaat moeten staan"
+    waarom: "In een nieuw gesprek kent Copilot je interview niet. Zo test je of je instructie op zichzelf werkt, zoals straks in je echte werk."
+    waarschuwing: "Geen echte klantmail plakken. Maak het algemeen of verzin een voorbeeld dat erop lijkt."
+    bijsturen_tekst: "Niet goed genoeg? Typ eerst zelf in 1 zin wat er beter moet. Verander steeds 1 ding en vergelijk met het vorige antwoord."
+    bijsturen_titel: "Hulp: zinnen om bij te sturen"
+    bijsturen:
+      - label: "Te algemeen"
+        prompt: "Maak het specifieker voor [situatie]."
+      - label: "Verkeerde toon"
+        prompt: "Dit is voor [ontvanger]. Pas de toon aan."
+      - label: "Twijfel of het klopt"
+        prompt: "Welke aannames maak je in dit antwoord?"
+      - label: "Je wilt opties"
+        prompt: "Geef 2 andere versies."
+      - label: "Rommelig"
+        prompt: "Orden het met koppen."
+      - label: "Te lang"
+        prompt: "Geef alleen het resultaat, zonder advies en uitleg."
+    bijsturing_label: "Welke bijsturing maakte het verschil? (leeg laten als je niet bijstuurde)"
+    hulp_opties: ["Geen", "Bijstuurzinnen"]
+    vinkjes_intro: "Controleer de uitkomst. Vink aan wat klopt."
+    controle:
+      - "Mijn 3 punten staan erin"
+      - "Klopt het? Feiten en bronnen nagekeken"
+      - "Past het? Bij de ontvanger, de toon, PostNL"
+      - "Helpt het? Sneller, beter, consistenter of makkelijker"
+      - "Mag het? Input en output veilig"
+    scores: ["Bruikbaar", "Deels bruikbaar", "Niet bruikbaar"]
+    herstel_label: "Wat moest je zelf nog doen voordat het bruikbaar was?"
+
+  breek:
+    titel: "Breek je werkwijze"
+    tijd: 12
+    intro: "Je werkwijze moet ook werken op een drukke dag met lastige input. Bedenk eerst zelf 1 lastig geval uit je werk. Lukt dat niet, laat Copilot dan helpen."
+    geval_label: "Mijn lastige geval (verzonnen, zonder klantgegevens)"
+    hulp_titel: "Hulp: laat Copilot 3 lastige gevallen bedenken"
+    prompt: |-
+      Dit is mijn instructie: {instructie}
+
+      Ik werk als {functie} bij Customer Care van PostNL. Bedenk 3 lastige voorbeelden van input voor deze instructie: 1 die onvolledig is, 1 die afwijkt van normaal, en 1 van een boze of verwarde klant. Maak ze kort en verzonnen, zonder echte klantgegevens. Geef alleen de 3 voorbeelden.
+    daarna: "Open een nieuw gesprek. Plak je instructie en 1 lastig voorbeeld."
+    waarom: "Bij makkelijke input werkt bijna elke instructie. Bij lastige input zie je waar hij nog stukgaat."
+    mis_label: "Wat ging er mis? (Ging alles goed? Schrijf dat op.)"
+    hulp_opties: ["Geen", "Copilot bedacht de gevallen"]
+    scores: ["Bruikbaar", "Deels bruikbaar", "Niet bruikbaar"]
+
+  verander:
+    titel: "Verander 1 ding"
+    tijd: 8
+    intro: "Kies 1 ding dat je aanpast in je instructie. Alleen 1. Maakte een bijsturing in stap 4 het verschil? Zet die zin dan in je instructie. Test daarna opnieuw met hetzelfde lastige voorbeeld."
+    velden_noot: "Hieronder staat je tekst uit stap 3. Pas er 1 ding in aan."
+    aanpas_label: "Wat pas je aan, en waarom?"
+    hulp_titel: "Weet je niet wat je moet aanpassen?"
+    hulp_prompt: "Mijn instructie ging mis bij deze input: [wat er gebeurde]. Stel 1 aanpassing voor in mijn instructie. Verander verder niets. Geef alleen de aangepaste zin."
+    vinkje_intro: "Heb je versie 0.2 getest? Zet dan het vinkje."
+    vinkje: "Ik heb versie 0.2 getest met hetzelfde lastige voorbeeld"
+    beter_opties: ["Beter", "Hetzelfde", "Slechter"]
+    waarom: "Verander je 1 ding, dan zie je wat het verschil maakt. Verander je alles tegelijk, dan weet je dat niet."
+
+  college:
+    titel: "Collegacheck"
+    tijd: 20
+    intro: "Je werkt in een tweetal in een breakout room. Er zijn 2 rondes van 8 minuten. In elke ronde test de 1 de instructie van de ander."
+    stappen:
+      - "De maker plakt alleen zijn instructie in de chat van de breakout room. Geen uitleg."
+      - "De tester deelt zijn scherm, plakt de instructie in zijn eigen Copilot en bedenkt zelf een voorbeeld, zonder klantgegevens."
+      - "De tester typt. De maker zwijgt en kijkt."
+      - "Na afloop zegt de tester 1 ding: wat was onduidelijk, of wat ging mis?"
+      - "Wissel van rol."
+    waarom: "Kan een collega je instructie zonder uitleg gebruiken? Dan kun je hem delen met je team."
+    collega_label: "Wat zag je collega dat jij niet zag?"
+    nog_label: "Wat pas je nog aan? (mag leeg blijven)"
+    teams: "Mijn werkwijze: {doel}. Wat mijn collega opviel: {collega}"
+    vinkje: "We hebben allebei elkaars instructie getest"
+
+  bewaar:
+    titel: "Bewaar en plan"
+    tijd: 7
+    intro: "Je hebt een eerste vaste werkwijze. Nu moet hij zich bewijzen in je echte werk."
+    veilig_intro: "Check dit voordat je je werkwijze bewaart of deelt."
+    veilig:
+      - "Welke data gaat erin? Alleen data binnen Copilot, geen klant- of persoonsgegevens"
+      - "Wie krijgt toegang als ik dit deel? Dat weet ik"
+      - "Gaat er output naar buiten zonder dat ik kijk? Nee"
+    twijfel: "Twijfel? Niet delen. Vraag het eerst aan het AI CoE."
+    plan_intro: "Wanneer gebruik je je werkwijze in je echte werk? Maak het concreet."
+    als_label: "Als ... (een moment in je werk, bijvoorbeeld: als er een schadeclaim binnenkomt)"
+    dan_label: "dan ... (wat je doet, bijvoorbeeld: open ik Copilot en plak ik mijn instructie)"
+    tests:
+      - "Test 1: een normale taak (dag en tijd)"
+      - "Test 2: een nieuwe echte taak (dag en tijd)"
+      - "Test 3: lastige of afwijkende input (dag en tijd)"
+    bewaar_tekst: "Bewaar je instructie waar je werkt, niet alleen in de pdf. Zet hem op een plek die je openhebt als het moment komt, bijvoorbeeld een notitie naast je mailbox. De pdf is je bewijs, niet je gereedschap."
+    bewaar_label: "Hier bewaar ik mijn instructie"
+    agent_titel: "Later een agent maken?"
+    agent_intro: "Doe dit pas na 3 goede tests op echt werk. Je instructie is de basis."
+    agent_stappen:
+      - "Open Copilot Chat. Kies Agents en daarna Nieuwe agent."
+      - "Ga naar het tabblad Configureren."
+      - "Geef de agent een naam en een korte beschrijving."
+      - "Plak je instructie in het veld Instructies."
+      - "Voeg 1 of 2 voorbeeldprompts toe."
+      - "Test hem in het testvenster, met een verzonnen voorbeeld."
+      - "Delen? Doe eerst de veiligheidscheck hierboven. Twijfel? Vraag het AI CoE."
+    agent_noot: "De knoppen kunnen er iets anders uitzien. Loop je vast? Vraag het je buddy of Gijs."
+    na_tests: "Na je 3 tests (komt in workshop 3 terug): als dit werkt, wat verandert er dan in je werk? Niet in uren, in je eigen woorden."
+    afsluiting: "Zet je pdf in de map Werkwijzen in het Teams-kanaal. Wacht daarna op Gijs voor de afsluiting."
+    waarom: "Een goed voornemen vergeet je op een drukke dag. Een vast moment in je werk (als dit, dan dat) en een instructie binnen handbereik maken het makkelijk om het echt te doen."
