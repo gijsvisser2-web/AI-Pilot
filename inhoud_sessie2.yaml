@@ -18,7 +18,9 @@ start:
   zo_werk_je: "Zet deze app links op je scherm en Copilot Chat rechts. Kopieer prompts met het icoon rechtsboven in het grijze vak."
   waarom: "Een prompt die je 1 keer gebruikt, geeft elke keer iets anders. Een vaste werkwijze geeft elke keer bruikbare output."
   functie_label: "Mijn functie (bijvoorbeeld: medewerker klantenservice, specialist schade, teamleider)"
-  functie_hulp: "De app zet je functie in de prompts. Geen naam invullen."
+  functie_hulp: "De app zet je functie en afdeling in de prompts. Geen naam invullen."
+  afdeling_label: "Mijn afdeling of team (bijvoorbeeld: Customer Care, Finance, HR)"
+  afdeling_standaard: "Customer Care"
 
 stappen:
   tests:
@@ -38,9 +40,9 @@ stappen:
       - "Aanpassen: mijn stap werkt deels, ik maak hem kleiner of anders"
       - "Andere stap: deze stap past niet, ik kies een andere uit mijn tabel"
     aanpassen_tekst: "Laat Copilot je helpen de stap kleiner of anders te maken. Pas daarna het veld Mijn stap hierboven aan."
-    aanpassen_prompt: "Ik werk als {functie} bij Customer Care van PostNL. Ik wil AI gebruiken bij deze stap: {stap}. Het werkte deels. Dit moest ik zelf nog doen: {herstel}. Help me de stap kleiner of anders te maken. Stel me eerst maximaal 3 vragen, 1 tegelijk. Geef daarna 2 opties: een kleinere versie van de stap en een andere aanpak. Kies niet voor mij. Noem geen klantgegevens."
+    aanpassen_prompt: "Ik werk als {functie} bij {afdeling} van PostNL. Ik wil AI gebruiken bij deze stap: {stap}. Het werkte deels. Dit moest ik zelf nog doen: {herstel}. Help me de stap kleiner of anders te maken. Stel me eerst maximaal 3 vragen, 1 tegelijk. Geef daarna 2 opties: een kleinere versie van de stap en een andere aanpak. Kies niet voor mij. Noem geen klantgegevens."
     andere_tekst: "Pak je tabel uit de pdf (bij 2 en 3). Laat Copilot meedenken over een betere stap. Pas daarna het veld Mijn stap hierboven aan."
-    andere_prompt: "Ik werk als {functie} bij Customer Care van PostNL. Dit zijn de stappen van een taak die ik regelmatig doe: [plak je tabel uit de pdf]. Ik koos eerst deze stap: {stap}. Die past niet, omdat: [waarom]. Welke 2 stappen passen beter om met AI te proberen? Leg per stap in 1 zin uit waarom. Kies niet voor mij. Noem geen klantgegevens."
+    andere_prompt: "Ik werk als {functie} bij {afdeling} van PostNL. Dit zijn de stappen van een taak die ik regelmatig doe: [plak je tabel uit de pdf]. Ik koos eerst deze stap: {stap}. Die past niet, omdat: [waarom]. Welke 2 stappen passen beter om met AI te proberen? Leg per stap in 1 zin uit waarom. Kies niet voor mij. Noem geen klantgegevens."
     vinkjes_intro: "Klaar? Zet het vinkje en ga verder."
     vinkje: "Ik heb mijn stap ingevuld en gekozen hoe ik verderga"
 
@@ -54,13 +56,13 @@ stappen:
       - "Hoe wil je dat Copilot vragen stelt? Alles tegelijk, of 1 voor 1?"
       - "Wat wil je aan het eind terug?"
     hulp2:
-      - ["Wie ben je", "Ik werk als {functie} bij Customer Care van PostNL."]
+      - ["Wie ben je", "Ik werk als {functie} bij {afdeling} van PostNL."]
       - ["Wat wil je", "Ik wil van deze stap een vaste werkwijze maken: {stap}. Dit moet het opleveren: {oplevert}."]
       - ["Wat weet je al", "Zo gingen mijn tests: {tests}."]
       - ["Hoe moet Copilot werken", "Interview me. Stel 1 vraag tegelijk. Geef bij elke vraag een voorbeeld van een antwoord. Noem geen klantgegevens."]
       - ["Wat wil je terug", "Geef na maximaal 6 vragen alleen een overzicht met 5 kopjes: Input, Aanpak, Output, Controle, Wanneer niet gebruiken."]
     prompt: |-
-      Ik werk als {functie} bij Customer Care van PostNL. Ik wil van deze stap een vaste werkwijze maken: {stap}. Dit moet het opleveren: {oplevert}. Zo gingen mijn tests: {tests}.
+      Ik werk als {functie} bij {afdeling} van PostNL. Ik wil van deze stap een vaste werkwijze maken: {stap}. Dit moet het opleveren: {oplevert}. Zo gingen mijn tests: {tests}.
 
       Interview me om de werkwijze te ontwerpen. Stel 1 vraag tegelijk en zet erbij welke vraag het is, bijvoorbeeld "Vraag 2 van maximaal 6". Geef bij elke vraag een kort voorbeeld van een antwoord. Bouw voort op mijn antwoorden. Past een vraag niet, sla hem dan over.
 
@@ -93,7 +95,7 @@ stappen:
     niet_label: "Wanneer gebruik ik de uitkomst niet? (komt in je pdf, niet in de instructie)"
     mensenwerk_label: "Dit blijft mensenwerk: welk besluit neem ik altijd zelf?"
     tip: "Neem niets over wat je zelf niet zou zeggen. Snap je een regel uit het overzicht niet? Laat hem weg."
-    sjabloon: "Ik werk als {functie} bij Customer Care van PostNL. Doel: {doel}. Ik geef je: {input}. Doe dit: {aanpak}. Lever dit op: {output}. Ontbreekt er informatie? Stel dan eerst maximaal 2 vragen, 1 tegelijk. Noem geen klantgegevens. Benoem aan het eind je aannames, ontbrekende informatie en wat ik zelf moet controleren."
+    sjabloon: "Ik werk als {functie} bij {afdeling} van PostNL. Doel: {doel}. Ik geef je: {input}. Doe dit: {aanpak}. Lever dit op: {output}. Ontbreekt er informatie? Stel dan eerst maximaal 2 vragen, 1 tegelijk. Noem geen klantgegevens. Benoem aan het eind je aannames, ontbrekende informatie en wat ik zelf moet controleren."
     kleur_vraag: "Mag het? Kies 1 kleur voor de input die je gaat gebruiken"
     kleuren:
       - "Groen: alleen data binnen Copilot, geen klant- of persoonsgegevens"
@@ -104,7 +106,7 @@ stappen:
     rood: "Niet gebruiken. Laat Copilot een verzonnen voorbeeld maken, of kies andere input of een andere stap."
     uitzoeken_prompt: "Ik wil deze soort input gebruiken voor een taak: [beschrijf de input, plak geen echte gegevens]. Zitten hier klant- of persoonsgegevens in? Leg in 3 zinnen uit waarom wel of niet. Wat kan ik weglaten of algemeen maken?"
     uitzoeken_noot: "Twijfel je daarna nog? Vraag het AI CoE. Copilot helpt je nadenken, maar beslist niet wat mag."
-    verzonnen_prompt: "Maak 1 verzonnen voorbeeld van [soort input, bijvoorbeeld: een klantmail over een beschadigd pakket] voor mijn werk als {functie} bij Customer Care. Gebruik geen echte namen, adressen, telefoonnummers of zendingnummers. Maak het realistisch, maar duidelijk verzonnen."
+    verzonnen_prompt: "Maak 1 verzonnen voorbeeld van [soort input, bijvoorbeeld: een klantmail over een beschadigd pakket] voor mijn werk als {functie} bij {afdeling}. Gebruik geen echte namen, adressen, telefoonnummers of zendingnummers. Maak het realistisch, maar duidelijk verzonnen."
     rood_vinkje: "Ik gebruik een verzonnen voorbeeld of andere input"
     vinkje_intro: "Lees je instructie nog 1 keer. Klopt hij? Zet dan het vinkje."
     vinkje: "Een collega snapt deze instructie zonder uitleg van mij"
@@ -158,7 +160,7 @@ stappen:
     prompt: |-
       Dit is mijn instructie: {instructie}
 
-      Ik werk als {functie} bij Customer Care van PostNL. Bedenk 3 lastige voorbeelden van input voor deze instructie: 1 die onvolledig is, 1 die afwijkt van normaal, en 1 van een boze of verwarde klant. Maak ze kort en verzonnen, zonder echte klantgegevens. Geef alleen de 3 voorbeelden.
+      Ik werk als {functie} bij {afdeling} van PostNL. Bedenk 3 lastige voorbeelden van input voor deze instructie: 1 die onvolledig is, 1 die afwijkt van normaal, en 1 van een boze of verwarde klant. Maak ze kort en verzonnen, zonder echte klantgegevens. Geef alleen de 3 voorbeelden.
     daarna: "Open een nieuw gesprek. Plak je instructie en 1 lastig voorbeeld."
     waarom: "Bij makkelijke input werkt bijna elke instructie. Bij lastige input zie je waar hij nog stukgaat."
     mis_label: "Wat ging er mis? (Ging alles goed? Schrijf dat op.)"

@@ -60,6 +60,8 @@ def bewaar_keuze(label, opties, k, horizontal=False):
 
 
 def vul_in(tekst, **waarden):
+    waarden.setdefault("functie", ss.get("functie", ""))
+    waarden.setdefault("afdeling", ss.get("afdeling", ""))
     for naam, waarde in waarden.items():
         tekst = tekst.replace("{" + naam + "}", waarde or f"[{naam}]")
     return tekst
@@ -180,7 +182,7 @@ def maak_pdf():
     pdf.cell(w, 6, latin(f"{C['sessie']}, {date.today():%d-%m-%Y}"), new_x="LMARGIN", new_y="NEXT")
 
     kop("1. Mijn stap en mijn tests")
-    tekst("Functie: " + ss.get("functie", ""))
+    tekst("Functie: " + ss.get("functie", "") + ", afdeling: " + ss.get("afdeling", ""))
     tekst("Stap: " + ss.get("stap_keuze", ""))
     tekst("Dit moet het opleveren: " + ss.get("oplevert", ""))
     tekst("Tests: " + tests_tekst())
@@ -272,11 +274,12 @@ if ss.stap == 0:
     st.info(C["start"]["zo_werk_je"])
     waarom(C["start"])
     functie = bewaar_tekst(C["start"]["functie_label"], "functie")
+    afdeling = bewaar_tekst(C["start"]["afdeling_label"], "afdeling", standaard=C["start"].get("afdeling_standaard", ""))
     st.caption(C["start"]["functie_hulp"])
     code = st.text_input("Codewoord van Gijs", key="w_code1")
     if st.button("Start", type="primary"):
-        if not functie:
-            st.error("Vul eerst je functie in.")
+        if not functie or not afdeling:
+            st.error("Vul eerst je functie en je afdeling in.")
         elif codewoord_ok(code, C["codewoorden"]["start"]):
             ss.code1 = True
             ss.stap = 1
