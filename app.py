@@ -149,6 +149,7 @@ def maak_pdf():
     pdf.cell(w, 6, latin(f"{C['sessie']}, {date.today():%d-%m-%Y}"), new_x="LMARGIN", new_y="NEXT")
 
     kop("1. Mijn resultaat")
+    tekst("Functie: " + ss.get("functie", ""))
     tekst(ss.get("resultaat", ""))
     kop("2 en 3. Mijn stappen (tabel uit Copilot)")
     tekst(schoon(ss.get("tabel", "")), mono=True)
@@ -179,9 +180,9 @@ def maak_pdf():
 
 def gebruikte_prompts():
     return [
-        ("Interview", vul_in(S["interview"]["prompt"], resultaat=ss.get("resultaat", ""))),
+        ("Interview", vul_in(S["interview"]["prompt"], resultaat=ss.get("resultaat", ""), functie=ss.get("functie", ""))),
         ("Wie doet wat", S["wiedoetwat"]["prompt"]),
-        ("Eerste resultaat", vul_in(S["eerste"]["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", ""), punten=ss.get("punten", ""))),
+        ("Eerste resultaat", vul_in(S["eerste"]["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", ""), punten=ss.get("punten", ""), functie=ss.get("functie", ""))),
     ]
 
 
@@ -234,9 +235,13 @@ if ss.stap == 0:
     st.write(C["start"]["tekst"])
     st.info(C["start"]["zo_werk_je"])
     waarom(C["start"])
+    functie = bewaar_tekst(C["start"]["functie_label"], "functie")
+    st.caption(C["start"]["functie_hulp"])
     code = st.text_input("Codewoord van Gijs", key="w_code1")
     if st.button("Start", type="primary"):
-        if codewoord_ok(code, C["codewoorden"]["start"]):
+        if not functie:
+            st.error("Vul eerst je functie in.")
+        elif codewoord_ok(code, C["codewoorden"]["start"]):
             ss.code1 = True
             ss.stap = 1
             st.rerun()
@@ -269,10 +274,11 @@ elif ss.stap == 2:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    prompt(vul_in(s["prompt"], resultaat=ss.get("resultaat", "")))
+    prompt(vul_in(s["prompt"], resultaat=ss.get("resultaat", ""), functie=ss.get("functie", "")))
+    st.caption(s["opbouw"])
     waarom(s)
     st.warning(s["waarschuwing"])
-    with st.expander("Loopt het vast, of stelt Copilot iets anders voor?"):
+    with st.expander("Loop je vast, of stelt Copilot iets anders voor?"):
         st.info(s["terug_tip"])
         st.caption("Gebruik deze prompts alleen als het helpt.")
         for h in s["hulp"]:
@@ -350,7 +356,7 @@ elif ss.stap == 6:
     st.write(s["intro"])
     punten = bewaar_tekst(s["punten_label"], "punten", area=True, height=90)
     st.caption(s["punten_hulp"])
-    prompt(vul_in(s["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", ""), punten=punten))
+    prompt(vul_in(s["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", ""), punten=punten, functie=ss.get("functie", "")))
     waarom(s)
     st.warning(s["bronnen_tip"])
     with st.expander(s["bijsturen_titel"]):

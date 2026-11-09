@@ -16,6 +16,8 @@ zijbalk_waarschuwingen:
 start:
   tekst: "Je hebt net uitleg en 2 demo's gezien. Nu ga je zelf aan de slag, op je eigen tempo. Elke stap heeft 1 actie. Pas als je die hebt gedaan, ga je door."
   zo_werk_je: "Zet deze app links op je scherm en Copilot Chat rechts. Kopieer prompts met het icoon rechtsboven in het grijze vak."
+  functie_label: "Mijn functie (bijvoorbeeld: medewerker klantenservice, specialist schade, teamleider)"
+  functie_hulp: "De app zet je functie in de prompts. Geen naam invullen."
   waarom: "Deze route stuurt Copilot stap voor stap: eerst laten begrijpen, dan pas laten maken."
 
 stappen:
@@ -48,7 +50,7 @@ stappen:
     intro: "Kopieer de prompt hieronder met het icoon rechtsboven in het grijze vak. Plak hem in Copilot Chat. Beantwoord de vragen 1 voor 1. Jouw resultaat staat er al in."
     waarom: "Copilot stelt eerst vragen, zodat het hoort wat niet in je mails of bestanden staat: hoe jij dit werk doet en waar het vastloopt."
     prompt: |-
-      Ik werk bij Customer Care van PostNL. Ik wil onderzoeken waar AI mij helpt bij dit resultaat: {resultaat}. Check eerst in 1 zin of dit iets is dat ik regelmatig voor een ander maak. Zo niet, help me met maximaal 2 vragen een beter resultaat te kiezen.
+      Ik werk als {functie} bij Customer Care van PostNL. Ik wil onderzoeken waar AI mij helpt bij dit resultaat: {resultaat}. Check eerst in 1 zin of dit iets is dat ik regelmatig voor een ander maak. Zo niet, help me met maximaal 2 vragen een beter resultaat te kiezen.
 
       Interview me daarna over de laatste keer dat ik het maakte. Stel 1 vraag tegelijk en zet erbij welke vraag het is, bijvoorbeeld "Vraag 2 van maximaal 8". Geef bij elke vraag een kort voorbeeld van een antwoord. Bouw voort op mijn antwoorden. Past een vraag niet bij mijn situatie, sla hem dan over. Vraag 1 keer door bij de stap die de meeste moeite kostte. Vraag niet naar tijd of minuten.
 
@@ -66,6 +68,7 @@ stappen:
         prompt: "Vat in 3 zinnen samen wat je tot nu toe van mijn situatie begrijpt. Wat mis je nog over hoe het ging? Vraag niet naar tijd."
       - label: "Geen van de opties past"
         prompt: "Geen van je opties past. Het zit zo: [jouw situatie]. Ga verder met je volgende vraag."
+    opbouw: "Let op de opbouw van deze prompt: wie je bent, wat je wilt, hoe Copilot moet werken en wat je terug wilt. Die 4 delen schrijf je in sessie 2 zelf."
     vinkje_intro: "Klaar met het interview? Staan je stappen in een tabel in Copilot? Zet dan het vinkje en ga naar de volgende stap. Daar controleer je de tabel."
     vinkje: "Copilot heeft mijn stappen in een tabel gezet"
   check:
@@ -121,7 +124,7 @@ stappen:
     punten_hulp: "Bijvoorbeeld: het schadebedrag, de datum van verzending, een vraag om bewijs. De app zet je punten in de prompt."
     waarom: "Copilot vraagt eerst wat ontbreekt en zegt aan het eind wat het aannam, zodat jij weet wat je moet controleren."
     vinkjes_intro: "Controleer de uitkomst. Vink aan wat klopt."
-    prompt: "Ik wil hulp bij deze stap: {stap}. Dit moet het opleveren: {oplevert}. Dit moet er zeker in staan: {punten}. Stel me eerst maximaal 3 vragen, 1 tegelijk. Stel een open vraag als een keuze uit 2 niet past. Vraag ook welke bronnen je mag gebruiken. Doe daarna de stap. Houd het kort. Benoem je aannames, ontbrekende informatie en wat ik zelf moet controleren."
+    prompt: "Ik werk als {functie} bij Customer Care van PostNL. Ik wil hulp bij deze stap: {stap}. Dit moet het opleveren: {oplevert}. Dit moet er zeker in staan: {punten}. Stel me eerst maximaal 3 vragen, 1 tegelijk. Stel een open vraag als een keuze uit 2 niet past. Vraag ook welke bronnen je mag gebruiken. Doe daarna de stap. Houd het kort. Benoem je aannames, ontbrekende informatie en wat ik zelf moet controleren."
     bronnen_tip: "Vraagt Copilot welke bronnen hij mag gebruiken? Kies bewust. Geen mailbox met klantmails."
     bijsturen_titel: "Niet goed genoeg? Stuur bij in 1 zin"
     bijsturen_tip: "Verander steeds 1 ding en vergelijk met het vorige antwoord. Is het beter?"
