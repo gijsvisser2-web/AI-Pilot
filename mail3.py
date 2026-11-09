@@ -1,6 +1,6 @@
 """Workshop 3 Mail: gebruik elkaars oplossing (digitale testkaart).
 
-Alle teksten en het codewoord staan in inhoud_mail3.yaml.
+Alle teksten staan in inhoud_mail3.yaml.
 De app slaat niets op. Invoer blijft alleen in de sessie van de deelnemer.
 """
 from datetime import date
@@ -71,10 +71,6 @@ def navigatie(mag_door=True, reden=""):
                 st.rerun()
             else:
                 st.error(reden or "Je bent nog niet klaar met deze stap.")
-
-
-def codewoord_ok(invoer, juist):
-    return invoer.strip().upper().replace(" ", "") == juist.strip().upper().replace(" ", "")
 
 
 def kort(keuze):
@@ -215,16 +211,13 @@ if ss.stap == 0:
     waarom(C["start"])
     functie = bewaar_tekst(C["start"]["functie_label"], "functie")
     afdeling = bewaar_tekst(C["start"]["afdeling_label"], "afdeling", standaard=C["start"].get("afdeling_standaard", ""))
-    code = st.text_input("Codewoord van Gijs", key="w_code1")
     if st.button("Start", type="primary"):
         if not functie or not afdeling:
             st.error("Vul eerst je functie en je afdeling in.")
-        elif codewoord_ok(code, C["codewoord"]):
+        else:
             ss.code1 = True
             ss.stap = 1
             st.rerun()
-        else:
-            st.error("Dit codewoord klopt niet. Vraag het aan Gijs.")
 
 elif ss.stap == 1:
     s = S["voorbereiden"]
