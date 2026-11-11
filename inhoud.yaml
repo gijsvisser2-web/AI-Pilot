@@ -11,7 +11,7 @@ codewoorden:
 
 zijbalk_waarschuwingen:
   - "Ververs deze pagina niet. Dan ben je je invoer kwijt."
-  - "Geen klantgegevens invullen."
+  - "Geen klantgegevens in deze app of in Copilot."
 
 start:
   tekst: "Je hebt net uitleg en 2 demo's gezien. Nu ga je zelf aan de slag, op je eigen tempo. Elke stap heeft 1 actie. Pas als je die hebt gedaan, ga je door."
@@ -38,14 +38,14 @@ stappen:
       - "Een mail aan Insurance opstellen met alle gegevens van een schadegeval"
       - "Een brief van een klant samenvatten en 3 mogelijke reacties voorstellen"
     demo_noot: "Werk je met AI binnen Salesforce? Dan blijven de klantgegevens in Salesforce. In Copilot gebruik je geen klantgegevens uit Salesforce."
-    salesforce: "Werk je vooral in Salesforce? Dan mag je resultaat daar ook over gaan. In het interview vertel je hoe je werkt, niet over klanten. Algemene informatie zoals FAQ's en werkinstructies mag wel in Copilot. Klant- en persoonsgegevens niet."
+    salesforce: "Werk je vooral in Salesforce? Dan mag je resultaat daar ook over gaan. Stap 1 tot 5 doe je in Copilot: je vertelt hoe je werkt, niet over klanten. FAQ's en werkinstructies mogen in Copilot, klant- en persoonsgegevens niet. In stap 6 probeer je je stap in de tool die past. Heb je klant- of casegegevens nodig? Dan doe je die stap in Salesforce."
     vinkjes_intro: "Past je resultaat bij deze 2 punten? Zet dan beide vinkjes. Pas daarna kun je verder."
     vinkjes:
       - "Ik maak dit regelmatig, voor iemand anders"
-      - "Ik gebruik in Copilot geen klant- of persoonsgegevens (FAQ's en werkinstructies mogen wel)"
-    weet_niet_titel: "Weet je niet wat je kiest? Laat Copilot je mails en agenda bekijken"
-    weet_niet_tekst: "Kopieer deze prompt naar Copilot. Je krijgt 5 resultaten die je regelmatig oplevert. Kies er 1."
-    weet_niet_prompt: "Bekijk mijn verzonden mails en mijn agenda van de afgelopen 2 weken. Welke 5 resultaten lever ik regelmatig op aan anderen, zoals antwoorden, overzichten of updates? Geef per resultaat: wat het is, voor wie, en hoe vaak ongeveer. Noem geen klantgegevens. Geef alleen een tabel."
+      - "In deze app en in Copilot gebruik ik geen klant- of persoonsgegevens. Klantgegevens blijven in Salesforce."
+    weet_niet_titel: "Weet je niet wat je kiest? Laat Copilot je agenda bekijken"
+    weet_niet_tekst: "Kopieer deze prompt naar Copilot. Copilot kijkt in je agenda en stelt je 3 vragen. Je krijgt 5 resultaten die je regelmatig oplevert. Kies er 1."
+    weet_niet_prompt: "Bekijk alleen mijn agenda van de afgelopen 2 weken, niet mijn mailbox. Stel me daarna 3 vragen, 1 tegelijk, over werk dat ik regelmatig voor anderen maak. Geef dan 5 resultaten die ik regelmatig oplever, zoals antwoorden, overzichten of updates. Geef per resultaat: wat het is, voor wie, en hoe vaak ongeveer. Noem geen klantgegevens. Geef alleen een tabel."
   interview:
     titel: "Laat Copilot je interviewen"
     tijd: 10
@@ -92,14 +92,19 @@ stappen:
     tijd: 5
     intro: "Laat Copilot een eerste indeling maken. Daarna beoordeel jij."
     waarom: "Copilot zet snel te veel op AI, dus hier oefen je het belangrijkste: weten wanneer AI wel en niet past."
-    vinkjes_intro: "Loop de indeling van Copilot langs. Zet de vinkjes als je dat hebt gedaan."
-    prompt: "Zet bij elke stap uit de tabel: Mens, Mens + AI of AI, met 1 zin uitleg. Markeer stappen met klantgegevens van buiten Copilot als Mag niet. Geef alleen de tabel."
-    vinkjes:
-      - "Ik heb bij elke stap gekeken of de indeling klopt"
-      - "Ik heb minimaal 1 stap anders ingedeeld dan Copilot"
-      - "Er is minimaal 1 Mens-stap: daar beoordeel ik of het resultaat goed is"
-    anders_label: "Welke stap deelde je anders in, en waarom?"
-    teams: "Hier was ik het oneens met Copilot: {anders}"
+    vuistregel: "Welke tool? Heb je klant- of casegegevens nodig: Salesforce. Ga je denken, schrijven of werken met je eigen bestanden en interne informatie: Copilot."
+    prompt: "Zet bij elke stap uit de tabel: Mens, Mens + AI of AI, met 1 zin uitleg. Zet er een kolom Tool bij. Kies Salesforce als de stap klant- of casegegevens nodig heeft. Kies Copilot voor denken, schrijven en werken met eigen bestanden en interne informatie. Kies - bij een Mens-stap. Twijfel je of er klantgegevens in een stap zitten? Zet er 'Check' bij. Ik beslis zelf. Geef alleen de tabel."
+    controle_intro: "Loop de indeling en de tool van Copilot langs. Vul alleen in wat voor jou geldt."
+    oordeel_vraag: "Hoe vind je de indeling van Copilot?"
+    oordelen: ["Eens met alles", "Bij minimaal 1 stap niet eens"]
+    stap_label: "Bij welke stap niet? Schrijf de naam van de stap, niet het nummer. Meer stappen? Kies de belangrijkste."
+    indelingen: ["Mens", "Mens + AI in Copilot", "Mens + AI in Salesforce", "AI in Copilot", "AI in Salesforce"]
+    copilot_vraag: "Copilot zei"
+    ik_vraag: "Ik zeg"
+    waarom_label: "Waarom? (1 zin)"
+    mensstap_label: "Wat is je Mens-stap? Daar beoordeel jij of het resultaat goed is. (naam van de stap)"
+    teams_oneens: "Mijn resultaat: {resultaat}. Bij de stap '{stap}' zei Copilot {copilot}, ik zeg {ik}. Waarom: {waarom}"
+    teams_eens: "Mijn resultaat: {resultaat}. Ik was het eens met de indeling van Copilot. Mijn Mens-stap: {mensstap}"
   wacht:
     titel: "Wacht op Gijs"
     tekst: "We bespreken kort wat jullie zagen. Daarna geeft Gijs het codewoord voor de volgende stap."
@@ -115,19 +120,25 @@ stappen:
     vinkjes:
       - "Deze stap kost nu moeite"
       - "Het is een AI- of Mens + AI-stap"
-      - "Mag het: ik gebruik in Copilot geen klant- of persoonsgegevens"
-    past_niet: "Past je stap niet? Kies een andere stap uit je tabel. Heeft de stap klantgegevens nodig? Dan hoort hij in Salesforce, niet in Copilot. Schrijf hem hieronder op als idee voor later, dan staat hij in je pdf."
-    idee_label: "Idee voor later (optioneel)"
+      - "Mag het: klant- of casegegevens gebruik ik alleen in Salesforce, niet in Copilot"
+    past_niet: "Past je stap niet? Kies een andere stap uit je tabel. Heeft de stap klantgegevens nodig? Dan doe je hem in stap 6 in Salesforce. Kan hij in geen van beide tools, bijvoorbeeld omdat er een koppeling tussen systemen nodig is? Schrijf hem hieronder op als idee voor het AI CoE. Dan staat hij in je pdf."
+    idee_label: "Idee voor het AI CoE (optioneel)"
   eerste:
     titel: "Je eerste resultaat"
     tijd: 15
-    intro: "Probeer je stap nu echt met Copilot. Denk eerst zelf na: wat moet er in het resultaat staan? Open dan pas Copilot."
+    intro: "Probeer je stap nu echt, in de tool die bij je stap past. Denk eerst zelf na: wat moet er in het resultaat staan? Open dan pas de tool."
+    tool_label: "In welke tool probeer je deze stap?"
+    tool_opties: ["Copilot", "Salesforce"]
+    tool_hulp: "Klant- of casegegevens nodig: Salesforce. Anders: Copilot. Zie je indeling uit stap 4."
     punten_label: "Schrijf 3 punten op die zeker in het resultaat moeten staan"
     punten_hulp: "Bijvoorbeeld: het schadebedrag, de datum van verzending, een vraag om bewijs. De app zet je punten in de prompt."
     waarom: "Copilot vraagt eerst wat ontbreekt en zegt aan het eind wat het aannam, zodat jij weet wat je moet controleren."
     vinkjes_intro: "Controleer de uitkomst. Vink aan wat klopt."
     prompt: "Ik werk als {functie} bij {afdeling} van PostNL. Ik wil hulp bij deze stap: {stap}. Dit moet het opleveren: {oplevert}. Dit moet er zeker in staan: {punten}. Stel me eerst maximaal 3 vragen, 1 tegelijk. Stel een open vraag als een keuze uit 2 niet past. Vraag ook welke bronnen je mag gebruiken. Doe daarna de stap. Houd het kort. Benoem je aannames, ontbrekende informatie en wat ik zelf moet controleren."
-    bronnen_tip: "Vraagt Copilot welke bronnen hij mag gebruiken? Kies bewust. Geen mailbox met klantmails."
+    bronnen_tip:
+      Copilot: "Vraagt Copilot welke bronnen hij mag gebruiken? Kies bewust. Geen mailbox met klantmails."
+      Salesforce: "Werk in Salesforce alleen met de case waar je nu mee bezig bent. Klantgegevens kopieer je niet naar Copilot of naar deze app."
+    klantregel: "Gaat de tekst naar een klant? Lees hem helemaal en check de gegevens tegen de case. Een tekst van AI gaat nooit naar een klant zonder dat jij hem hebt gelezen."
     bijsturen_titel: "Niet goed genoeg? Stuur bij in 1 zin"
     bijsturen_tip: "Verander steeds 1 ding en vergelijk met het vorige antwoord. Is het beter?"
     bijsturen:
@@ -146,13 +157,13 @@ stappen:
     bijsturing_label: "Welke bijsturing maakte het verschil? (leeg laten als je niet bijstuurde)"
     controle:
       - "Mijn 3 punten staan erin"
-      - "Klopt het? Feiten en bronnen nagekeken"
+      - "Klopt het? Feiten, bronnen en klantgegevens nagekeken (tegen de case)"
       - "Past het? Bij de ontvanger, de toon, PostNL"
       - "Helpt het? Sneller, beter, consistenter of makkelijker"
       - "Mag het? Input en output veilig"
     scores: ["Bruikbaar", "Deels bruikbaar", "Niet bruikbaar"]
     herstel_label: "Wat moest je zelf nog doen voordat het bruikbaar was?"
-    teams: "Mijn stap: {stap}. Score: {score}. Wat ik nog moest doen: {herstel}"
+    teams: "Mijn stap: {stap}. Tool: {tool}. Score: {score}. Wat ik nog moest doen: {herstel}"
   plan:
     titel: "Je plan"
     tijd: 5

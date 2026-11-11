@@ -79,10 +79,10 @@ def waarom(s):
         st.caption(f"💡 **Waarom zo?** {s['waarom']}")
 
 
-def prompt(tekst, label="Prompt voor Copilot"):
+def prompt(tekst, label="Prompt voor Copilot", plak="Copilot Chat"):
     """Grijs vak met kopieerknop, duidelijk gemarkeerd als prompt."""
     with st.container(border=True):
-        st.markdown(f"📋 **{label}**  \n:gray[Kopieer met het icoon rechtsboven in het grijze vak. Plak in Copilot Chat.]")
+        st.markdown(f"📋 **{label}**  \n:gray[Kopieer met het icoon rechtsboven in het grijze vak. Plak in {plak}.]")
         st.code(tekst, language=None, wrap_lines=True)
 
 
@@ -110,9 +110,16 @@ def codewoord_ok(invoer, juist):
     return invoer.strip().upper().replace(" ", "") == juist.strip().upper().replace(" ", "")
 
 
+def bewaar_keuze(label, opties, k, horizontal=False):
+    ss.setdefault(k, None)
+    index = opties.index(ss[k]) if ss[k] in opties else None
+    ss[k] = st.radio(label, opties, index=index, key="w_" + k, horizontal=horizontal)
+    return ss[k]
+
+
 def deel_in_teams(tekst):
     st.markdown("**Deel in Teams**")
-    st.caption("Plak deze zin in de draad in het Teams-kanaal. Geen klantgegevens, geen schermafbeeldingen van Copilot.")
+    st.caption("Kopieer de grijze zin met het icoon rechtsboven en plak hem in de draad in het Teams-kanaal. Je hoeft er niets bij te typen. Een vraag? Steek je hand op of vraag het Gijs.")
     st.code(tekst, language=None, wrap_lines=True)
 
 
@@ -156,13 +163,14 @@ def maak_pdf():
     kop("2 en 3. Mijn stappen (tabel uit Copilot)")
     tekst(schoon(ss.get("tabel", "")), mono=True)
     kop("4. Wie doet wat")
-    tekst("Wat ik anders indeelde dan Copilot, en waarom: " + ss.get("anders", ""))
+    tekst(ss.get("w4_zin", "") or "-")
     kop("5. Mijn gekozen stap")
     tekst(ss.get("stap_keuze", ""))
     tekst("Dit moet de stap opleveren: " + ss.get("oplevert", ""))
     if ss.get("idee", "").strip():
         tekst("Idee voor later: " + ss.get("idee", ""))
     kop("6. Mijn eerste resultaat")
+    tekst("Tool: " + (ss.get("tool") or "-"))
     tekst("Dit moest er zeker in staan: " + ss.get("punten", ""))
     tekst("Score: " + (ss.get("score") or "-"))
     tekst("Wat ik zelf nog moest doen: " + ss.get("herstel", ""))
@@ -193,7 +201,8 @@ def samenvatting():
         [
             f"Resultaat: {ss.get('resultaat', '')}",
             f"Gekozen stap: {ss.get('stap_keuze', '')}",
-            f"Anders ingedeeld dan Copilot: {ss.get('anders', '')}",
+            f"Tool: {ss.get('tool') or '-'}",
+            f"Wie doet wat: {ss.get('w4_zin', '')}",
             f"Eerste resultaat: {ss.get('score') or '-'}",
             f"Wat ik zelf nog moest doen: {ss.get('herstel', '')}",
             f"Testmomenten: {ss.get('test1', '')}; {ss.get('test2', '')}; {ss.get('test3', '')}",
@@ -309,15 +318,33 @@ elif ss.stap == 4:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
+    st.info(s["vuistregel"])
     prompt(s["prompt"])
     waarom(s)
     st.subheader("Jouw controle")
-    vinkjes_intro(s)
-    vinkjes = [bewaar_vinkje(t, f"w_v{i}") for i, t in enumerate(s["vinkjes"])]
-    anders = bewaar_tekst(s["anders_label"], "anders", area=True, height=90)
-    if anders:
-        deel_in_teams(vul_in(s["teams"], anders=anders))
-    navigatie(all(vinkjes) and bool(anders), "Zet de 3 vinkjes en schrijf op welke stap je anders indeelde.")
+    st.markdown(f"**{s['controle_intro']}**")
+    oordeel = bewaar_keuze(s["oordeel_vraag"], s["oordelen"], "oordeel", horizontal=True)
+    zin, ok = "", False
+    if oordeel == s["oordelen"][1]:
+        stapnaam = bewaar_tekst(s["stap_label"], "oneens_stap")
+        a, b = st.columns(2)
+        with a:
+            cop = bewaar_keuze(s["copilot_vraag"], s["indelingen"], "oneens_copilot")
+        with b:
+            ik = bewaar_keuze(s["ik_vraag"], s["indelingen"], "oneens_ik")
+        reden = bewaar_tekst(s["waarom_label"], "oneens_waarom")
+        ok = bool(stapnaam) and bool(cop) and bool(ik) and bool(reden)
+        if ok:
+            zin = vul_in(s["teams_oneens"], resultaat=ss.get("resultaat", ""), stap=stapnaam, copilot=cop, ik=ik, waarom=reden)
+    mensstap = bewaar_tekst(s["mensstap_label"], "mensstap")
+    if oordeel == s["oordelen"][0]:
+        ok = bool(mensstap)
+        if ok:
+            zin = vul_in(s["teams_eens"], resultaat=ss.get("resultaat", ""), mensstap=mensstap)
+    ss["w4_zin"] = zin
+    if zin:
+        deel_in_teams(zin)
+    navigatie(ok and bool(mensstap), "Kies of je het eens bent met Copilot en vul je Mens-stap in. Niet eens? Vul de stap, Copilot zei, ik zeg en waarom in.")
 
 elif ss.stap == 5 and not ss.code2:
     s = S["wacht"]
@@ -357,15 +384,23 @@ elif ss.stap == 6:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
+    ss.setdefault("tool", None)
+    opties = s["tool_opties"]
+    tool = st.radio(s["tool_label"], opties, index=opties.index(ss.tool) if ss.tool in opties else None, key="w_tool", horizontal=True)
+    ss.tool = tool
+    st.caption(s["tool_hulp"])
     punten = bewaar_tekst(s["punten_label"], "punten", area=True, height=90)
     st.caption(s["punten_hulp"])
-    prompt(vul_in(s["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", ""), punten=punten, functie=ss.get("functie", "")))
+    naam = tool or "Copilot"
+    plak = "de chat in Salesforce" if tool == "Salesforce" else "Copilot Chat"
+    prompt(vul_in(s["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", ""), punten=punten, functie=ss.get("functie", "")), f"Prompt voor {naam}", plak)
     waarom(s)
-    st.warning(s["bronnen_tip"])
+    st.warning(s["bronnen_tip"][naam])
+    st.error(s["klantregel"])
     with st.expander(s["bijsturen_titel"]):
         st.caption(s["bijsturen_tip"])
         for h in s["bijsturen"]:
-            prompt(h["prompt"], h["label"])
+            prompt(h["prompt"], h["label"], plak)
     bewaar_tekst(s["bijsturing_label"], "bijsturing")
     st.subheader("Controleer de uitkomst")
     vinkjes_intro(s)
@@ -381,8 +416,8 @@ elif ss.stap == 6:
     ss.score = keuze
     herstel = bewaar_tekst(s["herstel_label"], "herstel", area=True, height=90)
     if keuze and herstel:
-        deel_in_teams(vul_in(s["teams"], stap=ss.get("stap_keuze", ""), score=keuze.lower(), herstel=herstel))
-    navigatie(bool(punten) and bool(keuze) and bool(herstel), "Vul je 3 punten in, kies een score en vul in wat je zelf nog moest doen.")
+        deel_in_teams(vul_in(s["teams"], stap=ss.get("stap_keuze", ""), tool=tool or "", score=keuze.lower(), herstel=herstel))
+    navigatie(bool(tool) and bool(punten) and bool(keuze) and bool(herstel), "Kies je tool, vul je 3 punten in, kies een score en vul in wat je zelf nog moest doen.")
 
 elif ss.stap == 7:
     s = S["plan"]
@@ -393,7 +428,7 @@ elif ss.stap == 7:
     for i in (1, 2, 3):
         bewaar_tekst(f"Test {i}", f"test{i}")
     st.subheader("Bewaar je werk")
-    st.write("In de pdf staat alles: je resultaat, je tabel, je indeling, je gekozen stap, je eerste resultaat, je plan en de prompts.")
+    st.write("In de pdf staat alles: je resultaat, je tabel, je indeling, je gekozen stap, de tool, je eerste resultaat, je plan en de prompts.")
     st.download_button(
         "⬇ Download alles als pdf",
         data=maak_pdf(),
