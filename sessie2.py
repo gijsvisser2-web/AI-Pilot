@@ -246,8 +246,13 @@ def maak_pdf():
     if niet_getest():
         tekst("Waarom niet getest: " + (ss.get("waarom_niet") or "-"))
     tekst("Hoe verder: " + (ss.get("verder") or "-"))
+    if ss.get("idee", "").strip():
+        tekst("Idee voor het AI CoE: " + ss.get("idee", ""))
     kop("2 en 3. Mijn werkwijze")
-    tekst("Hulp bij het ontwerp: " + (ss.get("hulp2") or "-"))
+    if ss.get("bestaand") == S["ontwerp"]["bestaand_opties"][1]:
+        tekst("Ontwerp: ik had al een instructie of agent")
+    else:
+        tekst("Hulp bij het ontwerp: " + (ss.get("hulp2") or "-"))
     kop("Instructie versie 0.1", 11)
     tekst(instructie(1), mono=True)
     tekst("Mijn controle: " + ss.get("controle", ""))
@@ -395,17 +400,28 @@ elif ss.stap == 1:
     elif verder == s["verder_opties"][2]:
         st.write(s["andere_tekst"])
         prompt(vul_in(s["andere_prompt"], **basis()))
+    door_ok = True
+    if verder == s["verder_opties"][3]:
+        st.info(s["door_tekst"])
+        door_ok = bool(bewaar_tekst(s["door_label"], "idee"))
+        prompt(vul_in(s["andere_prompt"], **basis()))
     vet(s["vinkjes_intro"])
     klaar = bewaar_vinkje(s["vinkje"], "v1")
     navigatie(
-        bool(stap) and not stap_nummer and bool(oplevert) and tool_ok and bool(hoe_vaak) and bool(verder) and klaar,
-        "Beschrijf je stap in woorden, vul in wat hij oplevert, kies je tool, kies hoe vaak je testte en hoe je verdergaat, en zet het vinkje.",
+        bool(stap) and not stap_nummer and bool(oplevert) and tool_ok and bool(hoe_vaak) and bool(verder) and door_ok and klaar,
+        "Beschrijf je stap in woorden, vul in wat hij oplevert, kies je tool, kies hoe vaak je testte en hoe je verdergaat, en zet het vinkje. Bij doorverwijzen: schrijf je idee op.",
     )
 
 elif ss.stap == 2:
     s = S["ontwerp"]
     st.title(s["titel"])
     tijd(s["tijd"])
+    bestaand = bewaar_keuze(s["bestaand_vraag"], s["bestaand_opties"], "bestaand", horizontal=True)
+    if bestaand == s["bestaand_opties"][1]:
+        st.info(s["bestaand_tekst"])
+        klaar = bewaar_vinkje(s["bestaand_vinkje"], "v2b")
+        navigatie(klaar, "Zet het vinkje als je je bestaande instructie bij de hand hebt.")
+        st.stop()
     with st.container(border=True):
         st.markdown(f"🎯 **Opdracht:** {t(s, 'opdracht')}")
     st.caption(s["tip"])
@@ -426,7 +442,7 @@ elif ss.stap == 2:
     hulp = bewaar_keuze("Welke hulp heb je gebruikt?", s["hulp_opties"], "hulp2", horizontal=True)
     vet(s["vinkje_intro"])
     klaar = bewaar_vinkje(s["vinkje"], "v2")
-    navigatie(bool(hulp) and klaar, "Kies welke hulp je gebruikte en zet het vinkje.")
+    navigatie(bool(bestaand) and bool(hulp) and klaar, "Kies of je al een instructie hebt, kies welke hulp je gebruikte en zet het vinkje.")
 
 elif ss.stap == 3:
     s = S["instructie"]
@@ -434,7 +450,10 @@ elif ss.stap == 3:
     tijd(s["tijd"])
     st.write(s["intro"])
     waarom(s)
-    st.caption(s["tip"])
+    if ss.get("bestaand") == S["ontwerp"]["bestaand_opties"][1]:
+        st.info(s["tip_bestaand"])
+    else:
+        st.caption(s["tip"])
     ingevuld = [bewaar_tekst(label, k, area=True, height=70) for k, label in t(s, "velden").items()]
     bewaar_tekst(s["controle_label"], "controle")
     bewaar_tekst(s["niet_label"], "wanneer_niet")
@@ -508,11 +527,11 @@ elif ss.stap == 5:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(t(s, "intro"))
-    prompt(vul_in(s["prompt"], instructie=instructie(1), functie=ss.get("functie", "")), s["prompt_titel"])
-    st.write(s["daarna"])
+    prompt(vul_in(t(s, "prompt"), instructie=instructie(1), functie=ss.get("functie", "")), t(s, "prompt_titel"))
+    st.write(t(s, "daarna"))
     bewaar_tekst(s["geval_label"], "geval", area=True, height=80)
     waarom(s)
-    opties = s["hulp_opties"] if is_sf() else s["hulp_opties"][:2]
+    opties = t(s, "hulp_opties")
     hulp = bewaar_keuze("Waar kwam je lastige geval vandaan?", opties, "hulp5", horizontal=True)
     mis = bewaar_tekst(s["mis_label"], "mis", area=True, height=80)
     score = bewaar_keuze("Mijn score", s["scores"], "score5", horizontal=True)
