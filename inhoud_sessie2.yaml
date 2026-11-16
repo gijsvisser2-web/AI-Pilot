@@ -159,16 +159,16 @@ stappen:
   wacht:
     titel: "Pauze"
     tekst: "Na de pauze geeft Gijs het codewoord voor de volgende stap."
-    tip: "Wil je niet wachten? Plak je instructie alvast in een nieuw gesprek in Copilot en kijk wat er gebeurt."
+    tip: "Wil je niet wachten? Plak je instructie alvast in een tijdelijke chat in Copilot en kijk wat er gebeurt."
     tip_sf: "Wil je niet wachten? Open Coworker bij een case en plak je instructie. Kijk wat er gebeurt."
 
   test:
     titel: "Test met normale input"
     tijd: 12
-    intro: "Denk eerst zelf na: wat moet er in het resultaat staan? Open daarna een nieuw gesprek in Copilot. Plak je instructie. Geef daarna je input van een gewone taak."
+    intro: "Denk eerst zelf na: wat moet er in het resultaat staan? Open daarna een tijdelijke chat in Copilot (geen tijdelijke chat? Dan een nieuw gesprek). Plak je instructie. Geef daarna je input van een gewone taak."
     intro_sf: "Denk eerst zelf na: wat moet er in het resultaat staan? Open daarna Coworker bij een gewone case waar je mee bezig bent. Plak je instructie."
     punten_label: "Schrijf 3 punten op die zeker in het resultaat moeten staan"
-    waarom: "In een nieuw gesprek kent Copilot je interview niet. Zo test je of je instructie op zichzelf werkt, zoals straks in je echte werk."
+    waarom: "Met geheugen aan onthoudt Copilot dingen uit je eerdere gesprekken, ook in een nieuw gesprek. Een tijdelijke chat gebruikt dat geheugen niet. Zo test je of je instructie op zichzelf werkt, zoals bij een collega die jou niet kent."
     waarom_sf: "Coworker kent je interview in Copilot niet. Zo test je of je instructie op zichzelf werkt, zoals straks in je echte werk."
     waarschuwing: "Geen klantgegevens in Copilot. Maak het algemeen of verzin een voorbeeld dat erop lijkt."
     waarschuwing_sf: "Werk in Coworker alleen met de case waar je nu mee bezig bent. Kopieer niets uit de case naar Copilot of naar deze app."
@@ -215,7 +215,7 @@ stappen:
       Dit is mijn instructie: {instructie}
 
       Ik werk als {functie} bij {afdeling} van PostNL. Bedenk 3 lastige voorbeelden van input voor deze instructie, passend bij mijn werk: 1 die onvolledig is, 1 die afwijkt van normaal, en 1 waarbij het goede antwoord is "dat weet ik niet" of "dat mag niet". Maak ze kort en verzonnen, zonder echte klantgegevens. Zet bij elk voorbeeld in 1 zin wat een goed antwoord zou doen. Geef alleen de 3 voorbeelden.
-    daarna: "Open een nieuw gesprek. Plak je instructie en 1 lastig voorbeeld. Kijk of het antwoord doet wat Copilot als goed antwoord noemde."
+    daarna: "Open een tijdelijke chat. Plak je instructie en 1 lastig voorbeeld. Kijk of het antwoord doet wat Copilot als goed antwoord noemde."
     daarna_sf: "Zoek in Salesforce een echte case van 1 van die soorten. Open Coworker bij die case en plak je instructie. Kijk of het antwoord doet wat een goed antwoord zou doen."
     geval_label: "Mijn lastige geval (kort, in algemene woorden, zonder gegevens)"
     waarom: "Bij makkelijke input werkt bijna elke instructie. Bij lastige input zie je waar hij nog stukgaat."
