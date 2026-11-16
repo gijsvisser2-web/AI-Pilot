@@ -326,9 +326,12 @@ if ss.get("_vorige_stap") != ss.stap:
 # Waarschuwing van de browser bij verversen of sluiten, zodra iemand begonnen is.
 # De vlag zorgt dat de waarschuwing maar 1 keer wordt toegevoegd.
 if ss.stap > 0:
+    # Op streamlit.app draait de app in een frame. Daarom koppelen we de waarschuwing
+    # aan het frame van de app en aan de bovenste pagina (die ververst bij F5).
     script(
-        "<script>const p = window.parent; if (!p.__aiPilotWacht) { p.__aiPilotWacht = true;"
-        " p.addEventListener('beforeunload', function (e) { e.preventDefault(); e.returnValue = ''; }); }</script>"
+        "<script>for (const w of [window.parent, window.top]) { try { if (!w.__aiPilotWacht) {"
+        " w.__aiPilotWacht = true; w.addEventListener('beforeunload', function (e) {"
+        " e.preventDefault(); e.returnValue = ''; }); } } catch (err) {} }</script>"
     )
 
 if ss.stap > 0:
