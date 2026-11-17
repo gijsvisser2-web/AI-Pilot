@@ -30,6 +30,8 @@ start:
   functie_hulp: "De app zet je functie en afdeling in de prompts. Geen naam invullen."
   afdeling_label: "Mijn afdeling of team (bijvoorbeeld: Customer Care, Finance, HR)"
   afdeling_standaard: "Customer Care"
+  tijdelijk_titel: "Vandaag test je in een tijdelijke chat"
+  tijdelijk_tekst: "Een tijdelijke chat is een gesprek in Copilot zonder geheugen. Copilot gebruikt dan niet wat hij uit je eerdere gesprekken over je weet. Zo test je je instructie zoals een nieuwe collega hem zou gebruiken. Je opent hem in Copilot Chat bij een nieuw gesprek, via het icoon van de tijdelijke chat. Gijs laat het zien in de demo."
 
 stappen:
   tests:
@@ -221,41 +223,60 @@ stappen:
     herstel_label: "Wat moest je zelf nog doen voordat het bruikbaar was?"
 
   breek:
-    titel: "Breek je werkwijze"
+    titel: "Test je instructie op een lastig voorbeeld"
     tijd: 12
-    intro: "Je werkwijze moet ook werken op een drukke dag met lastige input. Laat Copilot 3 lastige gevallen maken. Kies er 1 en kijk waar je instructie breekt."
-    intro_sf: "Je werkwijze moet ook werken op een drukke dag met lastige input. Je test in Coworker, op een echte case die lastig is. Weet je niet wat lastig is? Laat Copilot meedenken over soorten lastige cases. Zoek er daarna 1 in Salesforce."
-    prompt_titel: "Laat Copilot 3 lastige gevallen maken"
-    prompt_titel_sf: "Laat Copilot meedenken: wat maakt een case lastig?"
-    prompt_sf: |-
-      Dit is mijn instructie: {instructie}
-
-      Ik werk als {functie} bij {afdeling} van PostNL. Ik gebruik deze instructie in Coworker, bij echte cases in Salesforce. Noem 3 soorten cases waarbij deze instructie kan mislukken: 1 die onvolledig is, 1 die afwijkt van normaal, en 1 waarbij het goede antwoord is "dat weet ik niet" of "dat mag niet". Beschrijf ze in algemene woorden, zonder gegevens. Zet bij elk soort in 1 zin wat een goed antwoord zou doen. Geef alleen de 3 soorten.
+    intro: "Bij een gewoon voorbeeld werkt bijna elke instructie. Nu zoek je de grens: wat gebeurt er op een drukke dag, met lastige input? Dat doe je in 5 korte stappen, a tot en met e."
+    stap1_titel: "a. Laat Copilot 3 lastige voorbeelden maken"
+    stap1_tekst: "Kopieer de prompt en plak hem in Copilot. Je instructie staat er al in. Copilot maakt 3 verzonnen voorbeelden en zegt bij elk wat een goed antwoord zou doen."
+    stap1_titel_sf: "a. Laat Copilot meedenken: wat maakt een case lastig?"
+    stap1_tekst_sf: "Kopieer de prompt en plak hem in Copilot. Copilot noemt 3 soorten lastige cases, zonder gegevens, en zegt bij elk wat een goed antwoord zou doen."
     prompt: |-
       Dit is mijn instructie: {instructie}
 
       Ik werk als {functie} bij {afdeling} van PostNL. Bedenk 3 lastige voorbeelden van input voor deze instructie, passend bij mijn werk: 1 die onvolledig is, 1 die afwijkt van normaal, en 1 waarbij het goede antwoord is "dat weet ik niet" of "dat mag niet". Maak ze kort en verzonnen, zonder echte klantgegevens. Zet bij elk voorbeeld in 1 zin wat een goed antwoord zou doen. Geef alleen de 3 voorbeelden.
-    daarna: "Open een tijdelijke chat. Plak je instructie en 1 lastig voorbeeld. Kijk of het antwoord doet wat Copilot als goed antwoord noemde."
-    daarna_sf: "Zoek in Salesforce een echte case van 1 van die soorten. Open Coworker bij die case en plak je instructie. Kijk of het antwoord doet wat een goed antwoord zou doen."
-    geval_label: "Mijn lastige geval (kort, in algemene woorden, zonder gegevens)"
-    waarom: "Bij makkelijke input werkt bijna elke instructie. Bij lastige input zie je waar hij nog stukgaat."
-    mis_label: "Wat ging er mis? (Ging alles goed? Schrijf dat op.)"
-    hulp_opties: ["Copilot bedacht de gevallen", "Zelf bedacht"]
+    prompt_sf: |-
+      Dit is mijn instructie: {instructie}
+
+      Ik werk als {functie} bij {afdeling} van PostNL. Ik gebruik deze instructie in Coworker, bij echte cases in Salesforce. Noem 3 soorten cases waarbij deze instructie kan mislukken: 1 die onvolledig is, 1 die afwijkt van normaal, en 1 waarbij het goede antwoord is "dat weet ik niet" of "dat mag niet". Beschrijf ze in algemene woorden, zonder gegevens. Zet bij elk soort in 1 zin wat een goed antwoord zou doen. Geef alleen de 3 soorten.
+    stap2_titel: "b. Kies er 1"
+    stap2_tekst: "Kies het voorbeeld dat het meest lijkt op wat jij in je werk tegenkomt. Neem ook over wat een goed antwoord zou doen: daar meet je straks tegen."
+    stap2_tekst_sf: "Kies 1 soort en zoek in Salesforce een echte case die daarop lijkt. Neem over wat een goed antwoord zou doen: daar meet je straks tegen."
+    geval_label: "Mijn lastige voorbeeld, en wat een goed antwoord zou doen (kort, zonder gegevens)"
+    stap3_titel: "c. Plak je instructie en het lastige voorbeeld in een nieuwe tijdelijke chat"
+    stap3_tekst: "Open een nieuwe tijdelijke chat. Plak je instructie. Geef daarna het lastige voorbeeld als input."
+    stap3_titel_sf: "c. Plak je instructie in Coworker, bij die case"
+    stap3_tekst_sf: "Open Coworker bij de lastige case. Plak je instructie."
+    stap4_titel: "d. Doet het antwoord wat een goed antwoord zou doen?"
+    mis_label: "Wat ging er mis, of waar ging Copilot gokken? (Ging alles goed? Schrijf dat op.)"
+    stap5_titel: "e. Beoordeel"
+    waarom: "Waarom een lastig voorbeeld? Op een rustige dag werkt bijna elke instructie. Hier zie je waar hij nog stukgaat. Dat is precies wat je in stap 6 verbetert."
+    hulp_opties: ["Copilot bedacht het voorbeeld", "Zelf bedacht"]
     hulp_opties_sf: ["Echte case, Copilot hielp bedenken wat lastig is", "Echte case, zelf bedacht"]
     scores: ["Bruikbaar", "Deels bruikbaar", "Niet bruikbaar"]
 
   verander:
-    titel: "Verander 1 ding"
+    titel: "Verbeter je instructie: 1 ding"
     tijd: 10
-    intro: "Kies 1 ding dat je aanpast in je instructie. Alleen 1. Maakte een bijsturing in stap 4 het verschil? Zet die zin dan in je instructie. Test daarna opnieuw met hetzelfde lastige voorbeeld."
-    velden_noot: "Hieronder staat je tekst uit stap 3. Pas er 1 ding in aan."
+    intro: "Je weet nu waar je instructie het lastig had. Nu verbeter je hem. Alleen 1 ding, zodat je ziet wat het verschil maakt. Dat doe je in 4 korte stappen, a tot en met d."
+    terugblik_titel: "Dit schreef je eerder op"
+    terugblik_mis: "Stap 5, wat ging er mis:"
+    terugblik_bijsturing: "Stap 4, deze bijsturing hielp:"
+    terugblik_leeg: "(niets ingevuld)"
+    stap1_titel: "a. Kies wat je aanpast"
+    stap1_tekst: "Kies 1 ding. Twee manieren die vaak werken: los op wat er in stap 5 misging, of zet de zin die in stap 4 hielp vast in je instructie. Dan hoef je hem de volgende keer niet meer te typen."
     aanpas_label: "Wat pas je aan, en waarom?"
-    hulp_titel: "Weet je niet wat je moet aanpassen?"
-    hulp_prompt: "Mijn instructie ging mis bij deze input: [wat er gebeurde]. Stel 1 aanpassing voor in mijn instructie. Verander verder niets. Geef alleen de aangepaste zin."
-    vinkje_intro: "Heb je versie 0.2 getest? Zet dan het vinkje."
+    hulp_titel: "Weet je niet wat je moet aanpassen? Laat Copilot 1 aanpassing voorstellen"
+    hulp_prompt: "Dit is mijn instructie: {instructie}. Hij ging mis bij een lastig voorbeeld. Dit gebeurde: {mis}. Stel 1 aanpassing voor in mijn instructie. Verander verder niets. Geef alleen de aangepaste zin en zeg in welk deel hij hoort: Doel, Context, Actie of Verwachting."
+    stap2_titel: "b. Pas het aan in 1 veld"
+    velden_noot: "Hieronder staat je instructie uit stap 3. Pas alleen het veld aan dat bij jouw aanpassing hoort."
+    stap3_titel: "c. Test opnieuw, met hetzelfde lastige voorbeeld"
+    stap3_tekst: "Open een nieuwe tijdelijke chat. Plak versie 0.2. Geef hetzelfde lastige voorbeeld als in stap 5. Zo zie je of jouw aanpassing het verschil maakt."
+    stap3_tekst_sf: "Open Coworker bij dezelfde lastige case. Plak versie 0.2. Zo zie je of jouw aanpassing het verschil maakt."
+    stap4_titel: "d. Vergelijk met de vorige keer"
     vinkje: "Ik heb versie 0.2 getest met hetzelfde lastige voorbeeld"
     beter_opties: ["Beter", "Hetzelfde", "Slechter"]
-    waarom: "Verander je 1 ding, dan zie je wat het verschil maakt. Verander je alles tegelijk, dan weet je dat niet."
+    beter_slechter: "Hetzelfde of slechter? Dat is ook informatie. Zet de oude zin terug of probeer een andere aanpassing. Versie 0.1 staat in je pdf."
+    waarom: "Waarom maar 1 ding? Verander je 1 ding, dan zie je wat het verschil maakt. Verander je alles tegelijk, dan weet je niet wat hielp."
 
   bewaar:
     titel: "Bewaar en plan"

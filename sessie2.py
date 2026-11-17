@@ -26,9 +26,9 @@ STAPPEN = [
     "1. Terug naar je tests",
     "2. Ontwerp met Copilot",
     "3. Schrijf je instructie",
-    "4. Test",
-    "5. Breek je werkwijze",
-    "6. Verander 1 ding",
+    "4. Test: gewoon voorbeeld",
+    "5. Test: lastig voorbeeld",
+    "6. Verbeter 1 ding",
     "7. Bewaar en plan",
 ]
 LAATSTE = len(STAPPEN) - 1
@@ -348,6 +348,8 @@ if ss.stap == 0:
     st.title(C["titel"])
     st.write(C["start"]["tekst"])
     st.info(C["start"]["zo_werk_je"])
+    if C["start"].get("tijdelijk_titel"):
+        st.markdown(f"**🕶 {C['start']['tijdelijk_titel']}**  \n{C['start']['tijdelijk_tekst']}")
     waarom(C["start"])
     functie = bewaar_tekst(C["start"]["functie_label"], "functie")
     afdeling = bewaar_tekst(C["start"]["afdeling_label"], "afdeling", standaard=C["start"].get("afdeling_standaard", ""))
@@ -540,22 +542,39 @@ elif ss.stap == 5:
     s = S["breek"]
     st.title(s["titel"])
     tijd(s["tijd"])
-    st.write(t(s, "intro"))
-    prompt(vul_in(t(s, "prompt"), instructie=instructie(1), functie=ss.get("functie", "")), t(s, "prompt_titel"))
-    st.write(t(s, "daarna"))
+    st.write(s["intro"])
+    st.markdown(f"#### {t(s, 'stap1_titel')}")
+    st.write(t(s, "stap1_tekst"))
+    prompt(vul_in(t(s, "prompt"), instructie=instructie(1), functie=ss.get("functie", "")), "Prompt voor Copilot")
+    st.markdown(f"#### {s['stap2_titel']}")
+    st.write(t(s, "stap2_tekst"))
     bewaar_tekst(s["geval_label"], "geval", area=True, height=80)
-    waarom(s)
-    opties = t(s, "hulp_opties")
-    hulp = bewaar_keuze("Waar kwam je lastige geval vandaan?", opties, "hulp5", horizontal=True)
+    st.markdown(f"#### {t(s, 'stap3_titel')}")
+    st.write(t(s, "stap3_tekst"))
+    prompt(instructie(1), "Jouw instructie, versie 0.1", plak_in())
+    st.markdown(f"#### {s['stap4_titel']}")
     mis = bewaar_tekst(s["mis_label"], "mis", area=True, height=80)
+    st.markdown(f"#### {s['stap5_titel']}")
     score = bewaar_keuze("Mijn score", s["scores"], "score5", horizontal=True)
-    navigatie(bool(mis) and bool(hulp) and bool(score), "Kies waar je geval vandaan kwam, vul in wat er misging en kies een score.")
+    hulp = bewaar_keuze("Waar kwam je lastige voorbeeld vandaan?", t(s, "hulp_opties"), "hulp5", horizontal=True)
+    st.caption(f"💡 {s['waarom']}")
+    navigatie(bool(mis) and bool(hulp) and bool(score), "Vul in wat er misging, kies een score en kies waar je voorbeeld vandaan kwam.")
 
 elif ss.stap == 6:
     s = S["verander"]
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
+    with st.container(border=True):
+        st.markdown(f"**{s['terugblik_titel']}**")
+        st.markdown(f"{s['terugblik_mis']} {ss.get('mis', '').strip() or s['terugblik_leeg']}")
+        st.markdown(f"{s['terugblik_bijsturing']} {ss.get('bijsturing', '').strip() or s['terugblik_leeg']}")
+    st.markdown(f"#### {s['stap1_titel']}")
+    st.write(s["stap1_tekst"])
+    aanpas = bewaar_tekst(s["aanpas_label"], "aanpas")
+    with st.expander(s["hulp_titel"]):
+        prompt(vul_in(s["hulp_prompt"], instructie=instructie(1), mis=ss.get("mis", "").strip()))
+    st.markdown(f"#### {s['stap2_titel']}")
     st.caption(s["velden_noot"])
     # Versie 0.2 begint als kopie van versie 0.1. Paste je in stap 3 iets aan en
     # had je dat veld hier nog niet veranderd, dan neemt versie 0.2 de nieuwe tekst over.
@@ -567,14 +586,15 @@ elif ss.stap == 6:
     ss["_v1_kopie"] = nu
     for k, label in t(S["instructie"], "velden").items():
         bewaar_tekst(label, k + "2", area=True, height=70)
-    aanpas = bewaar_tekst(s["aanpas_label"], "aanpas")
-    with st.expander(s["hulp_titel"]):
-        prompt(s["hulp_prompt"])
+    st.markdown(f"#### {s['stap3_titel']}")
+    st.write(t(s, "stap3_tekst"))
     prompt(instructie(2), "Jouw instructie, versie 0.2", plak_in())
-    vet(s["vinkje_intro"])
+    st.markdown(f"#### {s['stap4_titel']}")
     klaar = bewaar_vinkje(s["vinkje"], "v6")
     beter = bewaar_keuze("Was versie 0.2 beter?", s["beter_opties"], "beter", horizontal=True)
-    waarom(s)
+    if beter and beter != s["beter_opties"][0]:
+        st.info(s["beter_slechter"])
+    st.caption(f"💡 {s['waarom']}")
     navigatie(bool(aanpas) and klaar and bool(beter), "Schrijf op wat je aanpast, test versie 0.2 en kies of hij beter was.")
 
 elif ss.stap == 7:
