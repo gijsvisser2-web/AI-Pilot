@@ -173,13 +173,23 @@ stappen:
     tip_sf: "Wil je niet wachten? Open Coworker bij een case en plak je instructie. Kijk wat er gebeurt."
 
   test:
-    titel: "Test met normale input"
+    titel: "Test je instructie op een gewone taak"
     tijd: 12
-    intro: "Denk eerst zelf na: wat moet er in het resultaat staan? Open daarna een tijdelijke chat in Copilot (geen tijdelijke chat? Dan een nieuw gesprek). Plak je instructie. Geef daarna je input van een gewone taak."
-    intro_sf: "Denk eerst zelf na: wat moet er in het resultaat staan? Open daarna Coworker bij een gewone case waar je mee bezig bent. Plak je instructie."
-    punten_label: "Schrijf 3 punten op die zeker in het resultaat moeten staan"
-    waarom: "Met geheugen aan onthoudt Copilot dingen uit je eerdere gesprekken, ook in een nieuw gesprek. Een tijdelijke chat gebruikt dat geheugen niet. Zo test je of je instructie op zichzelf werkt, zoals bij een nieuwe collega die jouw werk nog niet kent."
-    waarom_sf: "Coworker kent je interview in Copilot niet. Zo test je of je instructie op zichzelf werkt, zoals straks in je echte werk."
+    intro: "Je instructie staat klaar: zelf geschreven of je bestaande. Nu kijk je of hij werkt op een gewone taak uit je werk. Dat doe je in 5 korte stappen, a tot en met e."
+    stap1_titel: "a. Kies een gewone taak"
+    stap1_tekst: "Een taak van deze week, of een gewone situatie uit je werk. Niet de moeilijkste. Die komt in de volgende stap."
+    stap1_tekst_sf: "Kies een gewone case in Salesforce waar je nu mee bezig bent. Niet de moeilijkste. Die komt in de volgende stap."
+    stap2_titel: "b. Wat moet er zeker in het resultaat staan?"
+    punten_label: "Schrijf 1 tot 3 punten op"
+    punten_waarom: "Doe dit voordat je Copilot opent. Dan beoordeel je straks op inhoud, en niet op \"het ziet er goed uit\"."
+    stap3_titel: "c. Plak je instructie in een tijdelijke chat"
+    stap3_titel_sf: "c. Plak je instructie in Coworker"
+    stap3_tekst: "Open in Copilot een tijdelijke chat. Geen tijdelijke chat? Open dan een nieuw gesprek. Plak je instructie."
+    stap3_tekst_sf: "Open Coworker bij je case. Plak je instructie."
+    waarom: "Waarom een tijdelijke chat? Met geheugen aan onthoudt Copilot dingen uit je eerdere gesprekken, ook in een nieuw gesprek. Een tijdelijke chat gebruikt dat geheugen niet. Zo werkt je instructie zoals bij een nieuwe collega die jouw werk nog niet kent."
+    waarom_sf: "Waarom zo? Coworker kent je gesprekken in Copilot niet. Zo test je of je instructie op zichzelf werkt, zoals straks in je echte werk."
+    stap4_titel: "d. Geef je input en lees de uitkomst"
+    stap5_titel: "e. Beoordeel de uitkomst"
     waarschuwing: "Geen klantgegevens in Copilot. Maak het algemeen of verzin een voorbeeld dat erop lijkt."
     waarschuwing_sf: "Werk in Coworker alleen met de case waar je nu mee bezig bent. Kopieer niets uit de case naar Copilot of naar deze app."
     bijsturen_tekst: "Niet goed genoeg? Typ eerst zelf in 1 zin wat er beter moet. Verander steeds 1 ding en vergelijk met het vorige antwoord."
@@ -201,7 +211,7 @@ stappen:
     hulp_opties: ["Geen", "Bijstuurzinnen"]
     vinkjes_intro: "Controleer de uitkomst. Vink aan wat klopt."
     controle:
-      - "Mijn 3 punten staan erin"
+      - "Mijn punten staan erin"
       - "Klopt het? Feiten en bronnen nagekeken"
       - "Past het? Bij de ontvanger, de toon, PostNL"
       - "Helpt het? Sneller, beter, consistenter of makkelijker"
