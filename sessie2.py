@@ -394,7 +394,7 @@ elif ss.stap == 1:
             bewaar_keuze("Hoe ging het?", s["scores"], f"t{i}_score", horizontal=True)
             bewaar_keuze("Wat leverde het op?", s["opbrengst"], f"t{i}_opbrengst", horizontal=True)
             bewaar_tekst("Wat moest je zelf nog doen voordat het bruikbaar was?", f"t{i}_herstel")
-            bewaar_tekst("Wat pas je aan in je werkwijze?", f"t{i}_aanpas")
+            bewaar_tekst("Wat leerde je van deze test? Wat houd je zo, of wat wil je anders? (optioneel)", f"t{i}_aanpas")
     if niet_getest():
         st.info(s["niet_getest"])
         bewaar_keuze("Waarom niet getest?", s["waarom_niet"], "waarom_niet")
@@ -425,6 +425,7 @@ elif ss.stap == 2:
     bestaand = bewaar_keuze(s["bestaand_vraag"], s["bestaand_opties"], "bestaand", horizontal=True)
     if bestaand == s["bestaand_opties"][1]:
         st.info(s["bestaand_tekst"])
+        prompt(vul_in(s["bestaand_prompt"]), "Laat Copilot je instructie kritisch bekijken")
         klaar = bewaar_vinkje(s["bestaand_vinkje"], "v2b")
         navigatie(klaar, "Zet het vinkje als je je bestaande instructie bij de hand hebt.")
         st.stop()
