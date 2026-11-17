@@ -394,6 +394,7 @@ elif ss.stap == 6:
     naam = tool or "Copilot"
     plak = "de chat in Salesforce" if tool == "Salesforce" else "Copilot Chat"
     prompt(vul_in(s["prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", ""), punten=punten, functie=ss.get("functie", "")), f"Prompt voor {naam}", plak)
+    st.caption(s["opbouw"])
     waarom(s)
     st.warning(s["bronnen_tip"][naam])
     st.error(s["klantregel"])
