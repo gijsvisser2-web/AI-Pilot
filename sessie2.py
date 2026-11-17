@@ -24,8 +24,8 @@ TOOLS = C.get("tools")
 STAPPEN = [
     "Start",
     "1. Terug naar je tests",
-    "2. Ontwerp met Copilot",
-    "3. Schrijf je instructie",
+    "2. Schrijf je instructie",
+    "3. Laat Copilot meekijken",
     "4. Test: gewoon voorbeeld",
     "5. Test: lastig voorbeeld",
     "6. Verbeter 1 ding",
@@ -250,9 +250,10 @@ def maak_pdf():
         tekst("Idee voor het AI CoE: " + ss.get("idee", ""))
     kop("2 en 3. Mijn werkwijze")
     if ss.get("bestaand") == S["ontwerp"]["bestaand_opties"][1]:
-        tekst("Ontwerp: ik had al een instructie of agent")
+        tekst("Ik had al een instructie of agent")
     else:
-        tekst("Hulp bij het ontwerp: " + (ss.get("hulp2") or "-"))
+        tekst("Hulp bij het schrijven: " + (ss.get("hulp2") or "-"))
+    tekst("Wat ik overnam van Copilot als coach: " + ss.get("coach_punt", ""))
     kop("Instructie versie 0.1", 11)
     tekst(instructie(1), mono=True)
     tekst("Mijn controle: " + ss.get("controle", ""))
@@ -373,6 +374,7 @@ elif ss.stap == 1:
     waarom(s)
     stap = bewaar_tekst(s["stap_label"], "stap_keuze")
     st.caption(s["stap_hulp"])
+    st.caption(f"🤖 {s['agent_hulp_sf'] if TOOLS else s['agent_hulp']}")
     stap_nummer = bool(stap) and is_nummer(stap)
     if stap_nummer:
         st.warning(s["stap_fout"])
@@ -422,52 +424,46 @@ elif ss.stap == 1:
 
 elif ss.stap == 2:
     s = S["ontwerp"]
+    si = S["instructie"]
     st.title(s["titel"])
     tijd(s["tijd"])
-    bestaand = bewaar_keuze(s["bestaand_vraag"], s["bestaand_opties"], "bestaand", horizontal=True)
-    if bestaand == s["bestaand_opties"][1]:
-        st.info(s["bestaand_tekst"])
-        prompt(vul_in(s["bestaand_prompt"]), "Laat Copilot je instructie kritisch bekijken")
-        klaar = bewaar_vinkje(s["bestaand_vinkje"], "v2b")
-        navigatie(klaar, "Zet het vinkje als je je bestaande instructie bij de hand hebt.")
-        st.stop()
-    with st.container(border=True):
-        st.markdown(f"🎯 **Opdracht:** {t(s, 'opdracht')}")
-    st.caption(s["tip"])
-    b = basis()
-    with st.expander("Hulp 1: een paar vragen om op weg te komen"):
-        for v in s["hulp1"]:
-            st.markdown(f"- {v}")
-    with st.expander("Hulp 2: de bouwstenen"):
-        for naam, zin in s["hulp2"]:
-            st.markdown(f"**{naam}:** {vul_in(zin, **b)}")
-    with st.expander("Hulp 3: de hele prompt"):
-        prompt(vul_in(t(s, "prompt"), **b))
+    st.write(s["intro"])
     waarom(s)
-    st.warning(s["waarschuwing"])
-    with st.expander("Loop je vast?"):
-        for h in s["vastlopen"]:
-            prompt(h["prompt"], h["label"])
-    hulp = bewaar_keuze("Welke hulp heb je gebruikt?", s["hulp_opties"], "hulp2", horizontal=True)
-    vet(s["vinkje_intro"])
-    klaar = bewaar_vinkje(s["vinkje"], "v2")
-    navigatie(bool(bestaand) and bool(hulp) and klaar, "Kies of je al een instructie hebt, kies welke hulp je gebruikte en zet het vinkje.")
+    bestaand = bewaar_keuze(s["bestaand_vraag"], s["bestaand_opties"], "bestaand", horizontal=True)
+    is_bestaand = bestaand == s["bestaand_opties"][1]
+    if is_bestaand:
+        st.info(s["bestaand_tekst"])
+        prompt(s["bestaand_prompt"], "Laat Copilot je instructie verdelen")
+    else:
+        with st.expander("🧭 " + s["vast_titel"]):
+            st.write(s["vast_tekst"])
+            prompt(vul_in(t(s, "prompt"), **basis()))
+            st.warning(s["waarschuwing"])
+    ingevuld = [bewaar_tekst(label, k, area=True, height=70) for k, label in t(si, "velden").items()]
+    hulp = True
+    if not is_bestaand:
+        hulp = bewaar_keuze(s["hulp_vraag"], s["hulp_opties"], "hulp2", horizontal=True)
+    if all(ingevuld):
+        prompt(instructie(1), "Jouw instructie tot nu toe", plak_in())
+    navigatie(bool(bestaand) and all(ingevuld) and bool(hulp), "Kies of je al een instructie hebt, vul de 4 velden in en kies wat je hebt gebruikt.")
 
 elif ss.stap == 3:
     s = S["instructie"]
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    waarom(s)
-    if ss.get("bestaand") == S["ontwerp"]["bestaand_opties"][1]:
-        st.info(s["tip_bestaand"])
-    else:
-        st.caption(s["tip"])
+    st.markdown(f"#### {s['coach_titel']}")
+    st.write(s["coach_tekst"])
+    prompt(vul_in(t(s, "coach_prompt"), stap=ss.get("stap_keuze", ""), instructie=instructie(1)), "Prompt voor Copilot als coach")
+    st.markdown(f"#### {s['aanpas_titel']}")
+    coach = bewaar_tekst(s["coach_label"], "coach_punt", area=True, height=70)
+    st.write(s["aanpas_tekst"])
     ingevuld = [bewaar_tekst(label, k, area=True, height=70) for k, label in t(s, "velden").items()]
+    st.markdown(f"#### {s['jij_titel']}")
+    st.write(s["jij_tekst"])
     bewaar_tekst(s["controle_label"], "controle")
     bewaar_tekst(s["niet_label"], "wanneer_niet")
     mensenwerk = bewaar_tekst(s["mensenwerk_label"], "mensenwerk")
-    prompt(instructie(1), "Jouw instructie, versie 0.1", plak_in())
     kleuren = t(s, "kleuren")
     kleur = bewaar_keuze(s["kleur_vraag"], kleuren, "kleur")
     rood_ok = True
@@ -482,11 +478,13 @@ elif ss.stap == 3:
         st.error(t(s, "rood"))
         prompt(vul_in(s["verzonnen_prompt"], functie=ss.get("functie", "")), "Maak een verzonnen voorbeeld")
         rood_ok = bewaar_vinkje(s["rood_vinkje"], "rood_ok")
+    prompt(instructie(1), "Jouw instructie, versie 0.1", plak_in())
+    waarom(s)
     vet(s["vinkje_intro"])
     klaar = bewaar_vinkje(s["vinkje"], "v3")
     navigatie(
-        all(ingevuld) and bool(mensenwerk) and bool(kleur) and rood_ok and klaar,
-        "Vul doel, input, aanpak, output en mensenwerk in, kies een kleur en zet het vinkje. Bij rood: kies een verzonnen voorbeeld.",
+        bool(coach) and all(ingevuld) and bool(mensenwerk) and bool(kleur) and rood_ok and klaar,
+        "Schrijf welk punt je overneemt, vul de velden en mensenwerk in, kies een kleur en zet het vinkje. Bij rood: kies een verzonnen voorbeeld.",
     )
 
 elif ss.stap == 4 and not ss.code2:
