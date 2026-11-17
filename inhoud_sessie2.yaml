@@ -79,7 +79,7 @@ stappen:
   ontwerp:
     titel: "Schrijf je instructie"
     tijd: 15
-    intro: "Zie Copilot als een nieuwe collega in je team. Wil je dat hij meewerkt, dan moet je hem informeren. Schrijf in je eigen woorden wat hij moet weten, volgens RACE. De rol vult de app zelf in met je functie. Kort mag. De app maakt er 1 instructie van."
+    intro: "Zie Copilot als een nieuwe collega in je team. Wil je dat hij meewerkt, dan moet je hem informeren. Schrijf in je eigen woorden wat hij moet weten. De rol vult de app zelf in met je functie. Kort mag. De app maakt er 1 instructie van."
     bestaand_vraag: "Heb je voor deze stap al een instructie of een agent die je gebruikt?"
     bestaand_opties: ["Nee, ik schrijf hem nu", "Ja, ik heb al een instructie of agent"]
     bestaand_tekst: "Zet je bestaande instructie in de 4 velden hieronder. Weet je niet wat waar hoort? Laat Copilot hem verdelen met de prompt hieronder. In stap 3 kijkt Copilot er kritisch naar."
