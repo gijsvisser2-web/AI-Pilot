@@ -173,12 +173,12 @@ stappen:
     tip_sf: "Wil je niet wachten? Open Coworker bij een case en plak je instructie. Kijk wat er gebeurt."
 
   test:
-    titel: "Test je instructie op een gewone taak"
+    titel: "Test je instructie op een gewoon voorbeeld"
     tijd: 12
-    intro: "Je instructie staat klaar: zelf geschreven of je bestaande. Nu kijk je of hij werkt op een gewone taak uit je werk. Dat doe je in 5 korte stappen, a tot en met e."
-    stap1_titel: "a. Kies een gewone taak"
-    stap1_tekst: "Een taak van deze week, of een gewone situatie uit je werk. Niet de moeilijkste. Die komt in de volgende stap."
-    stap1_tekst_sf: "Kies een gewone case in Salesforce waar je nu mee bezig bent. Niet de moeilijkste. Die komt in de volgende stap."
+    intro: "Je instructie staat klaar: zelf geschreven of je bestaande. Nu kijk je of hij werkt als je stap echt voorkomt in je werk. Dat doe je in 5 korte stappen, a tot en met e."
+    stap1_titel: "a. Kies 1 gewoon voorbeeld van je stap"
+    stap1_tekst: "Denk aan 1 keer dat je stap voorkwam, bijvoorbeeld deze week. Dat voorbeeld is de input die je straks aan Copilot geeft. Kies een gewoon voorbeeld, niet het moeilijkste. Dat komt in stap 5. Gebruik geen klantgegevens: maak het algemeen of verzin een voorbeeld dat erop lijkt."
+    stap1_tekst_sf: "Kies 1 gewone case in Salesforce waar je stap bij voorkomt, bijvoorbeeld een case waar je nu mee bezig bent. Die case is je input. Niet de moeilijkste. Die komt in stap 5."
     stap2_titel: "b. Wat moet er zeker in het resultaat staan?"
     punten_label: "Schrijf 1 tot 3 punten op"
     punten_waarom: "Doe dit voordat je Copilot opent. Dan beoordeel je straks op inhoud, en niet op \"het ziet er goed uit\"."
@@ -275,8 +275,8 @@ stappen:
     als_label: "Als ... (een moment in je werk, bijvoorbeeld: als er een schadeclaim binnenkomt)"
     dan_label: "dan ... (wat je doet, bijvoorbeeld: open ik Copilot en plak ik mijn instructie)"
     tests:
-      - "Test 1: een normale taak (dag en tijd)"
-      - "Test 2: een nieuwe echte taak (dag en tijd)"
+      - "Test 1: een gewoon voorbeeld van je stap (dag en tijd)"
+      - "Test 2: een volgend echt voorbeeld (dag en tijd)"
       - "Test 3: lastige of afwijkende input (dag en tijd)"
     tests_hulp: "Schrijf een dag en een tijd, zoals \"dinsdag 10:00\". Zet ze nu in je agenda."
     bewaar_tekst: "Bewaar je instructie waar je werkt, niet alleen in de pdf. Zet hem op een plek die je openhebt als het moment komt, bijvoorbeeld een notitie naast je mailbox. De pdf is je bewijs, niet je gereedschap."
