@@ -376,6 +376,12 @@ elif ss.stap == 1:
         st.warning(s["stap_fout"])
     oplevert = bewaar_tekst(s["oplevert_label"], "oplevert")
     st.caption(s["oplevert_hulp"])
+    with st.expander("🔎 " + s["check_titel"]):
+        for v in s["check_vragen"]:
+            st.markdown(f"- {v}")
+        st.markdown(f":red[✗] {s['check_te_breed']}  \n:green[✓] {s['check_concreet']}")
+        st.write(s["check_prompt_intro"])
+        prompt(vul_in(s["check_prompt"], stap=ss.get("stap_keuze", ""), oplevert=ss.get("oplevert", "")))
     tool_ok = True
     if TOOLS:
         tool = bewaar_keuze(TOOLS["vraag"], TOOLS["opties"], "tool", horizontal=True)

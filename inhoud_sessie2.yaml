@@ -41,7 +41,16 @@ stappen:
     stap_hulp: "Schrijf wat je doet, niet het nummer. Niet: \"Stap 2\". Wel: \"De voorgeschiedenis van een klant samenvatten voor mijn antwoord\"."
     stap_fout: "Beschrijf je stap in woorden, niet met een nummer. Copilot weet niet wat \"stap 2\" is."
     oplevert_label: "Wat levert deze stap op, en voor wie?"
-    oplevert_hulp: "Alleen deze stap, niet je hele taak. Bijvoorbeeld: \"een overzicht van eerdere afspraken, voor mijn coachgesprek\"."
+    check_titel: "Is je stap concreet genoeg? Doe de check"
+    check_vragen:
+      - "Wat doe je precies? 1 handeling, zoals zoeken, vergelijken, samenvatten of controleren."
+      - "Waarmee doe je dat? Welke informatie of bron gebruik je?"
+      - "Wanneer ben je klaar? Wat ligt er dan voor je?"
+    check_te_breed: "Te breed: \"Klantvragen afhandelen\". Dat is een heel proces."
+    check_concreet: "Concreet: \"Een klantvraag over een vertraagd pakket samenvatten in 3 regels, als start voor mijn antwoord\". 1 handeling, 1 bron, en je weet wanneer je klaar bent."
+    check_prompt_intro: "Kom je er niet uit? Laat Copilot meedenken."
+    check_prompt: "Ik werk als {functie} bij {afdeling} van PostNL. Ik wil 1 concrete werkstap kiezen om met AI te verbeteren. Mijn stap is nu: {stap}. Dit moet hij opleveren: {oplevert}. Controleer of dit 1 handeling is, of eigenlijk meerdere stappen of een eindresultaat. Is het te breed? Stel me dan maximaal 3 vragen, 1 tegelijk, om de stap kleiner te maken. Geef daarna een voorstel voor mijn stap in woorden, en wat die stap oplevert en voor wie. Kies niet voor mij. Noem geen klantgegevens."
+    oplevert_hulp: "Alleen het resultaat van deze ene stap, niet het eindresultaat van je hele werk. Bijvoorbeeld: \"een overzicht van eerdere afspraken, voor mijn coachgesprek\"."
     hoe_vaak: "Hoe vaak deed je je stap op echt werk sinds de kickoff?"
     hoe_vaak_opties: ["0 keer", "1 keer", "2 keer", "3 keer of vaker"]
     scores: ["Bruikbaar", "Deels bruikbaar", "Niet bruikbaar"]
