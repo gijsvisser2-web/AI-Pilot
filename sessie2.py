@@ -373,6 +373,7 @@ elif ss.stap == 1:
     waarom(s)
     stap = bewaar_tekst(s["stap_label"], "stap_keuze")
     st.caption(s["stap_hulp"])
+    st.caption(f"🤖 {s['agent_hulp_sf'] if TOOLS else s['agent_hulp']}")
     stap_nummer = bool(stap) and is_nummer(stap)
     if stap_nummer:
         st.warning(s["stap_fout"])

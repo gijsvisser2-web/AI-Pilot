@@ -41,6 +41,8 @@ stappen:
     waarom: "Je tests laten zien wat Copilot nog mist. Daar begint je werkwijze."
     stap_label: "Mijn stap, in woorden (staat in je pdf bij 5)"
     stap_hulp: "Schrijf wat je doet, niet het nummer. Niet: \"Stap 2\". Wel: \"De voorgeschiedenis van een klant samenvatten voor mijn antwoord\"."
+    agent_hulp: "Heb je al een agent? Beschrijf de stap die je agent doet, niet \"mijn agent\". Doet hij meerdere stappen? Kies de stap waar je hem het minst vertrouwt. Die ga je vandaag breken. Elke keer dat je hem op echt werk gebruikte, telt als test."
+    agent_hulp_sf: "Heb je al een agent? Beschrijf de stap die je agent doet, niet \"mijn agent\". Doet hij meerdere stappen? Kies de stap waar je hem het minst vertrouwt. Die ga je vandaag breken. Kies hieronder waar je agent draait: Copilot of Salesforce. Elke keer dat je hem op echt werk gebruikte, telt als test."
     stap_fout: "Beschrijf je stap in woorden, niet met een nummer. Copilot weet niet wat \"stap 2\" is."
     oplevert_label: "Wat levert deze stap op, en voor wie?"
     check_titel: "Is je stap concreet genoeg? Doe de check"
