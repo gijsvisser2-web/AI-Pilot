@@ -639,7 +639,7 @@ elif ss.stap == 7:
             mime="application/pdf",
             type="primary",
         )
-        st.markdown("**Snel bewaren voor sessie 3**")
+        st.markdown("**Snel bewaren voor de showcase**")
         st.caption(s["bewaar_snel"])
         st.code(samenvatting(), language=None, wrap_lines=True)
         st.success(s["afsluiting"])
