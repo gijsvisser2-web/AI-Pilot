@@ -77,61 +77,69 @@ stappen:
     vinkje: "Ik heb mijn stap in woorden beschreven en gekozen hoe ik verderga"
 
   ontwerp:
-    titel: "Ontwerp je werkwijze met Copilot"
+    titel: "Schrijf je instructie"
     tijd: 15
+    intro: "Zie Copilot als een nieuwe collega in je team. Wil je dat hij meewerkt, dan moet je hem informeren. Schrijf in je eigen woorden wat hij moet weten, volgens RACE. De rol vult de app zelf in met je functie. Kort mag. De app maakt er 1 instructie van."
     bestaand_vraag: "Heb je voor deze stap al een instructie of een agent die je gebruikt?"
-    bestaand_opties: ["Nee, ik begin met het interview", "Ja, ik heb al een instructie of agent"]
-    bestaand_tekst: "Dan sla je het interview over. Open je instructie of de instructies van je agent. Laat Copilot hem eerst kritisch bekijken met de prompt hieronder. In stap 3 zet je hem in de velden. Dat is je versie 0.1. Vandaag test en breek je hem."
-    bestaand_prompt: "Dit is mijn instructie: [plak je instructie]. Ik werk als {functie} bij {afdeling} van PostNL. Bekijk hem kritisch volgens RACE: Rol, Actie, Context en Verwachting. Wat ontbreekt of is onduidelijk voor iemand die mijn werk niet kent? Noem maximaal 3 punten, het belangrijkste eerst. Schrijf geen nieuwe versie. Ik pas hem zelf aan. Noem geen klantgegevens."
-    bestaand_vinkje: "Ik heb mijn bestaande instructie bij de hand"
-    opdracht: "Schrijf zelf een prompt waarmee Copilot jou interviewt over hoe je deze stap doet. Dit is het belangrijkste stuk van vandaag: hoe scherper jij hier vraagt, hoe beter Copilot de rest doet. Gebruik een nieuw gesprek in Copilot Chat. Aan het eind wil je een kort overzicht met 5 kopjes: Context, Actie, Verwachting, Controle, Wanneer niet gebruiken."
-    opdracht_sf: "Schrijf zelf een prompt waarmee Copilot jou interviewt over hoe je deze stap doet. Dit is het belangrijkste stuk van vandaag: hoe scherper jij hier vraagt, hoe beter Copilot de rest doet. Gebruik een nieuw gesprek in Copilot Chat. Vertel hoe je werkt, niet over klanten. Aan het eind wil je een kort overzicht met 5 kopjes: Context, Actie, Verwachting, Controle, Wanneer niet gebruiken. Die instructie gebruik je straks in Coworker."
-    tip: "Kijk naar de opbouw van je interviewprompt uit de kickoff (in je pdf): wie je bent, wat je wilt, hoe Copilot moet werken, wat je terug wilt."
-    hulp1:
-      - "Wat moet Copilot van jou weten? Denk aan je functie, je stap en hoe je tests gingen."
-      - "Hoe wil je dat Copilot vragen stelt? Alles tegelijk, of 1 voor 1?"
-      - "Wat wil je aan het eind terug?"
-    hulp2:
-      - ["Wie ben je", "Ik werk als {functie} bij {afdeling} van PostNL."]
-      - ["Wat wil je", "Ik wil van deze stap een vaste werkwijze maken: {stap}. Dit moet het opleveren: {oplevert}."]
-      - ["Wat weet je al", "Zo gingen mijn tests: {tests}."]
-      - ["Hoe moet Copilot werken", "Interview me. Stel 1 vraag tegelijk. Geef bij elke vraag een voorbeeld van een antwoord. Vraag ook of een deel beter een vaste regel is dan werk voor AI. Noem geen klantgegevens."]
-      - ["Wat wil je terug", "Geef na maximaal 6 vragen alleen een overzicht met 5 kopjes: Context, Actie, Verwachting, Controle, Wanneer niet gebruiken."]
+    bestaand_opties: ["Nee, ik schrijf hem nu", "Ja, ik heb al een instructie of agent"]
+    bestaand_tekst: "Zet je bestaande instructie in de 4 velden hieronder. Weet je niet wat waar hoort? Laat Copilot hem verdelen met de prompt hieronder. In stap 3 kijkt Copilot er kritisch naar."
+    bestaand_prompt: "Dit is mijn instructie voor Copilot: [plak je instructie]. Verdeel hem onder 4 kopjes: Doel, Context, Actie, Verwachting. Verander niets aan de inhoud. Past iets nergens onder, zet het dan onder een 5e kopje: Overig. Voer de instructie niet uit."
+    waarom: "Straks is er geen app. Wie zelf een instructie kan schrijven, kan Copilot ook maandag aan het werk zetten."
+    vast_titel: "Loop je vast? Laat Copilot je interviewen"
+    vast_tekst: "Weet je niet wat je moet invullen? Plak deze prompt in een tijdelijke chat. Copilot stelt je vragen. Neem daarna alleen over wat jij zei."
     prompt: |-
       Ik werk als {functie} bij {afdeling} van PostNL. Ik wil van deze stap een vaste werkwijze maken: {stap}. Dit moet het opleveren: {oplevert}. Zo gingen mijn tests: {tests}.
 
-      Interview me om de werkwijze te ontwerpen. Stel 1 vraag tegelijk en zet erbij welke vraag het is, bijvoorbeeld "Vraag 2 van maximaal 6". Geef bij elke vraag een kort voorbeeld van een antwoord. Bouw voort op mijn antwoorden. Past een vraag niet, sla hem dan over.
+      Interview me. Stel 1 vraag tegelijk en zet erbij welke vraag het is, bijvoorbeeld "Vraag 2 van maximaal 5". Geef bij elke vraag een kort voorbeeld van een antwoord. Bouw voort op mijn antwoorden.
 
-      Onderwerpen: welke informatie ik elke keer heb (context), wat de output precies moet zijn en voor wie, wat er in mijn tests misging, wat ik altijd zelf controleer, en wanneer ik de uitkomst niet gebruik. Vraag ook of een deel van deze stap beter een vaste regel is (altijd hetzelfde, zonder afweging, bijvoorbeeld een formule in Excel) dan werk voor AI.
+      Onderwerpen: wat de stap oplevert en voor wie, welke informatie ik elke keer heb, wat Copilot moet doen en in welke volgorde, en hoe het resultaat eruit moet zien. Vraag ook of een deel van deze stap beter een vaste regel is (altijd hetzelfde, zonder afweging, bijvoorbeeld een formule in Excel) dan werk voor AI.
 
       Noem geen klantgegevens. Vraag niet naar tijd.
 
-      Geef na maximaal 6 vragen alleen een overzicht met 5 kopjes: Context, Actie, Verwachting, Controle, Wanneer niet gebruiken. Maximaal 3 regels per kopje. Schrijf nog geen prompt.
+      Geef na maximaal 5 vragen alleen een overzicht met 4 kopjes: Doel, Context, Actie, Verwachting. Maximaal 2 regels per kopje. Gebruik alleen wat ik zei.
     prompt_sf: |-
       Ik werk als {functie} bij {afdeling} van PostNL. Ik wil van deze stap een vaste werkwijze maken: {stap}. Dit moet het opleveren: {oplevert}. Zo gingen mijn tests: {tests}. Ik gebruik de instructie straks in Coworker, de AI in Salesforce, bij een echte case.
 
-      Interview me om de werkwijze te ontwerpen. Stel 1 vraag tegelijk en zet erbij welke vraag het is, bijvoorbeeld "Vraag 2 van maximaal 6". Geef bij elke vraag een kort voorbeeld van een antwoord. Bouw voort op mijn antwoorden. Past een vraag niet, sla hem dan over.
+      Interview me. Stel 1 vraag tegelijk en zet erbij welke vraag het is, bijvoorbeeld "Vraag 2 van maximaal 5". Geef bij elke vraag een kort voorbeeld van een antwoord. Bouw voort op mijn antwoorden.
 
-      Onderwerpen: welke gegevens uit de case ik elke keer nodig heb (context), wat de output precies moet zijn en voor wie, wat er in mijn tests misging, wat ik altijd zelf controleer, en wanneer ik de uitkomst niet gebruik. Vraag ook of een deel van deze stap beter een vaste regel is (altijd hetzelfde, zonder afweging) dan werk voor AI.
+      Onderwerpen: wat de stap oplevert en voor wie, welke gegevens uit de case ik elke keer nodig heb, wat Coworker moet doen en in welke volgorde, en hoe het resultaat eruit moet zien. Vraag ook of een deel van deze stap beter een vaste regel is (altijd hetzelfde, zonder afweging) dan werk voor AI.
 
       Noem geen klantgegevens. Vraag niet naar tijd.
 
-      Geef na maximaal 6 vragen alleen een overzicht met 5 kopjes: Context, Actie, Verwachting, Controle, Wanneer niet gebruiken. Maximaal 3 regels per kopje. Schrijf nog geen prompt.
-    hulp_opties: ["Geen", "Hulp 1", "Hulp 2", "Hulp 3"]
+      Geef na maximaal 5 vragen alleen een overzicht met 4 kopjes: Doel, Context, Actie, Verwachting. Maximaal 2 regels per kopje. Gebruik alleen wat ik zei.
+    hulp_vraag: "Wat heb je gebruikt?"
+    hulp_opties: ["Alleen de voorbeelden bij de velden", "Het interview met Copilot"]
     waarschuwing: "Vraagt Copilot naar een klant? Antwoord in algemene woorden: \"een klant met een vraag over een pakket\"."
-    waarom: "Straks is er geen app. Wie zelf een prompt kan opbouwen, kan Copilot ook maandag aan het werk zetten. De hulp is er voor als je vastloopt, niet als startpunt."
-    vastlopen:
-      - label: "Ik snap de vraag niet"
-        prompt: "Ik snap je vraag niet. Leg in 1 zin uit waarom je dit vraagt en geef een voorbeeld van een antwoord."
-      - label: "Het overzicht is te lang"
-        prompt: "Maak het overzicht korter. Maximaal 2 regels per kopje. Geef alleen het overzicht."
-    vinkje_intro: "Staat het overzicht met 5 kopjes in Copilot? Zet dan het vinkje. In de volgende stap schrijf je je instructie."
-    vinkje: "Copilot heeft het overzicht met 5 kopjes gegeven"
 
   instructie:
-    titel: "Schrijf je instructie"
+    titel: "Laat Copilot meekijken"
     tijd: 18
-    intro: "Zie Copilot als een nieuwe collega in je team. Wil je dat hij meewerkt, dan moet je hem goed informeren. Gebruik het overzicht van Copilot als spiekbrief en schrijf in je eigen woorden, volgens RACE. De rol vult de app zelf in met je functie. Kort mag. De app maakt er 1 instructie van."
+    intro: "Je instructie is af. Laat Copilot er nu als coach naar kijken: wat mist een nieuwe collega die jouw werk niet kent? Daarna schrijf je op wat jij zelf blijft doen."
+    coach_titel: "a. Laat Copilot meekijken als coach"
+    coach_tekst: "Plak deze prompt in een tijdelijke chat. Je instructie staat er al in."
+    coach_prompt: |-
+      Kijk als coach mee naar mijn instructie voor Copilot. Voer de instructie niet uit.
+
+      Mijn stap: {stap}.
+
+      Mijn instructie:
+      {instructie}
+
+      Lees hem alsof je een nieuwe collega bent die mijn werk niet kent. Wat ontbreekt of is onduidelijk? Kijk naar Doel, Context, Actie en Verwachting. Noem maximaal 3 punten, het belangrijkste eerst. Geef bij elk punt een vraag die ik mezelf kan stellen. Schrijf geen nieuwe versie. Ik pas hem zelf aan. Noem geen klantgegevens.
+    coach_prompt_sf: |-
+      Kijk als coach mee naar mijn instructie voor Coworker, de AI in Salesforce. Voer de instructie niet uit.
+
+      Mijn stap: {stap}.
+
+      Mijn instructie:
+      {instructie}
+
+      Lees hem alsof je een nieuwe collega bent die mijn werk niet kent. Wat ontbreekt of is onduidelijk? Kijk naar Doel, Context, Actie en Verwachting. Noem maximaal 3 punten, het belangrijkste eerst. Geef bij elk punt een vraag die ik mezelf kan stellen. Schrijf geen nieuwe versie. Ik pas hem zelf aan. Noem geen klantgegevens.
+    aanpas_titel: "b. Pas je instructie aan"
+    coach_label: "Welk punt van Copilot neem je over? Niets? Schrijf dan waarom niet."
+    aanpas_tekst: "Pas hieronder aan wat nodig is. Neem alleen over wat klopt voor jouw werk."
+    jij_titel: "c. Voor jou, niet voor Copilot"
+    jij_tekst: "Deze 3 vragen gaan niet in je instructie. Ze komen in je pdf. Zo weet jij, en straks een collega, wat je altijd zelf doet."
     velden:
       doel: "Doel: wat lever je op, en voor wie? Bijvoorbeeld: \"een concept voor een klantantwoord, dat ik zelf naar de klant stuur\""
       input: "Context: wat geef je Copilot elke keer mee, en waar komt het vandaan? Bijvoorbeeld: \"de vraag van de klant in algemene woorden, en de werkinstructie over vertraagde pakketten\""
@@ -145,8 +153,6 @@ stappen:
     controle_label: "Mijn controle: wat check ik altijd aan de uitkomst voordat ik hem gebruik? Bijvoorbeeld: \"kloppen de feiten en cijfers met de bron?\" (komt in je pdf, niet in de instructie)"
     niet_label: "Wanneer gebruik ik de uitkomst niet? Bijvoorbeeld: \"als er informatie ontbreekt\", \"als de situatie afwijkt van normaal\" of \"als er een besluit met grote gevolgen aan hangt\". Zo weten jij en straks een collega waar de grens ligt, en gaat er geen fout resultaat verder. (komt in je pdf, niet in de instructie)"
     mensenwerk_label: "Dit blijft mensenwerk: wat beslis of doe ik altijd zelf? Bijvoorbeeld: \"versturen\", \"een toezegging doen\" of \"een uitzondering maken\""
-    tip: "Neem niets over wat je zelf niet zou zeggen. Snap je een regel uit het overzicht niet? Laat hem weg. Gaf Copilot oplossingen in plaats van jouw stappen? Neem alleen over wat jij zei."
-    tip_bestaand: "Zet je bestaande instructie in de 4 velden. Past hij niet goed? Zet het doel bovenaan en plak de rest bij Actie. Verwerk wat Copilot in stap 2 miste."
     sjabloon: "Ik werk als {functie} bij {afdeling} van PostNL. Doel: {doel}. Context: {input}. Actie: {aanpak}. Verwachting: {output}. Ontbreekt er informatie? Stel dan eerst maximaal 2 vragen, 1 tegelijk. Noem geen klantgegevens. Benoem aan het eind je aannames, ontbrekende informatie en wat ik zelf moet controleren."
     sjabloon_sf: "Ik werk als {functie} bij {afdeling} van PostNL. Doel: {doel}. Context, gebruik uit deze case: {input}. Actie: {aanpak}. Verwachting: {output}. Gebruik alleen gegevens die in de case staan. Verzin geen gegevens. Ontbreekt er informatie? Zeg dan wat er ontbreekt. Benoem aan het eind je aannames en wat ik zelf moet controleren."
     kleur_vraag: "Mag het? Kies 1 kleur voor de input die je gaat gebruiken"
