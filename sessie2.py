@@ -97,7 +97,10 @@ def vul_in(tekst, **waarden):
     waarden.setdefault("functie", ss.get("functie", ""))
     waarden.setdefault("afdeling", ss.get("afdeling", ""))
     for naam, waarde in waarden.items():
-        tekst = tekst.replace("{" + naam + "}", waarde or f"[{naam}]")
+        waarde = (waarde or "").strip() or f"[{naam}]"
+        # Volgt er in het sjabloon al een punt? Dan geen tweede punt ("workshop..").
+        tekst = tekst.replace("{" + naam + "}.", waarde.rstrip(". ") + ".")
+        tekst = tekst.replace("{" + naam + "}", waarde)
     return tekst
 
 
