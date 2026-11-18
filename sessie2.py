@@ -375,13 +375,13 @@ elif ss.stap == 1:
     tijd(s["tijd"])
     st.write(s["intro"])
     waarom(s)
-    stap = bewaar_tekst(s["stap_label"], "stap_keuze")
+    stap = bewaar_tekst(s["stap_label"], "stap_keuze", area=True, height="content")
     st.caption(s["stap_hulp"])
     st.caption(f"🤖 {s['agent_hulp_sf'] if TOOLS else s['agent_hulp']}")
     stap_nummer = bool(stap) and is_nummer(stap)
     if stap_nummer:
         st.warning(s["stap_fout"])
-    oplevert = bewaar_tekst(s["oplevert_label"], "oplevert")
+    oplevert = bewaar_tekst(s["oplevert_label"], "oplevert", area=True, height="content")
     st.caption(s["oplevert_hulp"])
     with st.expander("🔎 " + s["check_titel"]):
         for v in s["check_vragen"]:
@@ -400,12 +400,12 @@ elif ss.stap == 1:
             st.markdown(f"**Test {i}**")
             bewaar_keuze("Hoe ging het?", s["scores"], f"t{i}_score", horizontal=True)
             bewaar_keuze("Wat leverde het op?", s["opbrengst"], f"t{i}_opbrengst", horizontal=True)
-            bewaar_tekst("Wat moest je zelf nog doen voordat het bruikbaar was?", f"t{i}_herstel")
-            bewaar_tekst("Wat leerde je van deze test? Wat houd je zo, of wat wil je anders? (optioneel)", f"t{i}_aanpas")
+            bewaar_tekst("Wat moest je zelf nog doen voordat het bruikbaar was?", f"t{i}_herstel", area=True, height="content")
+            bewaar_tekst("Wat leerde je van deze test? Wat houd je zo, of wat wil je anders? (optioneel)", f"t{i}_aanpas", area=True, height="content")
     if niet_getest():
         st.info(s["niet_getest"])
         bewaar_keuze("Waarom niet getest?", s["waarom_niet"], "waarom_niet")
-        bewaar_tekst(s["kickoff_label"], "kickoff_res")
+        bewaar_tekst(s["kickoff_label"], "kickoff_res", area=True, height="content")
     verder = bewaar_keuze("Hoe ga je verder?", s["verder_opties"], "verder")
     if verder == s["verder_opties"][1]:
         st.write(s["aanpassen_tekst"])
@@ -416,7 +416,7 @@ elif ss.stap == 1:
     door_ok = True
     if verder == s["verder_opties"][3]:
         st.info(s["door_tekst"])
-        door_ok = bool(bewaar_tekst(s["door_label"], "idee"))
+        door_ok = bool(bewaar_tekst(s["door_label"], "idee", area=True, height="content"))
         prompt(vul_in(s["andere_prompt"], **basis()))
     vet(s["vinkjes_intro"])
     klaar = bewaar_vinkje(s["vinkje"], "v1")
@@ -464,9 +464,9 @@ elif ss.stap == 3:
     ingevuld = [bewaar_tekst(label, k, area=True, height="content") for k, label in t(s, "velden").items()]
     st.markdown(f"#### {s['jij_titel']}")
     st.write(s["jij_tekst"])
-    bewaar_tekst(s["controle_label"], "controle")
-    bewaar_tekst(s["niet_label"], "wanneer_niet")
-    mensenwerk = bewaar_tekst(s["mensenwerk_label"], "mensenwerk")
+    bewaar_tekst(s["controle_label"], "controle", area=True, height="content")
+    bewaar_tekst(s["niet_label"], "wanneer_niet", area=True, height="content")
+    mensenwerk = bewaar_tekst(s["mensenwerk_label"], "mensenwerk", area=True, height="content")
     kleuren = t(s, "kleuren")
     kleur = bewaar_keuze(s["kleur_vraag"], kleuren, "kleur")
     rood_ok = True
@@ -529,7 +529,7 @@ elif ss.stap == 4:
     with st.expander(s["bijsturen_titel"]):
         for h in s["bijsturen"]:
             prompt(h["prompt"], h["label"], plak_in())
-    bewaar_tekst(s["bijsturing_label"], "bijsturing")
+    bewaar_tekst(s["bijsturing_label"], "bijsturing", area=True, height="content")
     hulp = bewaar_keuze("Welke hulp heb je gebruikt?", s["hulp_opties"], "hulp4", horizontal=True)
     st.markdown(f"#### {s['stap5_titel']}")
     vet(s["vinkjes_intro"])
@@ -572,7 +572,7 @@ elif ss.stap == 6:
         st.markdown(f"{s['terugblik_bijsturing']} {ss.get('bijsturing', '').strip() or s['terugblik_leeg']}")
     st.markdown(f"#### {s['stap1_titel']}")
     st.write(s["stap1_tekst"])
-    aanpas = bewaar_tekst(s["aanpas_label"], "aanpas")
+    aanpas = bewaar_tekst(s["aanpas_label"], "aanpas", area=True, height="content")
     with st.expander(s["hulp_titel"]):
         prompt(vul_in(s["hulp_prompt"], instructie=instructie(1), mis=ss.get("mis", "").strip()))
     st.markdown(f"#### {s['stap2_titel']}")
