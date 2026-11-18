@@ -97,7 +97,10 @@ def vul_in(tekst, **waarden):
     waarden.setdefault("functie", ss.get("functie", ""))
     waarden.setdefault("afdeling", ss.get("afdeling", ""))
     for naam, waarde in waarden.items():
-        tekst = tekst.replace("{" + naam + "}", waarde or f"[{naam}]")
+        waarde = (waarde or "").strip() or f"[{naam}]"
+        # Volgt er in het sjabloon al een punt? Dan geen tweede punt ("workshop..").
+        tekst = tekst.replace("{" + naam + "}.", waarde.rstrip(". ") + ".")
+        tekst = tekst.replace("{" + naam + "}", waarde)
     return tekst
 
 
@@ -439,7 +442,7 @@ elif ss.stap == 2:
             st.write(s["vast_tekst"])
             prompt(vul_in(t(s, "prompt"), **basis()))
             st.warning(s["waarschuwing"])
-    ingevuld = [bewaar_tekst(label, k, area=True, height=70) for k, label in t(si, "velden").items()]
+    ingevuld = [bewaar_tekst(label, k, area=True, height="content") for k, label in t(si, "velden").items()]
     hulp = True
     if not is_bestaand:
         hulp = bewaar_keuze(s["hulp_vraag"], s["hulp_opties"], "hulp2", horizontal=True)
@@ -456,9 +459,9 @@ elif ss.stap == 3:
     st.write(s["coach_tekst"])
     prompt(vul_in(t(s, "coach_prompt"), stap=ss.get("stap_keuze", ""), instructie=instructie(1)), "Prompt voor Copilot als coach")
     st.markdown(f"#### {s['aanpas_titel']}")
-    coach = bewaar_tekst(s["coach_label"], "coach_punt", area=True, height=70)
+    coach = bewaar_tekst(s["coach_label"], "coach_punt", area=True, height="content")
     st.write(s["aanpas_tekst"])
-    ingevuld = [bewaar_tekst(label, k, area=True, height=70) for k, label in t(s, "velden").items()]
+    ingevuld = [bewaar_tekst(label, k, area=True, height="content") for k, label in t(s, "velden").items()]
     st.markdown(f"#### {s['jij_titel']}")
     st.write(s["jij_tekst"])
     bewaar_tekst(s["controle_label"], "controle")
@@ -512,7 +515,7 @@ elif ss.stap == 4:
     st.markdown(f"#### {s['stap1_titel']}")
     st.write(t(s, "stap1_tekst"))
     st.markdown(f"#### {s['stap2_titel']}")
-    punten = bewaar_tekst(s["punten_label"], "punten", area=True, height=90)
+    punten = bewaar_tekst(s["punten_label"], "punten", area=True, height="content")
     st.caption(s["punten_waarom"])
     st.markdown(f"#### {t(s, 'stap3_titel')}")
     st.write(t(s, "stap3_tekst"))
@@ -533,7 +536,7 @@ elif ss.stap == 4:
     for i, regel in enumerate(s["controle"]):
         bewaar_vinkje(regel, f"c4_{i}")
     score = bewaar_keuze("Mijn score", s["scores"], "score4", horizontal=True)
-    herstel = bewaar_tekst(s["herstel_label"], "herstel4", area=True, height=80)
+    herstel = bewaar_tekst(s["herstel_label"], "herstel4", area=True, height="content")
     navigatie(bool(punten) and bool(hulp) and bool(score) and bool(herstel), "Schrijf op wat er zeker in moet staan, kies welke hulp je gebruikte, kies een score en vul in wat je zelf nog moest doen.")
 
 elif ss.stap == 5:
@@ -546,12 +549,12 @@ elif ss.stap == 5:
     prompt(vul_in(t(s, "prompt"), instructie=instructie(1), functie=ss.get("functie", "")), "Prompt voor Copilot")
     st.markdown(f"#### {s['stap2_titel']}")
     st.write(t(s, "stap2_tekst"))
-    bewaar_tekst(s["geval_label"], "geval", area=True, height=80)
+    bewaar_tekst(s["geval_label"], "geval", area=True, height="content")
     st.markdown(f"#### {t(s, 'stap3_titel')}")
     st.write(t(s, "stap3_tekst"))
     prompt(instructie(1), "Jouw instructie, versie 0.1", plak_in())
     st.markdown(f"#### {s['stap4_titel']}")
-    mis = bewaar_tekst(s["mis_label"], "mis", area=True, height=80)
+    mis = bewaar_tekst(s["mis_label"], "mis", area=True, height="content")
     st.markdown(f"#### {s['stap5_titel']}")
     score = bewaar_keuze("Mijn score", s["scores"], "score5", horizontal=True)
     hulp = bewaar_keuze("Waar kwam je lastige voorbeeld vandaan?", t(s, "hulp_opties"), "hulp5", horizontal=True)
@@ -583,7 +586,7 @@ elif ss.stap == 6:
             ss[k + "2"] = nu[k]
     ss["_v1_kopie"] = nu
     for k, label in t(S["instructie"], "velden").items():
-        bewaar_tekst(label, k + "2", area=True, height=70)
+        bewaar_tekst(label, k + "2", area=True, height="content")
     st.markdown(f"#### {s['stap3_titel']}")
     st.write(t(s, "stap3_tekst"))
     prompt(instructie(2), "Jouw instructie, versie 0.2", plak_in())

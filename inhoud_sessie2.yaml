@@ -143,12 +143,12 @@ stappen:
     velden:
       doel: "Doel: wat lever je op, en voor wie? Bijvoorbeeld: \"een concept voor een klantantwoord, dat ik zelf naar de klant stuur\""
       input: "Context: wat geef je Copilot elke keer mee, en waar komt het vandaan? Bijvoorbeeld: \"de vraag van de klant in algemene woorden, en de werkinstructie over vertraagde pakketten\""
-      aanpak: "Actie: wat moet Copilot doen, en in welke volgorde? Bijvoorbeeld: \"1. Vat de vraag samen. 2. Zoek het antwoord in de werkinstructie. 3. Schrijf een concept.\""
+      aanpak: "Actie: wat moet Copilot doen, en in welke volgorde? Zet elke stap op een nieuwe regel. Bijvoorbeeld: \"1. Vat de vraag samen. 2. Zoek het antwoord in de werkinstructie. 3. Schrijf een concept.\""
       output: "Verwachting: hoe ziet het resultaat eruit? Lengte, opbouw en toon. Bijvoorbeeld: \"maximaal 8 regels, je-vorm, vriendelijk, sluit af met wat de klant nu kan doen\""
     velden_sf:
       doel: "Doel: wat lever je op, en voor wie? Bijvoorbeeld: \"een samenvatting van de case, voor mijn collega die hem overneemt\""
       input: "Context: welke gegevens uit de case moet Coworker gebruiken? Bijvoorbeeld: \"de laatste 3 contactmomenten en de status van de zending\""
-      aanpak: "Actie: wat moet Coworker doen, en in welke volgorde? Bijvoorbeeld: \"1. Zet de contactmomenten op volgorde. 2. Noem wat is afgesproken. 3. Noem wat nog openstaat.\""
+      aanpak: "Actie: wat moet Coworker doen, en in welke volgorde? Zet elke stap op een nieuwe regel. Bijvoorbeeld: \"1. Zet de contactmomenten op volgorde. 2. Noem wat is afgesproken. 3. Noem wat nog openstaat.\""
       output: "Verwachting: hoe ziet het resultaat eruit? Lengte, opbouw en toon. Bijvoorbeeld: \"maximaal 6 regels, met kopjes Afspraken en Open\""
     controle_label: "Mijn controle: wat check ik altijd aan de uitkomst voordat ik hem gebruik? Bijvoorbeeld: \"kloppen de feiten en cijfers met de bron?\" (komt in je pdf, niet in de instructie)"
     niet_label: "Wanneer gebruik ik de uitkomst niet? Bijvoorbeeld: \"als er informatie ontbreekt\", \"als de situatie afwijkt van normaal\" of \"als er een besluit met grote gevolgen aan hangt\". Zo weten jij en straks een collega waar de grens ligt, en gaat er geen fout resultaat verder. (komt in je pdf, niet in de instructie)"
