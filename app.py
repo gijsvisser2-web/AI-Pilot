@@ -16,6 +16,7 @@ from fpdf import FPDF
 
 MAP = Path(__file__).parent
 EXTERN_STANDAARD = "een externe applicatie"
+TRAINER_STANDAARD = "Gijs"
 
 
 # ---------- inhoud laden ----------
@@ -47,10 +48,11 @@ def laad():
     ruw = yaml.safe_load(kies_bestand().read_text(encoding="utf-8"))
     extern = (ruw.get("extern") or "").strip() or EXTERN_STANDAARD
     dataregel = (ruw.get("dataregel") or "").replace("{extern}", extern)
-    return vervang(ruw, {"dataregel": dataregel, "extern": extern}), extern
+    trainer = (ruw.get("trainer") or "").strip() or TRAINER_STANDAARD
+    return vervang(ruw, {"dataregel": dataregel, "extern": extern, "trainer": trainer}), extern, trainer
 
 
-C, EXTERN = laad()
+C, EXTERN, TRAINER = laad()
 S = C["stappen"]
 
 STAPPEN = [
@@ -211,7 +213,7 @@ def codewoord_ok(invoer, juist):
 
 def deel_in_teams(tekst):
     st.markdown("**Deel in Teams**")
-    st.caption("Kopieer de grijze zin met het icoon rechtsboven en plak hem in de draad in het Teams-kanaal. Je hoeft er niets bij te typen. Een vraag? Steek je hand op of vraag het Gijs.")
+    st.caption(f"Kopieer de grijze zin met het icoon rechtsboven en plak hem in de draad in het Teams-kanaal. Je hoeft er niets bij te typen. Een vraag? Steek je hand op of vraag het {TRAINER}.")
     st.code(tekst, language=None, wrap_lines=True)
 
 
@@ -365,7 +367,7 @@ if ss.stap == 0:
     functie = bewaar_tekst(C["start"]["functie_label"], "functie")
     afdeling = bewaar_tekst(C["start"]["afdeling_label"], "afdeling", standaard=C["start"].get("afdeling_standaard", ""))
     st.caption(C["start"]["functie_hulp"])
-    code = st.text_input("Codewoord van Gijs", key="w_code1")
+    code = st.text_input(f"Codewoord van {TRAINER}", key="w_code1")
     if st.button("Start", type="primary"):
         if not functie or not afdeling:
             st.error("Vul eerst je functie en je afdeling in.")
@@ -374,7 +376,7 @@ if ss.stap == 0:
             ss.stap = 1
             st.rerun()
         else:
-            st.error("Dit codewoord klopt niet. Vraag het aan Gijs.")
+            st.error(f"Dit codewoord klopt niet. Vraag het aan {TRAINER}.")
 
 elif ss.stap == 1:
     s = S["resultaat"]
@@ -468,7 +470,7 @@ elif ss.stap == 4 and not ss.code2:
             ss.code2 = True
             st.rerun()
         else:
-            st.error("Dit codewoord klopt niet. Wacht op Gijs.")
+            st.error(f"Dit codewoord klopt niet. Wacht op {TRAINER}.")
 
 elif ss.stap == 4:
     s = S["eerste"]
