@@ -28,7 +28,7 @@ zijbalk_waarschuwingen:
 
 start:
   tekst: "Je hebt net uitleg en 2 demo's gezien. Nu ga je zelf aan de slag, op je eigen tempo. Er zijn 5 stappen."
-  zo_werk_je: "Zet deze app links op je scherm en Copilot Chat rechts. Kopieer prompts met het icoon rechtsboven in het grijze vak."
+  zo_werk_je: "Zet deze app links op je scherm en Copilot Chat rechts. Om een prompt te kopiëren ga je met je muis over het grijze vak. Rechtsboven verschijnt een kopieericoon."
   functie_label: "Mijn functie (bijvoorbeeld: medewerker klantenservice, specialist schade, teamleider)"
   functie_hulp: "De app zet je functie en afdeling in de prompts. Vul je functie in, niet je naam."
   afdeling_label: "Mijn afdeling of team (bijvoorbeeld: Customer Care, Finance, HR)"
@@ -58,7 +58,7 @@ stappen:
   interview:
     titel: "Laat Copilot je interviewen"
     tijd: 10
-    intro: "Kopieer de prompt hieronder met het icoon rechtsboven in het grijze vak. Plak hem in Copilot Chat. Beantwoord de vragen 1 voor 1. Jouw resultaat staat er al in."
+    intro: "Ga met je muis over de prompt hieronder en klik rechtsboven op het kopieericoon. Plak hem in Copilot Chat. Beantwoord de vragen 1 voor 1. Jouw resultaat staat er al in."
     waarom: "Copilot vraagt eerst waar het meeste gedoe zit. Daar zoomt hij op in. Zo hoort hij wat niet in je mails of bestanden staat: hoe jij dit werk doet en waar het vastloopt."
     prompt: |-
       Ik werk als {functie} bij {afdeling} van PostNL.
