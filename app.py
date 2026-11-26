@@ -53,6 +53,7 @@ def laad():
 
 
 C, EXTERN, TRAINER = laad()
+CODES = C.get("codewoorden") or {}  # leeg: geen codewoorden, deelnemers gaan zelf verder
 S = C["stappen"]
 
 STAPPEN = [
@@ -367,11 +368,11 @@ if ss.stap == 0:
     functie = bewaar_tekst(C["start"]["functie_label"], "functie")
     afdeling = bewaar_tekst(C["start"]["afdeling_label"], "afdeling", standaard=C["start"].get("afdeling_standaard", ""))
     st.caption(C["start"]["functie_hulp"])
-    code = st.text_input(f"Codewoord van {TRAINER}", key="w_code1")
+    code = st.text_input(f"Codewoord van {TRAINER}", key="w_code1") if CODES.get("start") else ""
     if st.button("Start", type="primary"):
         if not functie or not afdeling:
             st.error("Vul eerst je functie en je afdeling in.")
-        elif codewoord_ok(code, C["codewoorden"]["start"]):
+        elif not CODES.get("start") or codewoord_ok(code, CODES["start"]):
             ss.code1 = True
             ss.stap = 1
             st.rerun()
@@ -388,6 +389,8 @@ elif ss.stap == 1:
     a.markdown(f"**:orange[Te groot]**  \n{s['te_groot']}")
     b.markdown(f"**:orange[Beter]**  \n{s['beter']}")
     c.markdown("**:orange[Zoals in de demo's]**  \n" + "  \n".join(s["demos"]))
+    if s.get("beter_waarom"):
+        st.caption(s["beter_waarom"])
     with st.expander("🔎 " + s["weet_niet_titel"]):
         st.write(s["weet_niet_tekst"])
         prompt(s["weet_niet_prompt"])
@@ -462,11 +465,11 @@ elif ss.stap == 4 and not ss.code2:
     st.title(s["titel"])
     st.write(s["tekst"])
     st.info(s["tip"])
-    code = st.text_input("Codewoord", key="w_code2")
+    code = st.text_input("Codewoord", key="w_code2") if CODES.get("verder") else ""
     links, rechts, _ = st.columns([1, 1, 3])
     links.button("Terug", key="terug_wacht", on_click=lambda: ss.update(stap=3), use_container_width=True)
     if rechts.button("Verder", type="primary", use_container_width=True):
-        if codewoord_ok(code, C["codewoorden"]["verder"]):
+        if not CODES.get("verder") or codewoord_ok(code, CODES["verder"]):
             ss.code2 = True
             st.rerun()
         else:
@@ -477,8 +480,11 @@ elif ss.stap == 4:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    tool = bewaar_keuze(s["tool_label"], s["tool_opties"], "tool", horizontal=True)
-    st.caption(s["tool_hulp"])
+    if len(s["tool_opties"]) == 1:  # 1 tool: geen keuze tonen
+        tool = ss["tool"] = s["tool_opties"][0]
+    else:
+        tool = bewaar_keuze(s["tool_label"], s["tool_opties"], "tool", horizontal=True)
+        st.caption(s["tool_hulp"])
     punten = bewaar_tekst(s["punten_label"], "punten", area=True)
     plak = f"de AI van {EXTERN}" if is_extern(tool) else "Copilot Chat"
     prompt(eerste_prompt(), f"Prompt voor {tool or 'Copilot'}", plak)

@@ -19,9 +19,8 @@ trainer: "Gijs"
 
 dataregel: "Wat in SharePoint staat, gebruik je in Copilot. Wat in {extern} staat, gebruik je in {extern}. Zet geen persoonsgegevens of financiële gegevens van de ene applicatie in de andere. Twijfel je? Vraag het AI CoE."
 
-codewoorden:
-  start: "COPILOT"
-  verder: "PROMPT"
+# Geen codewoorden: deelnemers gaan zelf verder. Wil je ze terug, zet dan start: en verder: onder codewoorden.
+codewoorden: {}
 
 zijbalk_waarschuwingen:
   - "Ververs deze pagina niet. Dan ben je je invoer kwijt."
@@ -47,12 +46,13 @@ stappen:
       - "is voor jezelf of voor een ander: een medewerker, manager, collega of andere afdeling"
       - "kost je moeite of tijd"
     te_groot: "Vragen van managers beantwoorden"
-    beter: "Antwoord aan een manager over de regels voor ouderschapsverlof"
+    beter: "Antwoord op de vraag die managers vaak stellen over ouderschapsverlof"
+    beter_waarom: "Te groot is een heel takenpakket. Beter is 1 resultaat dat steeds terugkomt, voor 1 soort ontvanger. Dat maak je in 1 keer met Copilot."
     demos:
       - "Een vacaturetekst opstellen uit de notities van een intake met een manager"
       - "Een nieuwe regeling samenvatten in 5 vragen en antwoorden voor medewerkers"
     resultaat_label: "Wat lever je regelmatig op, en voor wie?"
-    extern_tekst: "Werk je vooral in {extern}? Dan mag je resultaat daar ook over gaan. Het interview doe je in Copilot: je vertelt hoe je werkt, zonder gegevens uit {extern}. In stap 4 probeer je je stap in de tool die past."
+    extern_tekst: "Werk je vooral in {extern}? Dan mag je resultaat daar ook over gaan. Je werkt vandaag alleen in Copilot. Je vertelt hoe je werkt, zonder persoonsgegevens of financiële gegevens uit {extern}."
     weet_niet_titel: "Weet je niet wat je kiest? Laat Copilot je agenda bekijken"
     weet_niet_tekst: "Kopieer deze prompt naar Copilot. Copilot kijkt in je agenda en stelt je 3 vragen. Je krijgt 5 resultaten die je regelmatig oplevert. Kies er 1."
     weet_niet_prompt: "Bekijk alleen mijn agenda van de afgelopen 2 weken, niet mijn mailbox. Stel me daarna 3 vragen, 1 tegelijk, over werk dat ik regelmatig maak. Geef dan 5 resultaten die ik regelmatig oplever, zoals antwoorden, overzichten of updates. Geef per resultaat: wat het is, voor wie, en hoe vaak ongeveer. Noem geen persoonsgegevens. Geef alleen een tabel."
@@ -124,19 +124,19 @@ stappen:
     opdelen_titel: "Is je stap te groot? Laat Copilot alleen deze stap opdelen"
     opdelen_tekst: "Je hoeft niet terug naar het begin. Kies daarna 1 kleine stap en pas het veld Mijn stap hierboven aan."
     opdelen_prompt: "Mijn stap is: {stap}. Hij is te groot om in 1 keer met Copilot te proberen. Deel alleen deze stap op in 3 tot 5 kleinere stappen. Maximaal 6 woorden per stap. Geef alleen de lijst."
-    idee_label: "Kan je stap niet in Copilot en niet in {extern}, bijvoorbeeld omdat er een koppeling tussen systemen nodig is? Schrijf hem op als idee voor het AI CoE. (optioneel)"
+    idee_label: "Kan je stap niet in Copilot, bijvoorbeeld omdat de gegevens in {extern} staan of er een koppeling tussen systemen nodig is? Schrijf hem op als idee voor het AI CoE. (optioneel)"
 
   wacht:
     titel: "Wacht op {trainer}"
-    tekst: "We horen kort welke stappen jullie kozen. Daarna geeft {trainer} het codewoord voor de volgende stap."
+    tekst: "We horen kort welke stappen jullie kozen. Ga pas verder als {trainer} het zegt."
     tip: "Klaar en tijd over? Lees je 3 punten nog 1 keer. Zijn ze concreet genoeg om de uitkomst straks aan te toetsen?"
 
   eerste:
     titel: "Je eerste resultaat"
     tijd: 15
-    intro: "Probeer je stap nu echt, in de tool die bij je stap past. Je 3 punten uit stap 3 staan al klaar."
+    intro: "Probeer je stap nu echt, in Copilot. Je 3 punten uit stap 3 staan al klaar."
     tool_label: "In welke tool probeer je deze stap?"
-    tool_opties: ["Copilot", "{extern}"]
+    tool_opties: ["Copilot"]  # {extern} heeft nog geen AI
     tool_hulp: "Staan de gegevens die je nodig hebt in {extern}? Dan doe je de stap daar, met de AI van {extern}. Anders doe je hem in Copilot."
     punten_label: "Mijn 3 punten (uit stap 3, pas aan als dat nodig is)"
     waarom: "Copilot vraagt eerst wat ontbreekt en zegt aan het eind wat het aannam, zodat jij weet wat je moet controleren."
