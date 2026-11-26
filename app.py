@@ -5,7 +5,7 @@ Kies een andere pilot met ?pilot=<naam> achter de link, bijvoorbeeld ?pilot=hr.
 De app slaat niets op. Invoer blijft alleen in de sessie van de deelnemer.
 """
 import re
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 import pandas as pd
@@ -138,9 +138,14 @@ def schoon(tekst):
 
 def lees_tabel(tekst):
     """Maakt van geplakte tekst uit Copilot een tabel (lijst van rijen).
-    Werkt met tabs (kopieerknop van Copilot) en met | (markdown). Geeft None als het geen tabel is."""
+    Werkt met tabs (kopieerknop van Copilot) en met | (markdown). Geeft None als het geen tabel is.
+    Zinnen boven en onder de tabel, zoals "Hier is je tabel:", slaat hij over."""
+    regels = regels_schoon(tekst)
+    tabelregels = [i for i, r in enumerate(regels) if "\t" in r or "|" in r]
+    if not tabelregels:
+        return None
     rijen = []
-    for r in regels_schoon(tekst):
+    for r in regels[tabelregels[0]:tabelregels[-1] + 1]:
         s = r.strip()
         if re.fullmatch(r"\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?", s):
             continue
@@ -183,7 +188,7 @@ def waarom(s):
 def prompt(tekst, label="Prompt voor Copilot", plak="Copilot Chat"):
     """Grijs vak met kopieerknop, duidelijk gemarkeerd als prompt."""
     with st.container(border=True):
-        st.markdown(f"📋 **{label}**  \n:gray[Kopieer met het icoon rechtsboven in het grijze vak. Plak in {plak}.]")
+        st.markdown(f"📋 **{label}**  \n:gray[Ga met je muis over het grijze vak. Klik rechtsboven op het kopieericoon. Plak in {plak}.]")
         st.code(tekst, language=None, wrap_lines=True)
 
 
@@ -234,6 +239,14 @@ def latin(t):
         t = t.replace(a, b)
     # Wat dan nog niet in latin-1 past (zoals emoji), valt weg in plaats van een '?' te worden.
     return t.encode("latin-1", "ignore").decode("latin-1")
+
+
+def pdf_naam():
+    """Unieke naam, zodat niemand in de Teams-map de pdf van een ander overschrijft."""
+    def slug(t):
+        return re.sub(r"[^a-z0-9]+", "-", (t or "").lower()).strip("-")
+    delen = ["kickoff", slug(C["pilot"].replace("AI-pilot", "")), slug(ss.get("functie", ""))[:30], f"{datetime.now():%Y%m%d-%H%M%S}"]
+    return "-".join(d for d in delen if d) + ".pdf"
 
 
 def maak_pdf():
@@ -394,7 +407,7 @@ elif ss.stap == 1:
     with st.expander("🔎 " + s["weet_niet_titel"]):
         st.write(s["weet_niet_tekst"])
         prompt(s["weet_niet_prompt"])
-    res = bewaar_tekst(s["resultaat_label"], "resultaat")
+    res = bewaar_tekst(s["resultaat_label"], "resultaat", area=True)
     st.info(s["extern_tekst"])
     st.caption(f"🔒 **Mag het?** {C['dataregel']}")
     navigatie(bool(res), "Vul in wat je regelmatig oplevert, en voor wie.")
@@ -431,6 +444,9 @@ elif ss.stap == 3:
     if rijen:
         st.caption(s["tabel_ok"])
         toon_tabel(rijen)
+    elif tabel:
+        st.warning(s.get("geen_tabel", "Dit lijkt geen tabel. Vraag Copilot om alleen de tabel, en kopieer hem met de kopieerknop onder het antwoord."))
+        prompt(s.get("geen_tabel_prompt", "Zet je antwoord in een tabel met 3 kolommen: Stap, Gedoe, Kans met Copilot. Maximaal 6 woorden per vakje. Geef alleen de tabel."))
     waarom(s)
 
     st.markdown(f"#### {s['kies_titel']}")
@@ -520,7 +536,7 @@ elif ss.stap == 5:
     st.download_button(
         "⬇ Download alles als pdf",
         data=maak_pdf(),
-        file_name=f"kickoff-{date.today():%Y%m%d}.pdf",
+        file_name=pdf_naam(),
         mime="application/pdf",
         type="primary",
     )
