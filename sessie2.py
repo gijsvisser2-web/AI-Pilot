@@ -243,6 +243,13 @@ def latin(t):
     return t.encode("latin-1", "ignore").decode("latin-1")
 
 
+def als_dan():
+    """'Als ..., dan ...' zonder dubbel 'als' of 'dan' als de deelnemer die woorden zelf al typte."""
+    def zonder(tekst, woord):
+        return re.sub(rf"^\s*{woord}\b[\s,]*", "", tekst or "", flags=re.IGNORECASE).strip().rstrip(".")
+    return f"Als {zonder(ss.get('als', ''), 'als')}, dan {zonder(ss.get('dan', ''), 'dan')}."
+
+
 def pdf_naam():
     """Unieke naam, zodat niemand in de Teams-map de pdf van een ander overschrijft."""
     def slug(x):
@@ -316,7 +323,7 @@ def maak_pdf():
     tekst("Versie 0.2 was: " + (ss.get("beter") or "-"))
     tekst(instructie(2), mono=True)
     kop("7. Mijn plan")
-    tekst(f"Als {ss.get('als', '')}, dan {ss.get('dan', '')}.")
+    tekst(als_dan())
     tekst("Hier bewaar ik mijn instructie: " + ss.get("bewaarplek", ""))
     for i in (1, 2, 3):
         tekst(f"Test {i}: " + ss.get(f"plan{i}", ""))
@@ -335,7 +342,7 @@ def samenvatting():
         f"Tests: {tests_tekst()}",
         f"Versie 0.2 was: {ss.get('beter') or '-'}",
         f"Dit blijft mensenwerk: {ss.get('mensenwerk', '')}",
-        f"Als {ss.get('als', '')}, dan {ss.get('dan', '')}.",
+        als_dan(),
         f"Testmomenten: {ss.get('plan1', '')}; {ss.get('plan2', '')}; {ss.get('plan3', '')}",
         f"Instructie versie 0.2: {instructie(2)}",
     ]

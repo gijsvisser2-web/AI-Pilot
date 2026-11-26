@@ -36,7 +36,7 @@ stappen:
     tijd: 10
     intro: "Pak je pdf van de kickoff erbij. Beschrijf je stap opnieuw, kijk hoe je tests gingen en kies hoe je verdergaat."
     waarom: "Je tests laten zien wat Copilot nog mist. Daar begint je werkwijze."
-    stap_label: "Mijn stap, in woorden (staat in je pdf bij 5)"
+    stap_label: "Mijn stap, in woorden (staat in je pdf bij 3)"
     stap_hulp: "Schrijf wat je doet, niet het nummer. Niet: \"Stap 2\". Wel: \"De regels over verlof uit het beleid op SharePoint samenvatten voor mijn antwoord\"."
     agent_hulp: "Heb je al een agent? Beschrijf de stap die je agent doet, niet \"mijn agent\". Doet hij meerdere stappen? Kies de stap waar je hem het minst vertrouwt. Die ga je vandaag breken. Elke keer dat je hem op echt werk gebruikte, telt als test."
     stap_fout: "Beschrijf je stap in woorden, niet met een nummer. Copilot weet niet wat \"stap 2\" is."
@@ -57,7 +57,7 @@ stappen:
     opbrengst: ["Sneller", "Beter", "Consistenter", "Makkelijker", "Geen voordeel"]
     niet_getest: "Niet getest? Geen probleem, dat geldt voor veel mensen. Je gebruikt vandaag je eerste resultaat uit de kickoff. Je test alsnog in stap 4."
     waarom_niet: ["Geen tijd", "Vergeten", "Wist niet hoe", "Geen geschikte taak voorbijgekomen", "Anders"]
-    kickoff_label: "Je eerste resultaat uit de kickoff: score en wat je zelf nog moest doen (staat in je pdf bij 6)"
+    kickoff_label: "Je eerste resultaat uit de kickoff: score en wat je zelf nog moest doen (staat in je pdf bij 4)"
     verder_opties:
       - "Doorgaan: mijn stap werkt, ik maak er een vaste werkwijze van"
       - "Aanpassen: mijn stap werkt deels, ik maak hem kleiner of anders"
@@ -65,7 +65,7 @@ stappen:
       - "Doorverwijzen: mijn stap kan niet in Copilot, er is een koppeling met een ander systeem nodig, zoals het HR-systeem"
     aanpassen_tekst: "Laat Copilot je helpen de stap kleiner of anders te maken. Pas daarna het veld Mijn stap hierboven aan."
     aanpassen_prompt: "Ik werk als {functie} bij {afdeling} van PostNL. Ik wil AI gebruiken bij deze stap: {stap}. Het werkte deels. Dit moest ik zelf nog doen: {herstel}. Help me de stap kleiner of anders te maken. Stel me eerst maximaal 3 vragen, 1 tegelijk. Geef daarna 2 opties: een kleinere versie van de stap en een andere aanpak. Kies niet voor mij. Noem geen persoonsgegevens."
-    andere_tekst: "Pak je tabel uit de pdf (bij 2 en 3). Laat Copilot meedenken over een betere stap. Pas daarna het veld Mijn stap hierboven aan."
+    andere_tekst: "Pak je tabel uit de pdf (bij 2). Laat Copilot meedenken over een betere stap. Pas daarna het veld Mijn stap hierboven aan."
     andere_prompt: "Ik werk als {functie} bij {afdeling} van PostNL. Dit zijn de stappen van een taak die ik regelmatig doe: [plak je tabel uit de pdf]. Ik koos eerst deze stap: {stap}. Die past niet, omdat: [waarom]. Welke 2 stappen passen beter om met AI te proberen? Leg per stap in 1 zin uit waarom. Kies niet voor mij. Noem geen persoonsgegevens."
     door_tekst: "Schrijf je idee op. Het komt in je pdf en gaat naar het AI CoE. Kies daarna een andere stap uit je tabel die wel kan, en pas het veld Mijn stap hierboven aan."
     door_label: "Mijn idee voor het AI CoE: welk systeem of welke koppeling is nodig?"
