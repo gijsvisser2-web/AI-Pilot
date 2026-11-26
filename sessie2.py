@@ -1,6 +1,7 @@
 """Sessie 2 AI-pilot: bouw je werkwijze.
 
-Alle teksten, prompts en codewoorden staan in inhoud_sessie2.yaml.
+Alle teksten, prompts en codewoorden staan in inhoud_sessie2.yaml (of inhoud_sessie2_<pilot>.yaml).
+Kies een andere pilot met ?pilot=<naam> achter de link, bijvoorbeeld ?pilot=hr.
 De app slaat niets op. Invoer blijft alleen in de sessie van de deelnemer.
 
 Staat er in de yaml een blok "tools" met 2 opties, dan kiest de deelnemer in stap 1
@@ -8,7 +9,7 @@ waar hij zijn stap doet. Bij de 2e optie (Salesforce) gebruikt de app de teksten
 Zonder blok "tools" werkt de app alleen met Copilot.
 """
 import re
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 import streamlit as st
@@ -17,7 +18,35 @@ import yaml
 from fpdf import FPDF
 
 MAP = Path(__file__).parent
-C = yaml.safe_load((MAP / "inhoud_sessie2.yaml").read_text(encoding="utf-8"))
+TRAINER_STANDAARD = "Gijs"
+
+
+def kies_bestand():
+    """inhoud_sessie2_<pilot>.yaml als ?pilot=<pilot> in de link staat en het bestand bestaat, anders inhoud_sessie2.yaml."""
+    try:
+        pilot = str(st.query_params.get("pilot", ""))
+    except Exception:
+        pilot = ""
+    pilot = re.sub(r"[^a-z0-9_]", "", pilot.lower())
+    bestand = MAP / f"inhoud_sessie2_{pilot}.yaml"
+    return bestand if pilot and bestand.exists() else MAP / "inhoud_sessie2.yaml"
+
+
+def vervang(waarde, naam, tekst):
+    """Vult {naam} overal in de inhoud in."""
+    if isinstance(waarde, str):
+        return waarde.replace("{" + naam + "}", tekst)
+    if isinstance(waarde, list):
+        return [vervang(w, naam, tekst) for w in waarde]
+    if isinstance(waarde, dict):
+        return {k: vervang(w, naam, tekst) for k, w in waarde.items()}
+    return waarde
+
+
+C = yaml.safe_load(kies_bestand().read_text(encoding="utf-8"))
+TRAINER = (C.get("trainer") or "").strip() or TRAINER_STANDAARD
+C = vervang(C, "trainer", TRAINER)
+CODES = C.get("codewoorden") or {}  # leeg: geen codewoorden, deelnemers gaan zelf verder
 S = C["stappen"]
 TOOLS = C.get("tools")
 
@@ -170,7 +199,7 @@ def waarom(s):
 
 def prompt(tekst, label="Prompt voor Copilot", plak="Copilot Chat"):
     with st.container(border=True):
-        st.markdown(f"📋 **{label}**  \n:gray[Kopieer met het icoon rechtsboven in het grijze vak. Plak in {plak}.]")
+        st.markdown(f"📋 **{label}**  \n:gray[Ga met je muis over het grijze vak. Klik rechtsboven op het kopieericoon. Plak in {plak}.]")
         st.code(tekst, language=None, wrap_lines=True)
 
 
@@ -212,6 +241,14 @@ def latin(t):
         t = t.replace(a, b)
     # Wat dan nog niet in latin-1 past (zoals emoji), valt weg in plaats van een '?' te worden.
     return t.encode("latin-1", "ignore").decode("latin-1")
+
+
+def pdf_naam():
+    """Unieke naam, zodat niemand in de Teams-map de pdf van een ander overschrijft."""
+    def slug(x):
+        return re.sub(r"[^a-z0-9]+", "-", (x or "").lower()).strip("-")
+    delen = ["werkwijze", slug(C["pilot"].replace("AI-pilot", "")), slug(ss.get("functie", ""))[:30], f"{datetime.now():%Y%m%d-%H%M%S}"]
+    return "-".join(d for d in delen if d) + ".pdf"
 
 
 def maak_pdf():
@@ -358,16 +395,16 @@ if ss.stap == 0:
     functie = bewaar_tekst(C["start"]["functie_label"], "functie")
     afdeling = bewaar_tekst(C["start"]["afdeling_label"], "afdeling", standaard=C["start"].get("afdeling_standaard", ""))
     st.caption(C["start"]["functie_hulp"])
-    code = st.text_input("Codewoord van Gijs", key="w_code1")
+    code = st.text_input(f"Codewoord van {TRAINER}", key="w_code1") if CODES.get("start") else ""
     if st.button("Start", type="primary"):
         if not functie or not afdeling:
             st.error("Vul eerst je functie en je afdeling in.")
-        elif codewoord_ok(code, C["codewoorden"]["start"]):
+        elif not CODES.get("start") or codewoord_ok(code, CODES["start"]):
             ss.code1 = True
             ss.stap = 1
             st.rerun()
         else:
-            st.error("Dit codewoord klopt niet. Vraag het aan Gijs.")
+            st.error(f"Dit codewoord klopt niet. Vraag het aan {TRAINER}.")
 
 elif ss.stap == 1:
     s = S["tests"]
@@ -497,15 +534,15 @@ elif ss.stap == 4 and not ss.code2:
     st.write(s["tekst"])
     st.info(t(s, "tip"))
     prompt(instructie(1), "Jouw instructie, versie 0.1", plak_in())
-    code = st.text_input("Codewoord", key="w_code2")
+    code = st.text_input("Codewoord", key="w_code2") if CODES.get("verder") else ""
     links, rechts, _ = st.columns([1, 1, 3])
     links.button("Terug", key="terug_wacht", on_click=lambda: ss.update(stap=3), use_container_width=True)
     if rechts.button("Verder", type="primary", use_container_width=True):
-        if codewoord_ok(code, C["codewoorden"]["verder"]):
+        if not CODES.get("verder") or codewoord_ok(code, CODES["verder"]):
             ss.code2 = True
             st.rerun()
         else:
-            st.error("Dit codewoord klopt niet. Wacht op Gijs.")
+            st.error(f"Dit codewoord klopt niet. Wacht op {TRAINER}.")
 
 elif ss.stap == 4:
     s = S["test"]
@@ -638,7 +675,7 @@ elif ss.stap == 7:
         st.download_button(
             "⬇ Download alles als pdf",
             data=maak_pdf(),
-            file_name=f"werkwijze-{date.today():%Y%m%d}.pdf",
+            file_name=pdf_naam(),
             mime="application/pdf",
             type="primary",
         )
