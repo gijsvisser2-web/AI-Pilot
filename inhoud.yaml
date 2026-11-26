@@ -15,7 +15,6 @@ sessie: "Kickoff, deel 2"
 # De externe applicatie van deze pilot, bijvoorbeeld TOPdesk. Leeg laten: "een externe applicatie".
 extern: "Salesforce"
 
-# Let op: deze regel wacht op akkoord van governance (AI CoE). Zie de verwerkingslijst.
 dataregel: "Je mag gegevens gebruiken waar je zelf bij kunt, ook klantgegevens. Maar haal geen gegevens van de ene applicatie naar de andere: wat in {extern} staat, zet je niet in Copilot, en andersom. Twijfel je? Vraag het AI CoE."
 
 codewoorden:
