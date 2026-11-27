@@ -182,13 +182,20 @@ def tijd(minuten):
 
 def waarom(s):
     if s.get("waarom"):
-        st.caption(f"💡 **Waarom zo?** {s['waarom']}")
+        st.caption(f"💡 **{s.get('waarom_titel', 'Waarom zo?')}** {s['waarom']}")
 
 
-def prompt(tekst, label="Prompt voor Copilot", plak="Copilot Chat"):
-    """Grijs vak met kopieerknop, duidelijk gemarkeerd als prompt."""
+KOPIEER_UITLEG = "Ga met je muis over het grijze vak. Klik rechtsboven op het kopieericoon."
+
+
+def prompt(tekst, label="Prompt voor Copilot", plak="Copilot Chat", uitleg=True):
+    """Grijs vak met kopieerknop, duidelijk gemarkeerd als prompt.
+    uitleg=False: geen kopieeruitleg in het vak, omdat die al 1 keer boven een groep prompts staat."""
     with st.container(border=True):
-        st.markdown(f"📋 **{label}**  \n:gray[Ga met je muis over het grijze vak. Klik rechtsboven op het kopieericoon. Plak in {plak}.]")
+        if uitleg:
+            st.markdown(f"📋 **{label}**  \n:gray[{KOPIEER_UITLEG} Plak in {plak}.]")
+        else:
+            st.markdown(f"📋 **{label}**")
         st.code(tekst, language=None, wrap_lines=True)
 
 
@@ -370,7 +377,7 @@ if ss.get("_vorige_stap") != ss.stap:
 
 if ss.stap > 0:
     st.progress(ss.stap / LAATSTE)
-    st.caption(f"Stap {ss.stap} van {LAATSTE}")
+    st.caption(f"Deel {ss.stap} van {LAATSTE}")
 
 # ---------- stappen ----------
 if ss.stap == 0:
@@ -378,9 +385,9 @@ if ss.stap == 0:
     st.write(C["start"]["tekst"])
     st.info(C["start"]["zo_werk_je"])
     waarom(C["start"])
+    st.caption(C["start"]["functie_hulp"])
     functie = bewaar_tekst(C["start"]["functie_label"], "functie")
     afdeling = bewaar_tekst(C["start"]["afdeling_label"], "afdeling", standaard=C["start"].get("afdeling_standaard", ""))
-    st.caption(C["start"]["functie_hulp"])
     code = st.text_input(f"Codewoord van {TRAINER}", key="w_code1") if CODES.get("start") else ""
     if st.button("Start", type="primary"):
         if not functie or not afdeling:
@@ -397,19 +404,21 @@ elif ss.stap == 1:
     st.title(s["titel"])
     tijd(s["tijd"])
     st.write(s["intro"])
-    st.info("**Een goed resultaat**\n" + "\n".join(f"- {x}" for x in s["goed_resultaat"]))
+    if s.get("goed_kort"):
+        st.info(s["goed_kort"])
+    else:
+        st.info("**Een goed resultaat**\n" + "\n".join(f"- {x}" for x in s["goed_resultaat"]))
     a, b, c = st.columns(3)
-    a.markdown(f"**:orange[Te groot]**  \n{s['te_groot']}")
-    b.markdown(f"**:orange[Beter]**  \n{s['beter']}")
-    c.markdown("**:orange[Zoals in de demo's]**  \n" + "  \n".join(s["demos"]))
+    a.markdown(f"**:orange[{s.get('te_groot_titel', 'Te breed')}]**  \n{s['te_groot']}")
+    b.markdown(f"**:orange[{s.get('beter_titel', 'Concreet genoeg')}]**  \n{s['beter']}")
+    c.markdown(f"**:orange[{s.get('demos_titel', 'Andere voorbeelden')}]**\n" + "\n".join(f"- {x}" for x in s["demos"]))
     if s.get("beter_waarom"):
         st.caption(s["beter_waarom"])
+    res = bewaar_tekst(s["resultaat_label"], "resultaat", area=True)
     with st.expander("🔎 " + s["weet_niet_titel"]):
         st.write(s["weet_niet_tekst"])
         prompt(s["weet_niet_prompt"])
-    res = bewaar_tekst(s["resultaat_label"], "resultaat", area=True)
-    st.info(s["extern_tekst"])
-    st.caption(f"🔒 **Mag het?** {C['dataregel']}")
+    st.info(f"{s['extern_tekst']}\n\n🔒 **Mag het?** {C['dataregel']}")
     navigatie(bool(res), "Vul in wat je regelmatig oplevert, en voor wie.")
 
 elif ss.stap == 2:
@@ -418,14 +427,15 @@ elif ss.stap == 2:
     tijd(s["tijd"])
     st.write(s["intro"])
     prompt(vul_in(s["prompt"], resultaat=ss.get("resultaat", "")))
-    st.caption(s["opbouw"])
+    if s.get("opbouw"):
+        st.caption(s["opbouw"])
     waarom(s)
     st.warning(s["waarschuwing"])
-    with st.expander("Loop je vast, of stelt Copilot iets anders voor?"):
-        st.info(s["terug_tip"])
-        st.caption("Gebruik deze prompts alleen als het helpt.")
+    with st.expander(s.get("hulp_titel", "Loopt het gesprek met Copilot anders dan verwacht?")):
+        st.info(s.get("hulp_tekst", "Kopieer de prompt die bij jouw situatie past en plak hem in je gesprek met Copilot. Ga daarna verder met het interview.") + " " + KOPIEER_UITLEG)
         for h in s["hulp"]:
-            prompt(h["prompt"], h["label"])
+            prompt(h["prompt"], h["label"], uitleg=False)
+        st.caption(s["terug_tip"])
     navigatie()
 
 elif ss.stap == 3:
@@ -436,9 +446,13 @@ elif ss.stap == 3:
 
     st.markdown(f"#### {s['check_titel']}")
     st.write(s["check_tekst"])
-    with st.expander("Prompts om bij te sturen"):
+    with st.expander(s.get("bijsturen_titel", "Prompts om bij te sturen")):
+        st.info(s.get("bijsturen_tekst", "Vul de [haakjes] in voordat je plakt.") + " " + KOPIEER_UITLEG)
         for i, p in enumerate(s["bijsturen"], 1):
-            prompt(p, f"Prompt {i}: vul de [haakjes] in voor je plakt")
+            if isinstance(p, dict):
+                prompt(p["prompt"], p["label"], uitleg=False)
+            else:
+                prompt(p, f"Prompt {i}", uitleg=False)
     tabel = bewaar_tekst(s["plak_label"], "tabel", area=True)
     rijen = lees_tabel(tabel) if tabel else None
     if rijen:
@@ -454,22 +468,24 @@ elif ss.stap == 3:
     links, rechts = st.columns(2)
     links.success(f"**{s['goed_titel']}**\n" + "\n".join(f"- {x}" for x in s["goed"]))
     rechts.warning(f"**{s['niet_titel']}**\n" + "\n".join(f"- {x}" for x in s["niet"]))
-    st.caption(f"🔒 **Mag het?** {C['dataregel']}")
-    stap = bewaar_tekst(s["stap_label"], "stap_keuze", area=True)
+    st.markdown(f"**{s['stap_label']}**")
     st.caption(s["stap_hulp"])
+    stap = bewaar_tekst(s["stap_label"], "stap_keuze", area=True, label_visibility="collapsed")
     stap_nummer = bool(stap) and is_nummer(stap)
     if stap_nummer:
         st.warning(s["stap_fout"])
-    oplevert = bewaar_tekst(s["oplevert_label"], "oplevert", area=True)
+    st.markdown(f"**{s['oplevert_label']}**")
     st.caption(s["oplevert_hulp"])
+    oplevert = bewaar_tekst(s["oplevert_label"], "oplevert", area=True, label_visibility="collapsed")
+    bewaar_tekst(s["idee_label"], "idee", area=True)
 
     st.markdown(f"#### {s['punten_titel']}")
-    punten = bewaar_tekst(s["punten_label"], "punten", area=True)
+    st.markdown(f"**{s['punten_label']}**")
     st.caption(s["punten_hulp"])
+    punten = bewaar_tekst(s["punten_label"], "punten", area=True, label_visibility="collapsed")
     with st.expander("✂️ " + s["opdelen_titel"]):
         prompt(vul_in(s["opdelen_prompt"], stap=ss.get("stap_keuze", "")))
         st.write(s["opdelen_tekst"])
-    bewaar_tekst(s["idee_label"], "idee", area=True)
     navigatie(
         bool(tabel) and bool(stap) and not stap_nummer and bool(oplevert) and bool(punten),
         "Plak je tabel, beschrijf je stap in woorden, vul in wat hij oplevert en schrijf je 3 punten op.",

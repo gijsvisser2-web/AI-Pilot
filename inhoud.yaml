@@ -27,7 +27,7 @@ zijbalk_waarschuwingen:
   - "Geen gegevens uit {extern} in Copilot."
 
 start:
-  tekst: "Je hebt net uitleg en 2 demo's gezien. Nu ga je zelf aan de slag, op je eigen tempo. Er zijn 5 stappen."
+  tekst: "Je hebt net uitleg en 2 demo's gezien. Nu ga je zelf aan de slag, op je eigen tempo. De app heeft 5 delen."
   zo_werk_je: "Zet deze app links op je scherm en Copilot Chat rechts. Om een prompt te kopiëren ga je met je muis over het grijze vak. Rechtsboven verschijnt een kopieericoon."
   functie_label: "Mijn functie (bijvoorbeeld: medewerker klantenservice, specialist schade, teamleider)"
   functie_hulp: "De app zet je functie en afdeling in de prompts. Vul je functie in, niet je naam."
@@ -72,7 +72,7 @@ stappen:
       Verwachting: geef na maximaal 8 vragen alleen een tabel met 3 kolommen: Stap, Gedoe, Kans met Copilot (hoog of laag, met een korte reden). Maximaal 6 woorden per vakje. Alleen stappen die ik noemde, voeg er geen toe. Bedenk nog geen oplossingen.
     opbouw: "Let op de opbouw van deze prompt. Eerst je functie, die vult de app in. Dan 4 delen: Doel (wat wil je), Context (wat moet Copilot weten), Actie (hoe moet Copilot werken) en Verwachting (wat wil je terug). Die 4 delen schrijf je in sessie 2 zelf."
     waarschuwing: "Vraagt Copilot naar een klant of een klantnummer? Antwoord in algemene woorden: \"een klant met een vraag over een pakket\"."
-    terug_tip: "Stelt Copilot voor om een ander resultaat te kiezen? Ga terug naar stap 1 en pas het aan. De prompts passen zich vanzelf aan."
+    terug_tip: "Stelt Copilot voor om een ander resultaat te kiezen? Ga terug naar deel 1 en pas het aan. De prompts passen zich vanzelf aan."
     hulp:
       - label: "Ik snap de vraag niet"
         prompt: "Ik snap je vraag niet. Leg in 1 zin uit waarom je dit vraagt en geef een voorbeeld van een antwoord."
@@ -132,11 +132,11 @@ stappen:
   eerste:
     titel: "Je eerste resultaat"
     tijd: 15
-    intro: "Probeer je stap nu echt, in de tool die bij je stap past. Je 3 punten uit stap 3 staan al klaar."
+    intro: "Probeer je stap nu echt, in de tool die bij je stap past. Je 3 punten uit deel 3 staan al klaar."
     tool_label: "In welke tool probeer je deze stap?"
     tool_opties: ["Copilot", "{extern}"]
     tool_hulp: "Staan de gegevens die je nodig hebt in {extern}? Dan doe je de stap daar, met de AI van {extern}. Anders doe je hem in Copilot."
-    punten_label: "Mijn 3 punten (uit stap 3, pas aan als dat nodig is)"
+    punten_label: "Mijn 3 punten (uit deel 3, pas aan als dat nodig is)"
     waarom: "Copilot vraagt eerst wat ontbreekt en zegt aan het eind wat het aannam, zodat jij weet wat je moet controleren."
     prompt: |-
       Ik werk als {functie} bij {afdeling} van PostNL.
