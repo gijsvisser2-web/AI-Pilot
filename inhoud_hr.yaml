@@ -28,7 +28,7 @@ zijbalk_waarschuwingen:
   - "Geen persoonsgegevens of financiële gegevens uit {extern} in Copilot."
 
 start:
-  tekst: "Je hebt net uitleg en 2 demo's gezien. Nu ga je zelf aan de slag, op je eigen tempo. Er zijn 5 stappen."
+  tekst: "Je hebt net uitleg en 2 demo's gezien. Nu ga je zelf aan de slag, op je eigen tempo. De app heeft 5 delen."
   zo_werk_je: "Zet deze app links op je scherm en Copilot Chat rechts. Om een prompt te kopiëren ga je met je muis over het grijze vak. Rechtsboven verschijnt een kopieericoon."
   functie_label: "Mijn functie (bijvoorbeeld: HR-adviseur, recruiter, medewerker HR Services)"
   functie_hulp: "De app zet je functie en afdeling in de prompts. Vul je functie in, niet je naam."
@@ -40,19 +40,19 @@ stappen:
   resultaat:
     titel: "Je resultaat"
     tijd: 5
-    intro: "Kies iets dat je regelmatig oplevert, voor jezelf of voor een ander. Denk aan de laatste keer dat je het maakte."
+    intro: "Denk aan iets dat regelmatig terugkomt in je werk en dat je tijd of moeite kost. Kies een concreet resultaat dat je voor jezelf of iemand anders maakt, bijvoorbeeld voor een medewerker, manager of collega."
+    goed_kort: "Een goed resultaat is concreet, komt regelmatig terug en kost je nu tijd of moeite."
     goed_resultaat:
       - "komt regelmatig terug, of is steeds hetzelfde soort werk"
       - "is voor jezelf of voor een ander: een medewerker, manager, collega of andere afdeling"
       - "kost je moeite of tijd"
     te_groot: "Vragen van managers beantwoorden"
     beter: "Antwoord op de vraag die managers vaak stellen over ouderschapsverlof"
-    beter_waarom: "Te groot is een heel takenpakket. Beter is 1 resultaat dat steeds terugkomt, voor 1 soort ontvanger. Dat maak je in 1 keer met Copilot."
     demos:
       - "Een vacaturetekst opstellen uit de notities van een intake met een manager"
       - "Een nieuwe regeling samenvatten in 5 vragen en antwoorden voor medewerkers"
     resultaat_label: "Wat lever je regelmatig op, en voor wie?"
-    extern_tekst: "Werk je vooral in {extern}? Dan mag je resultaat daar ook over gaan. Je werkt vandaag alleen in Copilot. Je vertelt hoe je werkt, zonder persoonsgegevens of financiële gegevens uit {extern}."
+    extern_tekst: "Je mag ook een taak kiezen die je normaal in {extern} uitvoert. Tijdens deze oefening onderzoek je in Copilot hoe AI je bij die taak kan ondersteunen, zonder gegevens uit {extern} over te nemen."
     weet_niet_titel: "Weet je niet wat je kiest? Laat Copilot je agenda bekijken"
     weet_niet_tekst: "Kopieer deze prompt naar Copilot. Copilot kijkt in je agenda en stelt je 3 vragen. Je krijgt 5 resultaten die je regelmatig oplevert. Kies er 1."
     weet_niet_prompt: "Bekijk alleen mijn agenda van de afgelopen 2 weken, niet mijn mailbox. Stel me daarna 3 vragen, 1 tegelijk, over werk dat ik regelmatig maak. Geef dan 5 resultaten die ik regelmatig oplever, zoals antwoorden, overzichten of updates. Geef per resultaat: wat het is, voor wie, en hoe vaak ongeveer. Noem geen persoonsgegevens. Geef alleen een tabel."
@@ -60,8 +60,9 @@ stappen:
   interview:
     titel: "Laat Copilot je interviewen"
     tijd: 10
-    intro: "Ga met je muis over de prompt hieronder en klik rechtsboven op het kopieericoon. Plak hem in Copilot Chat. Beantwoord de vragen 1 voor 1. Jouw resultaat staat er al in."
-    waarom: "Copilot vraagt eerst waar het meeste gedoe zit. Daar zoomt hij op in. Zo hoort hij wat niet in je mails of bestanden staat: hoe jij dit werk doet en waar het vastloopt."
+    intro: "Kopieer de prompt hieronder naar Copilot Chat en laat Copilot je stap voor stap interviewen over het resultaat dat je hebt gekozen. Beantwoord de vragen één voor één. Je resultaat uit deel 1 staat al in de prompt."
+    waarom_titel: "Waarom deze vragen?"
+    waarom: "Copilot probeert eerst te begrijpen hoe je de taak uitvoert en waar je tegenaan loopt. Zo kan Copilot gerichter bepalen bij welke stappen AI kan ondersteunen."
     prompt: |-
       Ik werk als {functie} bij {afdeling} van PostNL.
 
@@ -72,9 +73,10 @@ stappen:
       Actie: stel 1 vraag tegelijk en zet erbij welke vraag het is, bijvoorbeeld "Vraag 2 van maximaal 8". Geef bij elke vraag een kort voorbeeld van een antwoord. Bouw voort op mijn antwoorden. Past een vraag niet bij mijn situatie, sla hem dan over. Vraag niet naar tijd of minuten. Vat na 4 vragen in 2 zinnen samen wat je begrijpt en vraag of het klopt. Noem geen persoonsgegevens.
 
       Verwachting: geef na maximaal 8 vragen alleen een tabel met 3 kolommen: Stap, Gedoe, Kans met Copilot (hoog of laag, met een korte reden). Maximaal 6 woorden per vakje. Alleen stappen die ik noemde, voeg er geen toe. Bedenk nog geen oplossingen.
-    opbouw: "Let op de opbouw van deze prompt. Eerst je functie, die vult de app in. Dan 4 delen: Doel (wat wil je), Context (wat moet Copilot weten), Actie (hoe moet Copilot werken) en Verwachting (wat wil je terug). Die 4 delen schrijf je in sessie 2 zelf."
     waarschuwing: "Vraagt Copilot naar een medewerker, een naam of een personeelsnummer? Antwoord in algemene woorden: \"een medewerker met een vraag over verlof\"."
-    terug_tip: "Stelt Copilot voor om een ander resultaat te kiezen? Ga terug naar stap 1 en pas het aan. De prompts passen zich vanzelf aan."
+    terug_tip: "Stelt Copilot voor om een ander resultaat te kiezen? Ga terug naar deel 1 en pas je resultaat aan. De prompts passen zich vanzelf aan."
+    hulp_titel: "Loopt het gesprek met Copilot anders dan verwacht?"
+    hulp_tekst: "Kopieer de prompt die bij jouw situatie past en plak hem in je gesprek met Copilot. Ga daarna verder met het interview."
     hulp:
       - label: "Ik snap de vraag niet"
         prompt: "Ik snap je vraag niet. Leg in 1 zin uit waarom je dit vraagt en geef een voorbeeld van een antwoord."
@@ -88,18 +90,24 @@ stappen:
   kies:
     titel: "Check en kies"
     tijd: 10
-    intro: "Copilot schreef op wat jij vertelde. Eerst kijk je of dat klopt. Daarna kies je 1 stap om met Copilot te proberen."
+    intro: "Copilot heeft je stappen in een tabel gezet. Controleer eerst of die tabel klopt en kies daarna één concrete stap die je met Copilot wilt uitproberen."
     check_titel: "a. Klopt je tabel?"
-    check_tekst: "Lees je tabel. Klopt hij met hoe het de laatste keer echt ging? Mist er iets, zoals wachten op iemand of afstemmen? Staat er iets in dat jij niet zei? Pas het aan met een prompt hieronder."
-    waarom: "Copilot vult gaten soms zelf in. En stappen als wachten of afstemmen zijn juist stappen waar AI niet helpt. Als je ze ziet, kies je ze niet."
+    check_tekst: "Bekijk de tabel en controleer of deze weergeeft hoe je de taak de laatste keer echt hebt uitgevoerd. Mist er een stap, zoals wachten of afstemmen, of heeft Copilot iets toegevoegd dat niet klopt? Stuur Copilot dan bij met een van de prompts hieronder."
+    bijsturen_titel: "Prompts om Copilot bij te sturen"
+    bijsturen_tekst: "Kopieer de prompt die past en vul de [haakjes] in voordat je hem in Copilot plakt."
     bijsturen:
-      - "Je mist een stap: [stap]. Voeg hem toe op de juiste plek. Verander verder niets. Geef alleen de tabel."
-      - "Stap [nummer] klopt niet. Het ging zo: [wat er echt gebeurde]. Verander verder niets. Geef alleen de tabel."
-      - "Maak de tabel korter. Maximaal 6 woorden per vakje. Verander verder niets. Geef alleen de tabel."
-    plak_label: "Plak hier je tabel (kopieer hem met de kopieerknop onder het antwoord van Copilot)"
+      - label: "Er mist een stap"
+        prompt: "Je mist een stap: [stap]. Voeg hem toe op de juiste plek. Verander verder niets. Geef alleen de tabel."
+      - label: "Een stap klopt niet"
+        prompt: "Stap [nummer] klopt niet. Het ging zo: [wat er echt gebeurde]. Verander verder niets. Geef alleen de tabel."
+      - label: "De tabel heeft te veel tekst"
+        prompt: "Maak de tabel korter. Maximaal 6 woorden per vakje. Verander verder niets. Geef alleen de tabel."
+      - label: "Geen tabel gekregen"
+        prompt: "Zet je antwoord om in een tabel met 3 kolommen: Stap, Gedoe, Kans met Copilot. Maximaal 6 woorden per vakje. Verander verder niets. Geef alleen de tabel."
+    plak_label: "Plak hier alleen de tabel uit het antwoord van Copilot. Kopieer hem met de kopieerknop onder het antwoord."
     tabel_ok: "Zo ziet je tabel eruit:"
     kies_titel: "b. Kies 1 stap"
-    kies_intro: "Kies 1 stap om met Copilot te proberen. Begin met een Mens + AI-stap: Copilot doet het voorwerk, jij controleert de uitkomst. Kijk ook naar de kolom Kans met Copilot. Copilot schat zichzelf vaak te hoog in, dus jij beslist."
+    kies_intro: "Kies één stap uit je tabel waarbij Copilot het voorwerk kan doen en jij de uitkomst kunt controleren (Mens + AI). De kolom Kans met Copilot helpt je op weg, maar jij bepaalt uiteindelijk welke stap geschikt is om te testen."
     goed_titel: "Hier is Copilot goed in"
     goed:
       - "iets lezen en samenvatten"
@@ -113,16 +121,16 @@ stappen:
       - "wachten op iemand"
       - "een besluit nemen"
       - "iets invoeren in een systeem"
-    stap_label: "Mijn stap, in woorden"
-    stap_hulp: "Schrijf wat je doet, niet het nummer uit de tabel. Niet: \"Stap 2\". Wel: \"De regels over verlof uit het beleid op SharePoint samenvatten voor mijn antwoord\"."
+    stap_label: "Welke stap wil je met Copilot uitproberen?"
+    stap_hulp: "Beschrijf in woorden wat je in deze stap doet, niet het nummer uit de tabel. Bijvoorbeeld: \"De belangrijkste punten uit een HR-beleidsdocument samenvatten voor mijn antwoord aan een manager.\""
     stap_fout: "Beschrijf je stap in woorden, niet met een nummer. Copilot weet niet wat \"stap 2\" is."
     oplevert_label: "Wat moet deze stap opleveren, en voor wie?"
-    oplevert_hulp: "Alleen deze stap, niet je hele resultaat."
-    punten_titel: "c. Is je stap klein genoeg?"
-    punten_label: "Schrijf 3 punten op die zeker in de uitkomst van deze stap moeten staan"
-    punten_hulp: "Bijvoorbeeld: het aantal verlofdagen, de ingangsdatum, wie de aanvraag goedkeurt. Lukt het niet om 3 punten te noemen? Dan is je stap te groot."
+    oplevert_hulp: "Alleen wat deze ene stap oplevert, niet je hele resultaat."
+    punten_titel: "c. Wanneer is het resultaat goed?"
+    punten_label: "Mijn 3 punten"
+    punten_hulp: "Bedenk drie dingen die in de uitkomst moeten staan om deze stap bruikbaar te maken. Zo kun je straks controleren of Copilot een goed resultaat oplevert. Bij een antwoord over verlof kan dat zijn: het aantal verlofdagen, de ingangsdatum en wie de aanvraag goedkeurt. Lukt het niet om 3 punten te noemen? Dan is je stap waarschijnlijk te groot."
     opdelen_titel: "Is je stap te groot? Laat Copilot alleen deze stap opdelen"
-    opdelen_tekst: "Je hoeft niet terug naar het begin. Kies daarna 1 kleine stap en pas het veld Mijn stap hierboven aan."
+    opdelen_tekst: "Je hoeft niet terug naar het begin. Kies daarna 1 kleine stap en pas je stap bij b hierboven aan."
     opdelen_prompt: "Mijn stap is: {stap}. Hij is te groot om in 1 keer met Copilot te proberen. Deel alleen deze stap op in 3 tot 5 kleinere stappen. Maximaal 6 woorden per stap. Geef alleen de lijst."
     idee_label: "Kan je stap niet in Copilot, bijvoorbeeld omdat de gegevens in {extern} staan of er een koppeling tussen systemen nodig is? Schrijf hem op als idee voor het AI CoE. (optioneel)"
 
@@ -134,11 +142,11 @@ stappen:
   eerste:
     titel: "Je eerste resultaat"
     tijd: 15
-    intro: "Probeer je stap nu echt, in Copilot. Je 3 punten uit stap 3 staan al klaar."
+    intro: "Probeer je stap nu echt, in Copilot. Je 3 punten uit deel 3 staan al klaar."
     tool_label: "In welke tool probeer je deze stap?"
     tool_opties: ["Copilot"]  # {extern} heeft nog geen AI
     tool_hulp: "Staan de gegevens die je nodig hebt in {extern}? Dan doe je de stap daar, met de AI van {extern}. Anders doe je hem in Copilot."
-    punten_label: "Mijn 3 punten (uit stap 3, pas aan als dat nodig is)"
+    punten_label: "Mijn 3 punten (uit deel 3, pas aan als dat nodig is)"
     waarom: "Copilot vraagt eerst wat ontbreekt en zegt aan het eind wat het aannam, zodat jij weet wat je moet controleren."
     prompt: |-
       Ik werk als {functie} bij {afdeling} van PostNL.
@@ -150,7 +158,7 @@ stappen:
       Actie: stel me eerst maximaal 3 vragen, 1 tegelijk. Stel een open vraag als een keuze uit 2 niet past. Doe daarna de stap.
 
       Verwachting: dit moet er zeker in staan: {punten}. Houd het kort. Benoem aan het eind je aannames, ontbrekende informatie en wat ik zelf moet controleren.
-    opbouw: "Herken je de 4 delen weer? Doel, Context, Actie, Verwachting. Zo schrijf je straks je eigen instructie."
+    opbouw: "Let op de opbouw van deze prompt. Eerst je functie, die vult de app in. Dan 4 delen: Doel (wat wil je), Context (wat moet Copilot weten), Actie (hoe moet Copilot werken) en Verwachting (wat wil je terug). Die 4 delen schrijf je in sessie 2 zelf."
     bronnen_tip:
       copilot: "Vraagt Copilot welke bronnen hij mag gebruiken? Kies bewust. Gebruik alleen bronnen waar je zelf bij kunt, zoals SharePoint. Niets uit {extern}."
       extern: "Werk in {extern} alleen met het dossier waar je nu mee bezig bent. Kopieer geen persoonsgegevens of financiële gegevens uit {extern} naar Copilot of naar deze app."
